@@ -86,7 +86,7 @@ Student Dashboard
 
     @section('script')
 
-       
+
 @endsection
 
 
