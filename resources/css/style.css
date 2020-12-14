@@ -5,7 +5,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: coral;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -15,7 +15,7 @@
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #2d3748;
     display: block;
     transition: 0.3s;
 }
@@ -68,11 +68,11 @@ body {
     margin-left: -7.5px;
 }
 
-.small-box {
-    border-radius: .25rem;
-    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
-    display: block;
-    margin-bottom: 20px;
-    position: relative;
+#container{
+
+    margin: 20px;
+    width: 200px;
+    height: 200px;
 }
+
 

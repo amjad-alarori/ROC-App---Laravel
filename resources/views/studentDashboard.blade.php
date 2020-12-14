@@ -26,7 +26,7 @@ Student Dashboard
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <!-- small box -->
+
 
                     <div class="card h-100" style="width: 18rem;">
                         <div class="card-body">
@@ -77,6 +77,7 @@ Student Dashboard
             </div>
 
 
+
         </div>
 
 
@@ -85,19 +86,7 @@ Student Dashboard
 
     @section('script')
 
-{{--        <script type="text/javascript">--}}
-{{--            var bar = new ProgressBar.Circle(containerProgress, {--}}
-{{--                strokeWidth: 7,--}}
-{{--                easing: 'easeInOut',--}}
-{{--                duration: 1400,--}}
-{{--                color: '#FFEA82',--}}
-{{--                trailColor: '#eee',--}}
-{{--                trailWidth: 1,--}}
-{{--                svgStyle: null--}}
-{{--            });--}}
-
-{{--            bar.animate(0.5);  // Number from 0.0 to 1.0--}}
-        </script>
+       
 @endsection
 
 
