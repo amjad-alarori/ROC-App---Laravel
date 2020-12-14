@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="ScrumApp" content="">
+    <meta name="WFADSD2020 Team B3" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('title','RocApp Team B3')</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://kit.fontawesome.com/de68f974dc.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div id="mainSidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#home"><i class="fa fa-fw fa-home"></i>&nbsp;&nbsp;Dashboard</a>
+    <a href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;Profiel</a>
+    <a href="#"><i class="fas fa-list"></i>&nbsp;&nbsp;Mijn &nbsp;&nbsp; Kwalificatie Dossier</a>
+    <a href="#"><i class="fas fa-building"></i>&nbsp;&nbsp;Stage bedrijven</a>
+
+</div>
+<div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+
+    <main role="main" class="container font-sans text-gray-900 antialiased">
+        @if(session()->has('NoAccess') || session()->has('showError'))
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible m-3" id="noaccess-error">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{session()->has('NoAccess')?session('NoAccess'):session('showError')}}
+                </div>
+            </div>
+        @endif
+        <div class="container-fluid pt-9 h-100 pb-3">
+            @yield('content')
+        </div>
+    </main>
+</div>
+
+
+<!-- Optional JavaScript -->
+<script type="text/javascript">
+
+    function openNav() {
+        document.getElementById("mainSidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+        document.getElementById("mainSidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+        document.body.style.backgroundColor = "white";
+    }
+
+    var bar = new ProgressBar.Circle(container, {
+        strokeWidth: 7,
+        easing: 'easeInOut',
+        duration: 1400,
+        color: '#FFEA82',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: null
+    });
+
+    bar.animate(0.5);  // Number from 0.0 to 1.0
+</script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
