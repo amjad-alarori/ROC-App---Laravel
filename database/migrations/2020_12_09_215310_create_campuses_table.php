@@ -24,6 +24,7 @@ class CreateCampusesTable extends Migration
             $table->string('email');
             $table->string('phone_nr');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,10 +20,10 @@
 
 <div id="mainSidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#home"><i class="fa fa-fw fa-home"></i>&nbsp;&nbsp;Dashboard</a>
-    <a href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;Profiel</a>
-    <a href="#"><i class="fas fa-list"></i>&nbsp;&nbsp;Mijn &nbsp;&nbsp; Kwalificatie Dossier</a>
-    <a href="#"><i class="fas fa-building"></i>&nbsp;&nbsp;Stage bedrijven</a>
+    <a href="#home" style="white-space: nowrap"><i class="fa fa-fw fa-home"></i> Dashboard</a>
+    <a href="#" style="white-space: nowrap"><i class="fas fa-user"></i> Profiel</a>
+    <a href="#" style="white-space: nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br />Dossier</a>
+    <a href="#" style="white-space: nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
 
 </div>
 <div id="main">

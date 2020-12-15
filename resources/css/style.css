@@ -69,15 +69,14 @@ body {
 }
 
 #container{
-
     margin: 20px;
     width: 200px;
     height: 200px;
 }
 
-.card{
-    background-color: coral;
-    color: #f1f1f1;
-}
+/*.card{*/
+/*    background-color: coral;*/
+/*    color: #f1f1f1;*/
+/*}*/
 
 
