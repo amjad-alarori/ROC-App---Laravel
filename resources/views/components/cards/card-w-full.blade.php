@@ -8,6 +8,6 @@
         </p>
     </div>
     <div class="card-footer" style="background-color: white">
-        <a href="#" class="btn btn-primary float-right">View Profile</a>
+        {{ $footer }}
     </div>
 </div>
