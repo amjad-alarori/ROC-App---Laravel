@@ -16,34 +16,59 @@ class CampusController extends Controller
     {
         $locations = Campus::all();
 
-        return view('locations',['locations'=>$locations]);
+        return view('locations', ['locations' => $locations]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('locationForm');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'name' => ['string', 'required'],
+            'street' => ['string', 'required'],
+            'house_nr' => ['integer', 'required', 'min:1'],
+            'house_nr_addition' => ['string', 'nullable'],
+            'zip_code' => ['string', 'required'],
+            'city' => ['string', 'required'],
+            'email' => ['string', 'required'],
+            'phone_nr' => ['string', 'required'],
+        ]);
+
+        $campus = new Campus();
+        $campus->fill([
+            'name' => $request['name'],
+            'street' => $request['street'],
+            'house_nr' => $request['house_nr'],
+            'house_nr_addition' => $request['house_nr_addition'],
+            'zip_code' => $request['zip_code'],
+            'city' => $request['city'],
+            'email' => $request['email'],
+            'phone_nr' => $request['phone_nr'],
+        ]);
+
+        $campus->save();
+
+        return redirect(route('locatie.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Campus  $campus
+     * @param \App\Models\Campus $campus
      * @return \Illuminate\Http\Response
      */
     public function show(Campus $campus)
@@ -54,7 +79,7 @@ class CampusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Campus  $campus
+     * @param \App\Models\Campus $campus
      * @return \Illuminate\Http\Response
      */
     public function edit(Campus $campus)
@@ -65,8 +90,8 @@ class CampusController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Campus  $campus
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Campus $campus
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Campus $campus)
@@ -77,7 +102,7 @@ class CampusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Campus  $campus
+     * @param \App\Models\Campus $campus
      * @return \Illuminate\Http\Response
      */
     public function destroy(Campus $campus)

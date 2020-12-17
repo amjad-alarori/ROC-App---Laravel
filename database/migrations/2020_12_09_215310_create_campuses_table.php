@@ -18,7 +18,7 @@ class CreateCampusesTable extends Migration
             $table->string('name');
             $table->string('street');
             $table->integer('house_nr');
-            $table->string('house_nr_addition');
+            $table->string('house_nr_addition')->nullable();
             $table->string('zip_code');
             $table->string('city');
             $table->string('email');

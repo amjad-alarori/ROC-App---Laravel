@@ -1,4 +1,4 @@
-<div class="card row no-gutter">
+<div {{$attributes->merge(['class'=>"card row no-gutter"])}}>
     <div class="card-header w-full">
         <h3 class="card-title h3">{{ $title }}</h3>
     </div>
