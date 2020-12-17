@@ -108,3 +108,6 @@ body {
     color: white;
 }
 
+div.container-fluid#main{
+    padding-left: 150px;
+}

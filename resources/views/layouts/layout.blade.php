@@ -59,7 +59,7 @@
 
     function closeNav() {
         document.getElementById("mainSidenav").style.width = "0";
-        document.getElementById("main").style.paddingLeft = "16px";
+        document.getElementById("main").style.paddingLeft = "150px";
         document.getElementById('darkMain').style.display = 'none';
     }
 

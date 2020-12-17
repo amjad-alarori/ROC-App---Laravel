@@ -2,10 +2,10 @@
     <div class="card-header w-full">
         <h3 class="card-title h3">{{ $title }}</h3>
     </div>
-    <div class="card-body">
-        <p class="card-text">
+    <div class="card-body w-100">
+        <div class="card-text">
             {{ $slot }}
-        </p>
+        </div>
     </div>
     <div class="card-footer" style="background-color: white">
         {{ $footer }}
