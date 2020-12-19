@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Middleware\Authenticate;
+use App\Models\StageBedrijven;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +22,11 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::view('','welcome');
     Route::view('studentDashboard','studentDashboard');
+    Route::view('stageBedrijven','stageBedrijven');
 
 
-
-        Route::resource('locatie',CampusController::class);
+    Route::resource('stageBedrijven',StageBedrijvenController::class);
+    Route::resource('locatie',CampusController::class);
 
 
 
