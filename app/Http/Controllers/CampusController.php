@@ -79,12 +79,12 @@ class CampusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Campus $campus
-     * @return \Illuminate\Http\Response
+     * @param Campus $locatie
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(Campus $campus)
+    public function edit(Campus $locatie)
     {
-        //
+        return view('locationEdit', ['campus'=>$locatie]);
     }
 
     /**
@@ -92,21 +92,47 @@ class CampusController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Campus $campus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Campus $campus)
+    public function update(Request $request, Campus $locatie)
     {
-        //
+        $request->validate([
+            'name' => ['string', 'required'],
+            'street' => ['string', 'required'],
+            'house_nr' => ['integer', 'required', 'min:1'],
+            'house_nr_addition' => ['string', 'nullable'],
+            'zip_code' => ['string', 'required'],
+            'city' => ['string', 'required'],
+            'email' => ['string', 'required'],
+            'phone_nr' => ['string', 'required'],
+        ]);
+
+        $locatie->fill([
+            'name' => $request['name'],
+            'street' => $request['street'],
+            'house_nr' => $request['house_nr'],
+            'house_nr_addition' => $request['house_nr_addition'],
+            'zip_code' => $request['zip_code'],
+            'city' => $request['city'],
+            'email' => $request['email'],
+            'phone_nr' => $request['phone_nr'],
+        ]);
+
+        $locatie->update();
+
+        return redirect(route('locatie.index'));
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Campus $campus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Campus $campus)
+    public function destroy(Campus $locatie)
     {
-        //
+        $locatie->delete();
+        return redirect()->back();
     }
 }

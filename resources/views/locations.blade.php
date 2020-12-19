@@ -14,7 +14,12 @@
             </x-form.modal-button>
         </div>
     </div>
-    @include('locationForm')
+    <form id="locationForm" method="Post" action="{{route('locatie.store')}}">
+        <x-form.modal title="Nieuwe locatoe toevoegen">
+            @include('locationForm')
+        </x-form.modal>
+    </form>
+
     @foreach($locations as $location)
         <x-cards.cardwfull :title="$location->name" class="my-4">
             <div class="row">
@@ -52,10 +57,16 @@
             <x-slot name="footer">
                 <div class="row justify-content-end">
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <a href="#" class="btn btn-danger btn-block float-right">Delete</a>
+                        <form method="POST" action="{{route('locatie.destroy',['locatie'=>$location])}}">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger btn-block float-right"
+                                   value="Verwijderen"></input>
+                        </form>
                     </div>
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <a href="#" class="btn btn-warning btn-block float-right">Edit</a>
+                        <a href="{{route('locatie.edit',['locatie'=>$location])}}"
+                           class="btn btn-warning btn-block float-right">Wijzigen</a>
                     </div>
                 </div>
             </x-slot>
