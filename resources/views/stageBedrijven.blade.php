@@ -58,7 +58,7 @@
             <x-slot name="footer">
                 <div class="row justify-content-end">
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{route('stageBedrijven.destroy',['stageBedrijven'=>$bedrijf])}}">
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger btn-block float-right"
@@ -66,7 +66,7 @@
                         </form>
                     </div>
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <a href=""
+                        <a href="{{route('stageBedrijven.edit',['stageBedrijven'=>$bedrijf])}}"
                            class="btn btn-warning btn-block float-right">Wijzigen</a>
                     </div>
                 </div>

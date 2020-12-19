@@ -16,7 +16,7 @@ class CreateStageBedrijvensTable extends Migration
         Schema::create('stage_bedrijvens', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('street');
+            $table->string('address');
             $table->string('zip_code');
             $table->string('city');
             $table->string('email');
