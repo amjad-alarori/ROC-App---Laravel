@@ -2,7 +2,7 @@
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 1000001;
     top: 0;
     left: 0;
     background-color: coral;
@@ -45,6 +45,30 @@
 
 /*studentDashboard*/
 
+html , body{
+    height: 100%;
+}
+
+#darkMain{
+    position: fixed;
+    background-color: rgba(0,0,0,0.4);
+    opacity: 100;
+    z-index: 1000000;
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+#menuBtn{
+    position: fixed;
+    height: 100%;
+    background-color: coral;
+    padding: 15px;
+    border-right: 1px solid black;
+    transition: 0.5s;
+    z-index: 999999;
+}
+
 *, ::after, ::before {
     box-sizing: border-box;
 }
@@ -69,15 +93,21 @@ body {
 }
 
 #container{
-
     margin: 20px;
     width: 200px;
     height: 200px;
 }
 
-.card{
-    background-color: coral;
-    color: #f1f1f1;
+/*.card{*/
+/*    background-color: coral;*/
+/*    color: #f1f1f1;*/
+/*}*/
+
+.btn-bg-color{
+    background-color: #1a202c;
+    color: white;
 }
 
-
+div.container-fluid#main{
+    padding-left: 150px;
+}

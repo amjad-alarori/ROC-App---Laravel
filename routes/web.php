@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\CampusController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,29 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(['middleware' => 'web'], function () {
+    /** voeg hier de routes welke zonder authorisatie te bereiken is */
 
-Route::get('/studentDashboard', function () {
-    return view ('studentDashboard');
+    Route::view('','welcome');
+    Route::view('studentDashboard','studentDashboard');
+
+
+
+        Route::resource('locatie',CampusController::class);
+
+
+
+    Route::group(['middleware' => Authenticate::class], function () {
+        /** voeg hier de routes welke authorisatie nodig hebben */
+//        Route::resource('locatie',CampusController::class);
+
+
+
+
+
+
+
+    });
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

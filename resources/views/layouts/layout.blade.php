@@ -12,6 +12,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://kit.fontawesome.com/de68f974dc.js" crossorigin="anonymous"></script>
 
@@ -20,15 +22,16 @@
 
 <div id="mainSidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#home"><i class="fa fa-fw fa-home"></i>&nbsp;&nbsp;Dashboard</a>
-    <a href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;Profiel</a>
-    <a href="#"><i class="fas fa-list"></i>&nbsp;&nbsp;Mijn &nbsp;&nbsp; Kwalificatie Dossier</a>
-    <a href="#"><i class="fas fa-building"></i>&nbsp;&nbsp;Stage bedrijven</a>
-
+    <a href="#home" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Dashboard</a>
+    <a href="#" class="text-nowrap"><i class="fas fa-user"></i> Profiel</a>
+    <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
+    <a href="#" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
 </div>
-<div id="main">
+<div id="darkMain"></div>
+<div id="menuBtn" class="rounded">
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
-
+</div>
+<div class="container-fluid" id="main">
     <main role="main" class="container font-sans text-gray-900 antialiased">
         @if(session()->has('NoAccess') || session()->has('showError'))
             <div class="container">
@@ -47,30 +50,29 @@
 
 <!-- Optional JavaScript -->
 <script type="text/javascript">
-
     function openNav() {
         document.getElementById("mainSidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        document.getElementById("main").style.paddingLeft = "266px";
+        document.getElementById('darkMain').style.display = 'block';
     }
 
     function closeNav() {
         document.getElementById("mainSidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft= "0";
-        document.body.style.backgroundColor = "white";
+        document.getElementById("main").style.paddingLeft = "150px";
+        document.getElementById('darkMain').style.display = 'none';
     }
 
-    var bar = new ProgressBar.Circle(container, {
-        strokeWidth: 7,
-        easing: 'easeInOut',
-        duration: 1400,
-        color: '#FFEA82',
-        trailColor: '#eee',
-        trailWidth: 1,
-        svgStyle: null
-    });
-
-    bar.animate(0.5);  // Number from 0.0 to 1.0
+    // var bar = new ProgressBar.Circle(container, {
+    //     strokeWidth: 7,
+    //     easing: 'easeInOut',
+    //     duration: 1400,
+    //     color: '#FFEA82',
+    //     trailColor: '#eee',
+    //     trailWidth: 1,
+    //     svgStyle: null
+    // });
+    //
+    // bar.animate(0.5);  // Number from 0.0 to 1.0
 </script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -82,6 +84,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        $("#noaccess-error").delay(4000).slideUp(800, function () {
+            $(this).remove();
+        });
+    });
+</script>
+@yield('script')
 </body>
 </html>
