@@ -14,13 +14,7 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $programs = Program::all()
-            ->sortBy('area_id')
-            ->sortBy('code')
-            ->pluck('code','id');
-//        $programs = Program::with('area')->get()
-//            ->sortBy('area.title');
-
+        $programs = Program::with('area')->get()->sortBy('area_id')->sortBy('code');
 
         return view('programs',['programs'=>$programs]);
     }

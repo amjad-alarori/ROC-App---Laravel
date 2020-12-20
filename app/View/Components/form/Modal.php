@@ -6,8 +6,8 @@ use Illuminate\View\Component;
 
 class Modal extends Component
 {
-    public $title;
-    public $submitText;
+    protected $title;
+    protected $submitText;
 
     /**
      * Create a new component instance.
