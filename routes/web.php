@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'web'], function () {
     /** voeg hier de routes welke zonder authorisatie te bereiken is */
 
-    Route::view('','welcome');
+    Route::view('','home');
     Route::view('studentDashboard','studentDashboard');
 
 

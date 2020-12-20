@@ -21,22 +21,20 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
-            <!-- Slide One - Set the background image for this slide in the line below -->
+
 
             <div class="carousel-item active">
                 <img class="img-fluid" src="{{ asset('images/rocafbeelding1.png') }}">
-
             </div>
-            <!-- Slide Two - Set the background image for this slide in the line below -->
+
             <div class="carousel-item">
                 <img class="img-fluid" src="{{ asset('images/rocafbeelding4.jpg') }}">
-
             </div>
-            <!-- Slide Three - Set the background image for this slide in the line below -->
+
             <div class="carousel-item">
                 <img class="img-fluid" src="{{ asset('images/rocafbeelding5.jpg') }}">
-
             </div>
+
         </div>
 
     </div>
@@ -47,7 +45,7 @@
         <h1 class="display-4">Welkom bij ROC Flevoland</h1>
         <br>
 
-        <button type="button" class="btnLogin">Login</button>
+        <button type="button" class="btnLogin" action="">Login</button>
 </section>
 
 {{--<div id="background-carousel">--}}
