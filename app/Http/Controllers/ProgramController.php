@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Program;
+use App\Models\ProgramArea;
 use Illuminate\Http\Request;
 
 class ProgramController extends Controller
@@ -14,9 +15,9 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $programs = Program::with('area')->get()->sortBy('area_id')->sortBy('code');
+        $areas = ProgramArea::with('programs')->get()->sortBy('title')->sortBy('program.code');
 
-        return view('programs',['programs'=>$programs]);
+        return view('programs',['areas'=>$areas]);
     }
 
     /**

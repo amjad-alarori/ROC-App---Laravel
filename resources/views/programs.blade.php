@@ -5,45 +5,38 @@
 @endsection
 
 @section('content')
-    @dd($programs)
+    <div class="row mb-3">
+        <div class="col">
+            <span class="display-4" style="font-size: 40px">Opleidingen</span>
+            <a href=""
+               class="btn inline-flex mt-2 px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold
+           text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none float-right
+           focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
+                Nieuwe opleiding aanmaken
+            </a>
+        </div>
+    </div>
     <x-cards.accordion>
-        <x-cards.accordioncard order="One" collapsed="false">
-            <x-slot name="btnTxt">
-                Collapsible Group Item #1
-            </x-slot>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-            wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-            eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-            assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-            farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-            labore sustainable VHS.
-        </x-cards.accordioncard>
+        @foreach($areas as $area)
+            <x-cards.accordioncard order="{{$area->id}}" collapsed="{{$area === $areas[0]?'false':'true'}}">
+                <x-slot name="btnTxt">
+                    {{$area->title}}
+                </x-slot>
+                <ul class="list-group">
+                    @foreach($area->programs as $program)
+                        <li class="list-group-item">
+                            {{$program->code . " - " . $program->title}}
+                            <div class="float-right">
+                                <a href="" class="mx-2"><i class='fas fa-pencil-alt'
+                                                           style="font-size:20px; color: orange"></i></a>
+                                <a href="" class="mx-2"><i class='far fa-trash-alt'
+                                                           style="font-size:20px; color:red"></i></a>
 
-        <x-cards.accordioncard order="Two" collapsed="true">
-            <x-slot name="btnTxt">
-                Collapsible Group Item #2
-            </x-slot>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-            wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-            eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-            assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-            farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-            labore sustainable VHS.
-        </x-cards.accordioncard>
-
-        <x-cards.accordioncard order="Three" collapsed="true">
-            <x-slot name="btnTxt">
-                Collapsible Group Item #3
-            </x-slot>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-            wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-            eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-            assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-            farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-            labore sustainable VHS.
-        </x-cards.accordioncard>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </x-cards.accordioncard>
+        @endforeach
     </x-cards.accordion>
 @endsection
