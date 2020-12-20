@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ProgramArea extends Model
 {
     use HasFactory;
+
+    public function programs()
+    {
+        return $this->hasMany(Program::class,'area_id','id');
+    }
 }

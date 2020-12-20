@@ -10,11 +10,19 @@ class ProgramController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $programs = Program::all()
+            ->sortBy('area_id')
+            ->sortBy('code')
+            ->pluck('code','id');
+//        $programs = Program::with('area')->get()
+//            ->sortBy('area.title');
+
+
+        return view('programs',['programs'=>$programs]);
     }
 
     /**

@@ -14,7 +14,7 @@
             </x-form.modal-button>
         </div>
     </div>
-    <form id="locationForm" method="Post" action="{{route('locatie.store')}}">
+    <form id="locationForm" method="Post" action="{{route('campus.store')}}">
         <x-form.modal title="Nieuwe locatoe toevoegen" submitText="opslaan" id="ModalComponent">
             @include('locationForm')
         </x-form.modal>
@@ -27,8 +27,8 @@
         </x-form.modal>
     </form>
 
-    @foreach($locations as $location)
-        <x-cards.cardwfull :title="$location->name" class="my-4">
+    @foreach($campuses as $campus)
+        <x-cards.cardwfull :title="$campus->name" class="my-4">
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
@@ -36,8 +36,8 @@
                             Adres:
                         </div>
                         <div class="col-md-8">
-                            {{$location->street}} {{$location->house_nr}} {{$location->house_nr_addition}}<br/>
-                            {{$location->zip_code}} {{$location->city}}
+                            {{$campus->street}} {{$campus->house_nr}} {{$campus->house_nr_addition}}<br/>
+                            {{$campus->zip_code}} {{$campus->city}}
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <strong>E-mail:</strong>
                         </div>
                         <div class="col-md-8">
-                            {{$location->email}}
+                            {{$campus->email}}
                         </div>
                     </div>
                     <div class="row">
@@ -56,7 +56,7 @@
                             <strong>Telefoon:</strong>
                         </div>
                         <div class="col-md-8">
-                            {{$location->phone_nr}}
+                            {{$campus->phone_nr}}
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             <x-slot name="footer">
                 <div class="row justify-content-end">
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <form method="POST" action="{{route('locatie.destroy',['locatie'=>$location])}}">
+                        <form method="POST" action="{{route('campus.destroy',['campus'=>$campus])}}">
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger btn-block float-right"
@@ -72,9 +72,7 @@
                         </form>
                     </div>
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        {{--                        <a href="{{route('locatie.edit',['locatie'=>$location])}}"--}}
-                        {{--                           class="btn btn-warning btn-block float-right">Wijzigen</a>--}}
-                        <button data-id="{{$location->id}}" class="btn btn-warning btn-block float-right editBtn">
+                        <button data-id="{{$campus->id}}" class="btn btn-warning btn-block float-right editBtn">
                             Wijzigen
                         </button>
                     </div>
@@ -92,13 +90,13 @@
 
             $('.editBtn').each(function () {
                 let id = $(this).data('id');
-                let url = "{{route('locatie.edit',['locatie'=>':id'])}}";
+                let url = "{{route('campus.edit',['campus'=>':id'])}}";
                 url = url.replace(':id', id);
 
                 $(this).on('click', function () {
                     $.get(url)
                         .done(function (data) {
-                            let editUrl = "{{route('locatie.update',['locatie'=>':camp'])}}";
+                            let editUrl = "{{route('campus.update',['campus'=>':camp'])}}";
                             editUrl=editUrl.replace(':camp',id);
                             let camp = JSON.parse(data);
 
