@@ -80,11 +80,12 @@ class CampusController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Campus $locatie
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return false|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response|string
      */
     public function edit(Campus $locatie)
     {
-        return view('locationEdit', ['campus'=>$locatie]);
+        return json_encode($locatie) ;
+//        return view('locationEdit', ['campus'=>$locatie]);
     }
 
     /**

@@ -7,16 +7,18 @@ use Illuminate\View\Component;
 class Modal extends Component
 {
     public $title;
+    public $submitText;
 
     /**
      * Create a new component instance.
      *
-     * @return void
+     * @param $title
+     * @param $submitText
      */
-    public function __construct($title)
+    public function __construct($title, $submitText)
     {
-        //
         $this->title = $title;
+        $this->submitText = $submitText;
     }
 
     /**
@@ -26,6 +28,6 @@ class Modal extends Component
      */
     public function render()
     {
-        return view('components.form.modal', ['title' => $this->title]);
+        return view('components.form.modal', ['title' => $this->title, 'submitText' => $this->submitText]);
     }
 }

@@ -1,4 +1,4 @@
-<div class="modal fade bd-example-modal-lg" id="ModalComponent" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" {{$attributes}}>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="exit" class="btn btn-secondary" data-dismiss="modal">Sluien</button>
-                <button type="submit" id="save" class="btn btn-primary">Opslaan</button>
+                <button type="submit" id="save" class="btn btn-primary">{{$submitText}}</button>
             </div>
         </div>
     </div>
