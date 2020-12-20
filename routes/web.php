@@ -14,14 +14,20 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(['middleware' => 'web'], function () {
+    /** voeg hier de routes welke zonder authorisatie te bereiken is */
+    Route::view('', 'home');
 
-Route::get('/studentDashboard', function () {
-    return view ('studentDashboard');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+    Route::get('/studentDashboard', function () {
+        return view('studentDashboard');
+    });
+
+    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+});

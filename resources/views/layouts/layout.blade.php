@@ -60,17 +60,12 @@
         document.body.style.backgroundColor = "white";
     }
 
-    var bar = new ProgressBar.Circle(container, {
-        strokeWidth: 7,
-        easing: 'easeInOut',
-        duration: 1400,
-        color: '#FFEA82',
-        trailColor: '#eee',
-        trailWidth: 1,
-        svgStyle: null
-    });
 
-    bar.animate(0.5);  // Number from 0.0 to 1.0
+
+        $(document).ready(function() {
+            $('.carousel').carousel({interval: 7000});
+        });
+
 </script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

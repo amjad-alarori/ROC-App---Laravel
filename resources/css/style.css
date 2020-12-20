@@ -1,3 +1,5 @@
+
+/*Side Navigation Bar Start*/
 .sidenav {
     height: 100%;
     width: 0;
@@ -42,8 +44,70 @@
     .sidenav a {font-size: 18px;}
 }
 
+/*Side Navigation Bar End*/
 
-/*studentDashboard*/
+/*Landing Page (Home) Start*/
+
+.carousel-item {
+    height: 70vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+.img-fluid {
+    height: auto;
+    width: 100%;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+.containerLandingPage{
+
+    text-align: center;
+    color: #1a202c;
+
+}
+
+.btnLogin {
+    border-radius: 5px;
+    color: coral;
+    background-color: #f1f1f1;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+    opacity: 75%;
+
+}
+
+.btnLogin:hover {
+    opacity: 100%;
+}
+
+
+
+
+
+
+
+
+/*studentDashboard Page Start*/
 
 *, ::after, ::before {
     box-sizing: border-box;
@@ -54,9 +118,9 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
+    color: #2d3748;
     text-align: left;
-    background-color: #fff;
+    background-color: coral;
 }
 
 .row {
@@ -68,16 +132,11 @@ body {
     margin-left: -7.5px;
 }
 
-#container{
 
-    margin: 20px;
-    width: 200px;
-    height: 200px;
-}
 
-.card{
-    background-color: coral;
-    color: #f1f1f1;
-}
+/*.card{*/
+/*    background-color: coral;*/
+/*    color: #f1f1f1;*/
+/*}*/
 
 
