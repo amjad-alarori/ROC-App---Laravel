@@ -1,3 +1,16 @@
+$('#openNavButton').on('click', function () {
+    document.getElementById("mainSidenav").style.width = "250px";
+    document.getElementById("main").style.paddingLeft = "266px";
+    document.getElementById('darkMain').style.display = 'block';
+})
+
+$('#closeNavButton').on('click',function (){
+    document.getElementById("mainSidenav").style.width = "0";
+    document.getElementById("main").style.paddingLeft = "150px";
+    document.getElementById('darkMain').style.display = 'none';
+})
+
+
 $('.ModalButton').click(function () {
     console.log('open')
     let url = $(this).data('url');
@@ -8,26 +21,39 @@ $('.ModalButton').click(function () {
             let modal = $('#formModal')
             modal.find('.modal-body').html(response)
             modal.modal('show');
+            modal.find('input[type="text"]').first().focus()
         }
     })
 })
 
-$('#formModal').on('shown.bs.modal', function () {
-    $('.modal-footer>#save').click(function () {
-        let form = $('#modalForm');
-        let url = form.data('action');
-        $.ajax({
-            method: form.data('method'),
-            // contentType: "application/json; charset=utf-8",
-            url:url,
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: form.serialize(),
-            success: function (response){
-                console.log(response);
-            },
-            error : function(response, textStatus, errorThrown){
-                console.log(response.responseJSON.errors);
+$(document).on('submit', '.AjaxForm', function (e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    let _this = $(this) //de form
+
+    $.ajax({
+        method: _this.attr('method'),
+        url: _this.attr('action'),
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: _this.serialize(),
+        success: function (response) {
+            if(response.url) {
+                window.location.href = response.url;
             }
-        })
+        },
+        error: function (response, textStatus, errorThrown) {
+            let errors = response.responseJSON.errors
+            for(var key in errors) {
+                $('[name=' + key + ']')
+                    .addClass('is-invalid')
+                    .after('<div class="alert alert-danger w-100 mt-3">' + errors[key][0] + '</div>')
+            }
+        }
     })
+
+})
+
+$('.modal').on('hidden.bs.modal', function (e) {
+    $(this).find('.modal-body').html('')
 });

@@ -26,15 +26,7 @@ class CampusController extends Controller
      */
     public function create()
     {
-        $action = route('campus.store');
-        $method = 'POST';
-        $submitText = 'Opslaan';
-        return view('locationForm',
-            [
-                'action' => $action,
-                'method' => $method,
-                'submitText' => $submitText
-            ]);
+        return view('location.create');
     }
 
     /**
@@ -70,7 +62,9 @@ class CampusController extends Controller
 
         $campus->save();
 
-        return redirect(route('campus.index'));
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
     }
 
     /**
@@ -92,16 +86,7 @@ class CampusController extends Controller
      */
     public function edit(Campus $campus)
     {
-        $action = route('campus.update',['campus'=>$campus]);
-        $method = 'PUT';
-        $submitText = 'Bijwerken';
-        return view('locationForm',
-            [
-                'action' => $action,
-                'method' => $method,
-                'submitText' => $submitText,
-                'campus'=>$campus
-            ]);
+        return view('location.edit', compact('campus'));
     }
 
     /**
@@ -136,8 +121,9 @@ class CampusController extends Controller
         ]);
 
         $campus->update();
-
-//        return redirect(route('campus.index'));
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
 
     }
 

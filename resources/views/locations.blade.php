@@ -15,9 +15,6 @@
         </div>
     </div>
 
-    {{$errors}}
-    {{old('name')}}
-
     @foreach($campuses as $campus)
         <x-cards.cardwfull :title="$campus->name" class="my-4">
             <div class="row">
@@ -72,28 +69,4 @@
             </x-slot>
         </x-cards.cardwfull>
     @endforeach
-@endsection
-@section('script')
-    <script>
-        $(function () {
-            @if(count($errors)>0)
-            $('#formModal').modal('show')
-            @endif
-        })
-
-        $('#formModal').on('shown.bs.modal', function () {
-            $('#name').trigger('focus')
-        });
-
-        $('.modal').on('hidden.bs.modal', function (e) {
-            $(this)
-                .find("input:not([type=hidden]),textarea,select")
-                .val('')
-                .end()
-                .find(".valErr")
-                .remove()
-                .end()
-        });
-
-    </script>
 @endsection

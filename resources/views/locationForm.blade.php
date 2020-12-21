@@ -1,4 +1,4 @@
-<form method="{{$method=='GET'?'GET':'POST'}}" id="modalForm" data-action="{{$action}}" data-method="{{$method}}">
+<form method="{{$method=='GET'?'GET':'POST'}}" class="AjaxForm" action="{{$action}}">
     @csrf
     @if($method!='GET' && $method!='POST')
         @method("$method")
@@ -81,6 +81,6 @@
 
     <div class="modal-footer">
         <button type="button" id="exit" class="btn btn-secondary" data-dismiss="modal">Sluien</button>
-        <button type="button" id="save" class="btn btn-primary">{{$submitText}}</button>
+        <button type="submit" id="save" class="btn btn-primary">{{$submitText}}</button>
     </div>
 </form>
