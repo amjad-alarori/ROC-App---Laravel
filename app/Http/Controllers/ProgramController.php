@@ -27,7 +27,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        //
+        dd('Create');
     }
 
     /**
@@ -60,7 +60,7 @@ class ProgramController extends Controller
      */
     public function edit(Program $program)
     {
-        //
+        dd('edit '.$program->id);
     }
 
     /**
@@ -83,6 +83,6 @@ class ProgramController extends Controller
      */
     public function destroy(Program $program)
     {
-        //
+        dd('destroy '.$program->id);
     }
 }

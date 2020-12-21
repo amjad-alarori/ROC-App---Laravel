@@ -31,7 +31,6 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
-//        Route::resource('campus',CampusController::class);
 
 
 
