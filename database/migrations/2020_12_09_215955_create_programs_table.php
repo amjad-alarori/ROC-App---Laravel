@@ -18,7 +18,7 @@ class CreateProgramsTable extends Migration
             $table->string('code');
             $table->string('title');
             $table->integer('degree');
-            $table->double('length',2,2);
+            $table->integer('length');
             $table->foreignId('area_id')->constrained('program_areas');
             $table->timestamps();
             $table->softDeletes();

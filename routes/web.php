@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -23,13 +24,13 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
-        Route::resource('locatie',CampusController::class);
+        Route::resource('campus',CampusController::class);
+        Route::resource('program',ProgramController::class);
 
 
 
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
-//        Route::resource('locatie',CampusController::class);
 
 
 

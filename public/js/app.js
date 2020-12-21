@@ -21297,6 +21297,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+__webpack_require__(/*! ./scripts */ "./resources/js/scripts.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -21328,6 +21330,72 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/scripts.js":
+/*!*********************************!*\
+  !*** ./resources/js/scripts.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$('#openNavButton').on('click', function () {
+  document.getElementById("mainSidenav").style.width = "250px";
+  document.getElementById("main").style.paddingLeft = "266px";
+  document.getElementById('darkMain').style.display = 'block';
+});
+$('#closeNavButton').on('click', function () {
+  document.getElementById("mainSidenav").style.width = "0";
+  document.getElementById("main").style.paddingLeft = "150px";
+  document.getElementById('darkMain').style.display = 'none';
+});
+$('.ModalButton').click(function () {
+  var url = $(this).data('url');
+  $.ajax({
+    method: 'GET',
+    url: url,
+    success: function success(response) {
+      var modal = $('#formModal');
+      modal.find('.modal-body').html(response);
+      modal.modal('show');
+      modal.find('input[type="text"]').first().focus();
+    }
+  });
+});
+$(document).on('submit', '.AjaxForm', function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  var _this = $(this); //de form
+
+
+  $('.invaliderror').remove();
+  $('.is-invalid').removeClass('is-invalid');
+  $.ajax({
+    method: _this.attr('method'),
+    url: _this.attr('action'),
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: _this.serialize(),
+    success: function success(response) {
+      if (response.url) {
+        window.location.href = response.url;
+      }
+    },
+    error: function error(response, textStatus, errorThrown) {
+      var errors = response.responseJSON.errors;
+
+      for (var key in errors) {
+        $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+      }
+    }
+  });
+});
+$('.modal').on('hidden.bs.modal', function (e) {
+  $(this).find('.modal-body').html('');
+});
 
 /***/ }),
 

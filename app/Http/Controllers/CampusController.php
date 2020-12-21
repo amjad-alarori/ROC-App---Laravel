@@ -14,9 +14,9 @@ class CampusController extends Controller
      */
     public function index()
     {
-        $locations = Campus::all();
+        $campuses = Campus::all();
 
-        return view('locations', ['locations' => $locations]);
+        return view('locations', ['campuses' => $campuses]);
     }
 
     /**
@@ -26,7 +26,7 @@ class CampusController extends Controller
      */
     public function create()
     {
-        return view('locationForm');
+        return view('location.create');
     }
 
     /**
@@ -62,7 +62,9 @@ class CampusController extends Controller
 
         $campus->save();
 
-        return redirect(route('locatie.index'));
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
     }
 
     /**
@@ -79,12 +81,12 @@ class CampusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Campus $locatie
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @param Campus $campus
+     * @return false|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response|string
      */
-    public function edit(Campus $locatie)
+    public function edit(Campus $campus)
     {
-        return view('locationEdit', ['campus'=>$locatie]);
+        return view('location.edit', ['campus'=>$campus]);
     }
 
     /**
@@ -94,7 +96,7 @@ class CampusController extends Controller
      * @param \App\Models\Campus $campus
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Campus $locatie)
+    public function update(Request $request, Campus $campus)
     {
         $request->validate([
             'name' => ['string', 'required'],
@@ -107,7 +109,7 @@ class CampusController extends Controller
             'phone_nr' => ['string', 'required'],
         ]);
 
-        $locatie->fill([
+        $campus->fill([
             'name' => $request['name'],
             'street' => $request['street'],
             'house_nr' => $request['house_nr'],
@@ -118,9 +120,10 @@ class CampusController extends Controller
             'phone_nr' => $request['phone_nr'],
         ]);
 
-        $locatie->update();
-
-        return redirect(route('locatie.index'));
+        $campus->update();
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
 
     }
 
@@ -130,9 +133,9 @@ class CampusController extends Controller
      * @param \App\Models\Campus $campus
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Campus $locatie)
+    public function destroy(Campus $campus)
     {
-        $locatie->delete();
+        $campus->delete();
         return redirect()->back();
     }
 }

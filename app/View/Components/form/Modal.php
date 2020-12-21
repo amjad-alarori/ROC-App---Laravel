@@ -6,17 +6,13 @@ use Illuminate\View\Component;
 
 class Modal extends Component
 {
-    public $title;
 
     /**
      * Create a new component instance.
-     *
-     * @return void
      */
-    public function __construct($title)
+    public function __construct()
     {
         //
-        $this->title = $title;
     }
 
     /**
@@ -26,6 +22,6 @@ class Modal extends Component
      */
     public function render()
     {
-        return view('components.form.modal', ['title' => $this->title]);
+        return view('components.form.modal');
     }
 }
