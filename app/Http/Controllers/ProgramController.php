@@ -15,7 +15,10 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $areas = ProgramArea::with('programs')->get()->sortBy('title')->sortBy('program.code');
+//        $areas = ProgramArea::with('programs')->get()->sortBy('title')->sortBy('program.code');
+        $areas = ProgramArea::with('programs')->has('programs','','')->get()->sortBy('title')->sortBy('program.code');
+
+        dd($areas);
 
         return view('programs',['areas'=>$areas]);
     }
@@ -23,22 +26,25 @@ class ProgramController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        dd('Create');
+        $areas = ProgramArea::all();
+        return view('program.create',compact('areas'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        return response()->json([
+            'url' => route('program.index')
+        ]);
     }
 
     /**
@@ -56,11 +62,12 @@ class ProgramController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Program $program)
     {
-        dd('edit '.$program->id);
+        $areas = ProgramArea::all();
+        return view('program.edit',compact(['program','areas']));
     }
 
     /**
@@ -68,11 +75,13 @@ class ProgramController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Program $program)
     {
-        //
+        return response()->json([
+            'url' => route('program.index')
+        ]);
     }
 
     /**

@@ -21351,7 +21351,6 @@ $('#closeNavButton').on('click', function () {
   document.getElementById('darkMain').style.display = 'none';
 });
 $('.ModalButton').click(function () {
-  console.log('open');
   var url = $(this).data('url');
   $.ajax({
     method: 'GET',

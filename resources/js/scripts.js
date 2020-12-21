@@ -12,7 +12,6 @@ $('#closeNavButton').on('click',function (){
 
 
 $('.ModalButton').click(function () {
-    console.log('open')
     let url = $(this).data('url');
     $.ajax({
         method: 'GET',

@@ -86,7 +86,7 @@ class CampusController extends Controller
      */
     public function edit(Campus $campus)
     {
-        return view('location.edit', compact('campus'));
+        return view('location.edit', ['campus'=>$campus]);
     }
 
     /**
