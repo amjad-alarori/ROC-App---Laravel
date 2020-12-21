@@ -45,7 +45,9 @@
         <h1 class="display-4">Welkom bij ROC Flevoland</h1>
         <br>
 
-        <button type="button" class="btnLogin" action="">Login</button>
+        <button type="button" class="btnLogin">
+            <a href="{{ route('login') }}">Login</a></button>
+    </div>
 </section>
 
 {{--<div id="background-carousel">--}}
