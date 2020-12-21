@@ -69,6 +69,6 @@
     <x-jet-input id="phone" name="phone_nr"
                  value="{{optional($campus)->phone_nr}}" type="text"
                  class="mt-1 block w-full"
-                 autocomplete="phone_nr" />
+                 autocomplete="phone_nr" required/>
     <x-jet-input-error for="phone_nr" class="valErr mt-2"/>
 </div>

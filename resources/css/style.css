@@ -172,3 +172,7 @@ div.container-fluid#main{
     font-style: normal;
     color: #213744;
 }
+
+.is-invalid {
+    border: 1px solid red !important;
+}

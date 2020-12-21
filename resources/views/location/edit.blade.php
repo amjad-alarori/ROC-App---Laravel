@@ -4,7 +4,7 @@
 
     @include('location.form', ['campus' => $campus])
 
-    <div class="modal-footer">
+    <div class="modal-footer mt-4">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
         <button type="submit" class="btn btn-primary">Bewerken</button>
     </div>

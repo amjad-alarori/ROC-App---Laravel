@@ -31,6 +31,8 @@ $(document).on('submit', '.AjaxForm', function (e) {
     e.stopPropagation()
 
     let _this = $(this) //de form
+    $('.invaliderror').remove();
+    $('.is-invalid').removeClass('is-invalid')
 
     $.ajax({
         method: _this.attr('method'),
@@ -47,7 +49,7 @@ $(document).on('submit', '.AjaxForm', function (e) {
             for(var key in errors) {
                 $('[name=' + key + ']')
                     .addClass('is-invalid')
-                    .after('<div class="alert alert-danger w-100 mt-3">' + errors[key][0] + '</div>')
+                    .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
             }
         }
     })

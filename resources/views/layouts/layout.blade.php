@@ -49,12 +49,6 @@
 
 <x-form.modal id="formModal"></x-form.modal>
 
-<style>
-    .is-invalid {
-        border: 1px solid red !important;
-    }
-</style>
-
 <!-- Optional JavaScript -->
 <script type="text/javascript">
     // var bar = new ProgressBar.Circle(container, {
