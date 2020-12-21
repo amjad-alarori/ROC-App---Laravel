@@ -31,7 +31,6 @@
                                                            style="font-size:20px; color: orange"></i></a>
                                 <a href="" class="mx-2"><i class='far fa-trash-alt'
                                                            style="font-size:20px; color:red"></i></a>
-
                             </div>
                         </li>
                     @endforeach

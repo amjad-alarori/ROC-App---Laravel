@@ -21297,6 +21297,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+__webpack_require__(/*! ./scripts */ "./resources/js/scripts.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -21328,6 +21330,50 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/scripts.js":
+/*!*********************************!*\
+  !*** ./resources/js/scripts.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$('.ModalButton').click(function () {
+  console.log('open');
+  var url = $(this).data('url');
+  $.ajax({
+    method: 'GET',
+    url: url,
+    success: function success(response) {
+      var modal = $('#formModal');
+      modal.find('.modal-body').html(response);
+      modal.modal('show');
+    }
+  });
+});
+$('#formModal').on('shown.bs.modal', function () {
+  $('.modal-footer>#save').click(function () {
+    var form = $('#modalForm');
+    var url = form.data('action');
+    $.ajax({
+      method: form.data('method'),
+      // contentType: "application/json; charset=utf-8",
+      url: url,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: form.serialize(),
+      success: function success(response) {
+        console.log(response);
+      },
+      error: function error(response, textStatus, errorThrown) {
+        console.log(response.responseJSON.errors);
+      }
+    });
+  });
+});
 
 /***/ }),
 
