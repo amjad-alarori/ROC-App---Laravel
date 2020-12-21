@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Middleware\Authenticate;
+use App\Models\StageBedrijven;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,11 +23,12 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::view('','welcome');
     Route::view('studentDashboard','studentDashboard');
+    Route::resource('campus',CampusController::class);
+    Route::resource('program',ProgramController::class);
 
+    Route::view('stageBedrijven','stageBedrijven');
+    Route::resource('stageBedrijven',StageBedrijvenController::class);
 
-
-        Route::resource('campus',CampusController::class);
-        Route::resource('program',ProgramController::class);
 
 
 
