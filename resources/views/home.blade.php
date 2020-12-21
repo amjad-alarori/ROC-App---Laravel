@@ -50,32 +50,6 @@
     </div>
 </section>
 
-{{--<div id="background-carousel">--}}
-{{--    <div id="myCarousel" class="carousel slide" data-ride="carousel">--}}
-{{--        <div class="carousel-inner">--}}
-{{--            <div class="carousel-item active">--}}
-{{--                <img src="{{ asset('images/rocafbeelding1.png') }}" class="d-block w-100" alt="no image">--}}
-{{--            </div>--}}
-{{--            <div class="carousel-item">--}}
-{{--                <img src="{{ asset('images/rocafbeelding2.png') }}" class="d-block w-100" alt="no image">--}}
-{{--            </div>--}}
-{{--            <div class="carousel-item" data-slide="prev">--}}
-{{--                <img src="{{ asset('images/rocafbeelding3.jpg') }}" class="d-block w-100" alt="no image">--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
-
-{{--<div id="content-wrapper">--}}
-{{--    <!-- PAGE CONTENT -->--}}
-{{--    <div class="container">--}}
-{{--        <div class="page-header"><h3>Fullscreen Background Carousel</h3></div>--}}
-{{--        <div class="well"><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet</p>--}}
-{{--        </div><!-- End Well -->--}}
-{{--    </div><!-- End Container -->--}}
-{{--    <!-- PAGE CONTENT -->--}}
-{{--</div>--}}
 
 <!-- Optional JavaScript -->
 

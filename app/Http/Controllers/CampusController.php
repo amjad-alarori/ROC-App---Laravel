@@ -14,6 +14,7 @@ class CampusController extends Controller
      */
     public function index()
     {
+
         $campuses = Campus::all();
 
         return view('locations', ['campuses' => $campuses]);
