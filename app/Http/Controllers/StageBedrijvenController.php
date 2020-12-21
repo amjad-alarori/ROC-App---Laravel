@@ -65,7 +65,9 @@ class StageBedrijvenController extends Controller
 
         $company->save();
 
-        return redirect(route('stageBedrijven.index'));
+//        return redirect(route('stageBedrijven.index'));
+
+        return response()->json(['url' => route('stageBedrijven.index')]);
     }
 
     /**
@@ -119,7 +121,8 @@ class StageBedrijvenController extends Controller
 
         $stageBedrijven->update();
 
-        return redirect(route('stageBedrijven.index'));
+//        return redirect(route('stageBedrijven.index'));
+        return response()->json(['url' => route('stageBedrijven.index')]);
     }
 
     /**

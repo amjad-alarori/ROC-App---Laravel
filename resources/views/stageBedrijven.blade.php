@@ -8,17 +8,12 @@
     <div class="row display-4 border-bottom border-secondary rounded-bottom px-4 pb-4">
         <div class="col-md-4">Stage Bedrijven</div>
         <div class="col-md-8" style="text-align: end">
-            <x-form.modal-button
+            <x-form.modal-button data-target="#formModal" data-url="{{route('stageBedrijven.create')}}"
                 class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-4">
                 Nieuwe bedrijf
             </x-form.modal-button>
         </div>
     </div>
-    <form id="stageBedrijvenForm" method="Post" action="{{route('stageBedrijven.store')}}">
-        <x-form.modal title="Nieuwe bedrijf toevoegen">
-                        @include('stageBedrijvenForm')
-        </x-form.modal>
-    </form>
 
     @foreach($stageBedrijven as $bedrijf)
 
@@ -65,33 +60,17 @@
                                    value="Verwijderen"></input>
                         </form>
                     </div>
+
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <a href="{{route('stageBedrijven.edit',['stageBedrijven'=>$bedrijf])}}"
-                           class="btn btn-warning btn-block float-right">Wijzigen</a>
+                    <x-form.modal-button data-target="#formModal" data-url="{{route('stageBedrijven.edit',['stageBedrijven'=>$bedrijf])}}"
+                                         class="btn btn-warning btn-block float-right">Wijzigen
+                    </x-form.modal-button>
                     </div>
+
                 </div>
             </x-slot>
         </x-cards.cardwfull>
     @endforeach
 @endsection
-@section('script')
-    <script>
-        $(function () {
-            @if(count($errors)>0)
-            $('#ModalComponent').modal('show')
-            @endif
-        })
-        $('#ModalComponent').on('shown.bs.modal', function () {
-            $('#name').trigger('focus')
-        })
-        $('.modal').on('hidden.bs.modal', function (e) {
-            $(this)
-                .find("input:not([type=hidden]),textarea,select")
-                .val('')
-                .end()
-                .find(".valErr")
-                .remove()
-                .end()
-        });
-    </script>
-@endsection
+
+
