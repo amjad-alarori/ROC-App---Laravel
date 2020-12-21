@@ -26,7 +26,7 @@ class CampusController extends Controller
      */
     public function create()
     {
-        return view('locationForm');
+        return view('location.create');
     }
 
     /**
@@ -62,7 +62,9 @@ class CampusController extends Controller
 
         $campus->save();
 
-        return redirect(route('campus.index'));
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
     }
 
     /**
@@ -84,7 +86,7 @@ class CampusController extends Controller
      */
     public function edit(Campus $campus)
     {
-        return json_encode($campus) ;
+        return view('location.edit', compact('campus'));
     }
 
     /**
@@ -119,8 +121,9 @@ class CampusController extends Controller
         ]);
 
         $campus->update();
-
-        return redirect(route('campus.index'));
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
 
     }
 

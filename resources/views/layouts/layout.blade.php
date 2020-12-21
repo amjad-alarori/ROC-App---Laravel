@@ -21,7 +21,7 @@
 <body>
 
 <div id="mainSidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="closebtn" id="closeNavButton">&times;</a>
     <a href="#home" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Dashboard</a>
     <a href="#" class="text-nowrap"><i class="fas fa-user"></i> Profiel</a>
     <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
@@ -29,7 +29,7 @@
 </div>
 <div id="darkMain"></div>
 <div id="menuBtn" class="rounded">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+    <span style="font-size:30px;cursor:pointer" id="openNavButton">&#9776; Menu</span>
 </div>
 <div class="container-fluid" id="main">
     <main role="main" class="container font-sans text-gray-900 antialiased">
@@ -47,21 +47,16 @@
     </main>
 </div>
 
+<x-form.modal id="formModal"></x-form.modal>
+
+<style>
+    .is-invalid {
+        border: 1px solid red !important;
+    }
+</style>
 
 <!-- Optional JavaScript -->
 <script type="text/javascript">
-    function openNav() {
-        document.getElementById("mainSidenav").style.width = "250px";
-        document.getElementById("main").style.paddingLeft = "266px";
-        document.getElementById('darkMain').style.display = 'block';
-    }
-
-    function closeNav() {
-        document.getElementById("mainSidenav").style.width = "0";
-        document.getElementById("main").style.paddingLeft = "150px";
-        document.getElementById('darkMain').style.display = 'none';
-    }
-
     // var bar = new ProgressBar.Circle(container, {
     //     strokeWidth: 7,
     //     easing: 'easeInOut',
@@ -85,6 +80,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="{{asset('js/app.js')}}"></script>
 <script>
     $(function () {
         $("#noaccess-error").delay(4000).slideUp(800, function () {
