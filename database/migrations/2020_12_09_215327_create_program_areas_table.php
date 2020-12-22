@@ -16,6 +16,8 @@ class CreateProgramAreasTable extends Migration
         Schema::create('program_areas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->text('description');
+//            $table->foreignId('campusId')->constrained('campuses');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\ProgramAreaController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,13 @@ Route::group(['middleware' => 'web'], function () {
 
 
         Route::resource('locatie',CampusController::class);
+        Route::resource('opleiding', ProgramAreaController::class);
+//        Route::prefix('locatie/{id}')->group(function (){
+//            Route::resource('opleiding', 'ProgramAreaController');
+//            Route::prefix('opleiding/{id}')->group(function (){
+//                Route::resource('richting', 'ProgramController');
+//            });
+//        });
 
 
 

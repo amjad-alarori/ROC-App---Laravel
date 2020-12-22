@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campus;
 use App\Models\Program;
+use App\Models\ProgramArea;
 use Illuminate\Http\Request;
 
 class ProgramController extends Controller
@@ -10,11 +12,13 @@ class ProgramController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Campus $campus
+     * @param ProgramArea $programArea
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Campus $campus, ProgramArea $programArea)
     {
-        //
+        return view('programs', ['campus' => $campus, 'programarea' => $programArea]);
     }
 
     /**

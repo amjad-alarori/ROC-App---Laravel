@@ -21,4 +21,9 @@ class Campus extends Model
         'email',
         'phone_nr',
     ];
+
+    public function programArea()
+    {
+        return $this->hasMany(ProgramArea::class, 'campusId', 'id');
+    }
 }
