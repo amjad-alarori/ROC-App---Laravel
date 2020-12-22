@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use App\Models\ProgramArea;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProgramController extends Controller
 {
@@ -16,9 +17,7 @@ class ProgramController extends Controller
     public function index()
     {
 //        $areas = ProgramArea::with('programs')->get()->sortBy('title')->sortBy('program.code');
-        $areas = ProgramArea::with('programs')->has('programs','','')->get()->sortBy('title')->sortBy('program.code');
-
-        dd($areas);
+        $areas = ProgramArea::with('programs')->has('programs','>','0')->get()->sortBy('title')->sortBy('program.code');
 
         return view('programs',['areas'=>$areas]);
     }
@@ -42,6 +41,25 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'code'=>['required','string','unique:programs,code'],
+            'title'=>['required','string'],
+            'degree'=>['required','integer','between:1,5'],
+            'length'=>['required','integer','min:1'],
+            'area'=>['required','integer','exists:program_areas,id']
+        ]);
+
+        $program = new Program();
+        $program->fill([
+            'code'=>$request['code'],
+            'title'=>$request['title'],
+            'degree'=>$request['degree'],
+            'length'=>$request['length'],
+        ]);
+        $program->area_id = $request['area'];
+
+        $program->save();
+
         return response()->json([
             'url' => route('program.index')
         ]);
@@ -79,6 +97,24 @@ class ProgramController extends Controller
      */
     public function update(Request $request, Program $program)
     {
+        $request->validate([
+            'code'=>['required','string','unique:programs,code,'.$program->id],
+            'title'=>['required','string'],
+            'degree'=>['required','integer','between:1,5'],
+            'length'=>['required','integer','min:1'],
+            'area'=>['required','integer','exists:program_areas,id']
+        ]);
+
+        $program->fill([
+            'code'=>$request['code'],
+            'title'=>$request['title'],
+            'degree'=>$request['degree'],
+            'length'=>$request['length'],
+        ]);
+        $program->area_id = $request['area'];
+
+        $program->update();
+
         return response()->json([
             'url' => route('program.index')
         ]);
@@ -88,10 +124,11 @@ class ProgramController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Program $program)
     {
-        dd('destroy '.$program->id);
+        $program->delete();
+        return redirect()->back();
     }
 }

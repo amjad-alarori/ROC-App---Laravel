@@ -3,8 +3,13 @@
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProgramController;
+
 use App\Http\Controllers\CVController;
+
+use App\Http\Controllers\StageBedrijvenController;
+
 use App\Http\Middleware\Authenticate;
+use App\Models\StageBedrijven;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,11 +26,20 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'web'], function () {
     /** voeg hier de routes welke zonder authorisatie te bereiken is */
 
+
     Route::view('', 'home');
 
 
-    Route::resource('campus', CampusController::class);
-    Route::resource('program', ProgramController::class);
+    Route::view('studentDashboard','studentDashboard');
+    Route::resource('campus',CampusController::class);
+    Route::resource('program',ProgramController::class);
+
+
+    Route::view('stageBedrijven','stageBedrijven');
+    Route::resource('stageBedrijven',StageBedrijvenController::class);
+
+
+
 
 
     Route::group(['middleware' => Authenticate::class], function () {
