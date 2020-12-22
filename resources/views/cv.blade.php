@@ -30,9 +30,9 @@ CV
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <span>Voornaam:</span><br>
-                    <span>Achternaam:</span><br>
-                    <span>Geboortedatum:</span><br>
+                    <span class="cvProperties">Voornaam:</span><br>
+                    <span class="cvProperties">Achternaam:</span><br>
+                    <span class="cvProperties">Geboortedatum:</span><br>
 
                 </div>
                 <div class="col-sm-6">
