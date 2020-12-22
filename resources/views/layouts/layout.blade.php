@@ -26,6 +26,11 @@
     <a href="#" class="text-nowrap"><i class="fas fa-user"></i> Profiel</a>
     <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
     <a href="#" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+    @if (Route::has('login'))
+    @auth
+        @livewire('navigation-dropdown')
+    @endif
+    @endif
 </div>
 <div id="darkMain"></div>
 <div id="menuBtn" class="rounded">
