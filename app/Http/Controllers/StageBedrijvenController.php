@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\StageBedrijven;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,14 +35,15 @@ class StageBedrijvenController extends Controller
      */
     public function create()
     {
-        return view('stageBedrijvenForm');
+
+        return view('stageBedrijvenForm',['bedrijf'=>null]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Response|Redirector
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -97,7 +100,7 @@ class StageBedrijvenController extends Controller
      *
      * @param Request $request
      * @param StageBedrijven $stageBedrijven
-     * @return Application|RedirectResponse|Response|Redirector
+     * @return JsonResponse
      */
     public function update(Request $request, StageBedrijven $stageBedrijven)
     {
@@ -130,7 +133,7 @@ class StageBedrijvenController extends Controller
      *
      * @param StageBedrijven $stageBedrijven
      * @return RedirectResponse|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(StageBedrijven $stageBedrijven)
     {
