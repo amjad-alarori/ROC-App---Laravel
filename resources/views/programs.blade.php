@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="row display-4 border-bottom border-secondary rounded-bottom px-4 pb-4">
+    <div class="row display-4 border-bottom border-secondary rounded-bottom px-4 pb-3 mb-3">
         <div class="col-md-4">Opleidingen</div>
         <div class="col-md-8" style="text-align: end">
             <x-form.modal-button data-target="#formModal" data-url="{{route('program.create')}}"
