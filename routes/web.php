@@ -3,6 +3,7 @@
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\CVController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
         Route::get('dashboard', [PagesController::class, 'index'])->name('dashboard');
-
+        Route::resource('cv', CVController::class);
 
     });
 });

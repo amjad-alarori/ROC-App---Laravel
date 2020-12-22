@@ -98,22 +98,30 @@
 
 /*profile page*/
 
-#profileDiv {
-    margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
-}
-
-#profileDivForm{
-    margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
-
+#profileBtn{
+    position: absolute;
+    top: 0;
+    left: 0px;
+    font-size: 36px;
+    margin-left: 0px;
 
 }
+ /*endofprofilepage*/
 
+/*cv page*/
+
+.cv {
+    /*margin-left:auto;*/
+    /*margin-right:auto;*/
+    width: 965px;
+    /*height: 450px;*/
+    padding:10px;
+    background-color: coral;
+    color: #f1f1f1;
+
+    border-radius: 10px;
+
+}
 
 
 /*studentDashboard*/

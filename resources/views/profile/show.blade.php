@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Profile
+    Profiel
 @endsection
 
 @section('content')
@@ -20,6 +20,7 @@
 
                 <x-jet-section-border />
             @endif
+
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                 <h4 class="h4">Wachtwoord wijzigen</h4>
