@@ -98,11 +98,6 @@ body {
     height: 200px;
 }
 
-/*.card{*/
-/*    background-color: coral;*/
-/*    color: #f1f1f1;*/
-/*}*/
-
 .btn-bg-color{
     background-color: #1a202c;
     color: white;
@@ -110,4 +105,74 @@ body {
 
 div.container-fluid#main{
     padding-left: 150px;
+}
+
+#accordionComp [data-toggle="collapse"] i:before {
+    content: "\f068";
+}
+
+#accordionComp [data-toggle="collapse"].collapsed i:before {
+    content: "\f067";
+}
+
+#accordionComp .card-header {
+    margin-bottom: 8px;
+}
+#accordionComp .accordion-title {
+    position: relative;
+    display: block;
+    padding: 8px 0 8px 50px;
+    background: #213744;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    width: 100%;
+    text-align: left;
+    transition: all 0.4s ease-in-out;
+}
+#accordionComp .accordion-title i {
+    position: absolute;
+    width: 40px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    color: #fff;
+    background: radial-gradient(rgba(33, 55, 68, 0.8), #213744);
+    text-align: center;
+    border-right: 1px solid transparent;
+}
+#accordionComp .accordion-title:hover {
+    padding-left: 60px;
+    background: #213744;
+    color: #fff;
+}
+#accordionComp .accordion-title:hover i {
+    border-right: 1px solid #fff;
+}
+#accordionComp .accordion-body {
+    padding: 40px 55px;
+}
+#accordionComp .accordion-body ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+#accordionComp .accordion-body li {
+    padding-left: 1.2rem;
+    text-indent: -1.2rem;
+}
+#accordionComp .accordion-body li:before {
+    content: "\f10a";
+    padding-right: 5px;
+    font-family: "Flaticon", serif;
+    font-size: 16px;
+    font-style: normal;
+    color: #213744;
+}
+
+.is-invalid {
+    border: 1px solid red !important;
 }

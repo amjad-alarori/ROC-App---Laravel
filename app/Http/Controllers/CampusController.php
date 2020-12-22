@@ -15,9 +15,9 @@ class CampusController extends Controller
      */
     public function index(Campus $campus)
     {
-        $locations = Campus::all();
+        $campuses = Campus::all();
 
-        return view('locations', ['locations' => $locations, 'campus' => $campus]);
+        return view('locations', ['campus' => $campus]);
     }
 
     /**
@@ -27,14 +27,14 @@ class CampusController extends Controller
      */
     public function create()
     {
-        return view('locationForm');
+        return view('location.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -63,7 +63,9 @@ class CampusController extends Controller
 
         $campus->save();
 
-        return redirect(route('locatie.index'));
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
     }
 
     /**
@@ -80,12 +82,12 @@ class CampusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Campus $campus
-     * @return \Illuminate\Http\Response
+     * @param Campus $campus
+     * @return false|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response|string
      */
     public function edit(Campus $campus)
     {
-        //
+        return view('location.edit', ['campus'=>$campus]);
     }
 
     /**
@@ -93,21 +95,48 @@ class CampusController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Campus $campus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Campus $campus)
     {
-        //
+        $request->validate([
+            'name' => ['string', 'required'],
+            'street' => ['string', 'required'],
+            'house_nr' => ['integer', 'required', 'min:1'],
+            'house_nr_addition' => ['string', 'nullable'],
+            'zip_code' => ['string', 'required'],
+            'city' => ['string', 'required'],
+            'email' => ['string', 'required'],
+            'phone_nr' => ['string', 'required'],
+        ]);
+
+        $campus->fill([
+            'name' => $request['name'],
+            'street' => $request['street'],
+            'house_nr' => $request['house_nr'],
+            'house_nr_addition' => $request['house_nr_addition'],
+            'zip_code' => $request['zip_code'],
+            'city' => $request['city'],
+            'email' => $request['email'],
+            'phone_nr' => $request['phone_nr'],
+        ]);
+
+        $campus->update();
+        return response()->json([
+            'url' => route('campus.index')
+        ]);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Campus $campus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Campus $campus)
     {
-        //
+        $campus->delete();
+        return redirect()->back();
     }
 }

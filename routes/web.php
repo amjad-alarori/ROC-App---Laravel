@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ProgramAreaController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Middleware\Authenticate;
+use App\Models\StageBedrijven;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,10 +24,12 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::view('','welcome');
     Route::view('studentDashboard','studentDashboard');
+    Route::resource('campus',CampusController::class);
+    Route::resource('program',ProgramController::class);
 
+    Route::view('stageBedrijven','stageBedrijven');
+    Route::resource('stageBedrijven',StageBedrijvenController::class);
 
-
-        Route::resource('locatie',CampusController::class);
         Route::resource('opleiding', ProgramAreaController::class);
 //        Route::prefix('locatie/{id}')->group(function (){
 //            Route::resource('opleiding', 'ProgramAreaController');
@@ -37,7 +42,6 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
-//        Route::resource('locatie',CampusController::class);
 
 
 

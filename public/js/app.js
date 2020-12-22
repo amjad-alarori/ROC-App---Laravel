@@ -21297,6 +21297,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+__webpack_require__(/*! ./scripts */ "./resources/js/scripts.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -21331,6 +21333,72 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/scripts.js":
+/*!*********************************!*\
+  !*** ./resources/js/scripts.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$('#openNavButton').on('click', function () {
+  document.getElementById("mainSidenav").style.width = "250px";
+  document.getElementById("main").style.paddingLeft = "266px";
+  document.getElementById('darkMain').style.display = 'block';
+});
+$('#closeNavButton').on('click', function () {
+  document.getElementById("mainSidenav").style.width = "0";
+  document.getElementById("main").style.paddingLeft = "150px";
+  document.getElementById('darkMain').style.display = 'none';
+});
+$('.ModalButton').click(function () {
+  var url = $(this).data('url');
+  $.ajax({
+    method: 'GET',
+    url: url,
+    success: function success(response) {
+      var modal = $('#formModal');
+      modal.find('.modal-body').html(response);
+      modal.modal('show');
+      modal.find('input[type="text"]').first().focus();
+    }
+  });
+});
+$(document).on('submit', '.AjaxForm', function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  var _this = $(this); //de form
+
+
+  $('.invaliderror').remove();
+  $('.is-invalid').removeClass('is-invalid');
+  $.ajax({
+    method: _this.attr('method'),
+    url: _this.attr('action'),
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: _this.serialize(),
+    success: function success(response) {
+      if (response.url) {
+        window.location.href = response.url;
+      }
+    },
+    error: function error(response, textStatus, errorThrown) {
+      var errors = response.responseJSON.errors;
+
+      for (var key in errors) {
+        $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+      }
+    }
+  });
+});
+$('.modal').on('hidden.bs.modal', function (e) {
+  $(this).find('.modal-body').html('');
+});
+
+/***/ }),
+
 /***/ 0:
 /*!***********************************************************!*\
   !*** multi ./resources/js/app.js ./resources/css/app.css ***!
@@ -21338,8 +21406,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! /Users/amjadalarori/rocapp/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/amjadalarori/rocapp/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })

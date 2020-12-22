@@ -9,13 +9,8 @@ class ProgramArea extends Model
 {
     use HasFactory;
 
-    public function campus()
+    public function programs()
     {
-        return $this->belongsTo(Campus::class, 'campusId', 'id');
-    }
-
-    public function program()
-    {
-        return $this->hasMany(Program::class, 'areaId', 'id');
+        return $this->hasMany(Program::class,'area_id','id');
     }
 }

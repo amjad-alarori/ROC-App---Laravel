@@ -21,7 +21,7 @@
 <body>
 
 <div id="mainSidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="closebtn" id="closeNavButton">&times;</a>
     <a href="#home" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Dashboard</a>
     <a href="#" class="text-nowrap"><i class="fas fa-user"></i> Profiel</a>
     <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
@@ -29,7 +29,7 @@
 </div>
 <div id="darkMain"></div>
 <div id="menuBtn" class="rounded">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+    <span style="font-size:30px;cursor:pointer" id="openNavButton">&#9776; Menu</span>
 </div>
 <div class="container-fluid" id="main">
     <main role="main" class="container font-sans text-gray-900 antialiased">
@@ -47,22 +47,10 @@
     </main>
 </div>
 
+<x-form.modal id="formModal"></x-form.modal>
 
 <!-- Optional JavaScript -->
 <script type="text/javascript">
-
-    function openNav() {
-        document.getElementById("mainSidenav").style.width = "250px";
-        document.getElementById("main").style.paddingLeft = "266px";
-        document.getElementById('darkMain').style.display = 'block';
-    }
-
-    function closeNav() {
-        document.getElementById("mainSidenav").style.width = "0";
-        document.getElementById("main").style.paddingLeft = "150px";
-        document.getElementById('darkMain').style.display = 'none';
-    }
-
     // var bar = new ProgressBar.Circle(container, {
     //     strokeWidth: 7,
     //     easing: 'easeInOut',
@@ -76,20 +64,24 @@
     // bar.animate(0.5);  // Number from 0.0 to 1.0
 </script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-{{--<script src="Scripts/jquery-1.10.2.min.js"></script>--}}
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="{{asset('js/app.js')}}"></script>
+<script>
+    $(function () {
+        $("#noaccess-error").delay(4000).slideUp(800, function () {
+            $(this).remove();
+        });
+    });
+</script>
 @yield('script')
 </body>
 </html>
