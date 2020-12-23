@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StageBedrijven;
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Hash;
 
 class StageBedrijvenController extends Controller
 {
@@ -52,8 +54,9 @@ class StageBedrijvenController extends Controller
             'address' => ['string', 'required'],
             'zip_code' => ['string', 'required'],
             'city' => ['string', 'required'],
-            'email' => ['string', 'required'],
+            'email' => ['email', 'required'],
             'phone_nr' => ['string', 'required'],
+            'contact_persoon'=>['string', 'required']
         ]);
 
         $company = new StageBedrijven();
@@ -68,6 +71,17 @@ class StageBedrijvenController extends Controller
 
         $company->save();
 
+//        $user= New User();
+//        $user->name = $request['contactpersoon'];
+//        $user->email = $company->email;
+//        $user->password = 'newcompany';
+//        $user->save();
+
+        User::create([
+            'name' => $request['contact_persoon'],
+            'email' => $request['email'],
+            'password' => 'newuser',
+        ]);
 //        return redirect(route('stageBedrijven.index'));
 
         return response()->json(['url' => route('stageBedrijven.index')]);
