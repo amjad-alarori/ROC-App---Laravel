@@ -21,4 +21,9 @@ class Campus extends Model
         'email',
         'phone_nr',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class,'campus_id','id');
+    }
 }

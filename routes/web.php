@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Middleware\Authenticate;
@@ -23,8 +24,20 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::view('','welcome');
     Route::view('studentDashboard','studentDashboard');
-    Route::resource('campus',CampusController::class);
+
+
+
     Route::resource('program',ProgramController::class);
+    Route::resource('campus',CampusController::class);
+    Route::resource('course',CourseController::class);
+    Route::prefix('course/{course}')->group(function (){
+
+
+
+    });
+
+
+
 
     Route::view('stageBedrijven','stageBedrijven');
     Route::resource('stageBedrijven',StageBedrijvenController::class);
