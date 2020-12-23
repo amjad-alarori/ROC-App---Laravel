@@ -47,15 +47,16 @@ $(document).on('submit', '.AjaxForm', function (e) {
             let errors = response.responseJSON.errors
             for (var key in errors) {
 
-                if ($('[name=' + key + ']').length) {
-                    K = '[name=' + key + ']'
+                if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2')==false) {
+                    $('[name=' + key + ']')
+                        .addClass('is-invalid')
+                        .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
                 } else {
-                    K = 'span.select2';
+                    $('#' + key).select2({
+                        'containerCssClass': 'is-invalid',
+                    })
+                        .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
                 }
-
-                $(K)
-                    .addClass('is-invalid')
-                    .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
             }
         }
     })
@@ -67,9 +68,8 @@ $('.modal').on('hidden.bs.modal', function (e) {
 });
 
 $('.modal').on('shown.bs.modal', function (e) {
-    let st = $(this).find('.select2');
+    let st = $(this).find('.select2.multiselect');
     st.select2({
-        placeholder: "Selecteer competenties en/of maak een niuwe aan",
         tags: true,
         createTag: function (params) {
             var term = $.trim(params.term);
@@ -84,5 +84,10 @@ $('.modal').on('shown.bs.modal', function (e) {
                 newTag: true // add additional parameters
             }
         }
+    });
+
+    st = $(this).find('.select2.single2');
+    st.select2({
+        tags: false,
     });
 });

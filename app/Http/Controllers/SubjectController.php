@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Competence;
+use App\Models\Program;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all();
+
         return view('subjects', ['subjects' => $subjects]);
     }
 
@@ -27,7 +29,8 @@ class SubjectController extends Controller
     public function create()
     {
         $competences = Competence::all();
-        return view('subject.create', ['competences' => $competences]);
+        $programs = Program::all();
+        return view('subject.create', ['competences' => $competences, 'programs' => $programs]);
     }
 
     /**
@@ -39,13 +42,32 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>['required','string'],
-            'credits'=>['required','integer','min:1'],
-            'competences'=>['required','array','min:1'],
+            'title' => ['required', 'string'],
+            'credits' => ['required', 'integer', 'min:1'],
+            'competences' => ['required', 'array', 'min:1'],
+            'program' => ['integer', 'nullable'],
         ]);
 
-        dd('hallo',$request);
+        $subject = new Subject();
+        $subject->forceFill([
+            'title' => $request['title'],
+            'e_credit' => $request['credits'],
+        ]);
+        $subject->program_id = $request['program'];
+        $subject->save();
 
+        foreach ($request['competences'] as $item):
+            $itemArray = explode(',', $item);
+
+            if ($itemArray[0] == 'new'):
+                $competence = Competence::create(['title' => $itemArray[1]]);
+            else:
+                $competence = Competence::find($itemArray[1]);
+            endif;
+
+            $subject->attachedCompetences()->attach($competence);
+
+        endforeach;
 
         return response()->json([
             'url' => route('subject.index')
@@ -72,7 +94,8 @@ class SubjectController extends Controller
     public function edit(Subject $subject)
     {
         $competences = Competence::all();
-        return view('subject.edit', ['subject' => $subject, 'competences' => $competences]);
+        $programs = Program::all();
+        return view('subject.edit', ['subject' => $subject, 'competences' => $competences, 'programs' => $programs]);
     }
 
     /**
@@ -84,7 +107,34 @@ class SubjectController extends Controller
      */
     public function update(Request $request, Subject $subject)
     {
+        $request->validate([
+            'title' => ['required', 'string'],
+            'credits' => ['required', 'integer', 'min:1'],
+            'competences' => ['required', 'array', 'min:1'],
+            'program' => ['integer', 'nullable'],
+        ]);
 
+        $subject->forceFill([
+            'title' => $request['title'],
+            'e_credit' => $request['credits'],
+        ]);
+        $subject->program_id = $request['program'];
+        $subject->update();
+
+        $compArray = [];
+        foreach ($request['competences'] as $item):
+            $itemArray = explode(',', $item);
+
+            if ($itemArray[0] == 'new'):
+                $competence = Competence::create(['title' => $itemArray[1]]);
+            else:
+                $competence = Competence::find($itemArray[1]);
+            endif;
+
+            array_push($compArray, $competence->id);
+
+        endforeach;
+        $subject->attachedCompetences()->sync($compArray);
 
         return response()->json([
             'url' => route('subject.index')
@@ -99,6 +149,9 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $competences = $subject->attachedCompetences()->pluck('competences.id')->toArray();
+        $subject->attachedCompetences()->detach($competences);
+        $subject->delete();
+        return redirect()->back();
     }
 }

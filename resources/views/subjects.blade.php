@@ -29,21 +29,34 @@
             </div>
 
             <x-slot name="footer">
-                <div class="row justify-content-end">
-                    <div class="col-sm-4 col-md-3 col-lg-2">
-                        <form method="POST" action="{{route('subject.destroy',['subject'=>$subject])}}">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="far btn btn-block" value="&#xf2ed;"
-                                   style="font-size:20px; color:red">
-                        </form>
-                        <x-form.modal-button data-target="#formModal"
-                                             data-url="{{route('subject.edit',['subject'=>$subject])}}"
-                                             class="btn btn-block float-right">
-                            <i class='fas fa-pencil-alt'
-                               style="font-size:20px; color: orange"></i>
-                        </x-form.modal-button>
+                <div class="d-flex justify-content-between">
+                    <div class="flex-sm-column">
+                        <div class="flex-row">Competenties:</div>
+                        <div class="flex-row">
+                        @foreach($subject->attachedCompetences as $competence)
+                            <div class="inline-block m-1 p-1 rounded" style="background-color: darkgrey">
+                                {{$competence->title}}
+                            </div>
+                        @endforeach
+                        </div>
                     </div>
+                    <div class="flex-sm-column">
+                        <div class="d-flex">
+                            <form method="POST" action="{{route('subject.destroy',['subject'=>$subject])}}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="far btn btn-block" value="&#xf2ed;"
+                                       style="font-size:20px; color:red">
+                            </form>
+                            <x-form.modal-button data-target="#formModal"
+                                                 data-url="{{route('subject.edit',['subject'=>$subject])}}"
+                                                 class="btn btn-block2">
+                                <i class='fas fa-pencil-alt'
+                                   style="font-size:20px; color: orange"></i>
+                            </x-form.modal-button>
+                        </div>
+                    </div>
+                </div>
             </x-slot>
         </x-cards.cardwfull>
     @endforeach

@@ -19,9 +19,9 @@ class Subject extends Model
         return $this->belongsToMany(
             Competence::class,
             'competence_subject',
-            'competence_id',
-            'subject_id'
-        )->withTimestamps();
+            'subject_id',
+            'competence_id'
+        )->withTimestamps()->orderBy('id');
     }
 
     public function competences()
