@@ -14,7 +14,7 @@ class Subject extends Model
       'e_credit',
     ];
 
-    public function competences()
+    public function attachedCompetences()
     {
         return $this->belongsToMany(
             Competence::class,
@@ -22,5 +22,16 @@ class Subject extends Model
             'competence_id',
             'subject_id'
         )->withTimestamps();
+    }
+
+    public function competences()
+    {
+        return $this->hasMany(Competence::class,'subject_id','id')
+            ->union(Competence::query()->where('subject_id','=',null))->get();
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class,'program_id','id');
     }
 }

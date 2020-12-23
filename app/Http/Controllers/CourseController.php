@@ -18,7 +18,7 @@ class CourseController extends Controller
     public function index($studyYear = null, Campus $campus = null)
     {
         if (! is_null($studyYear)):
-            $courses = Course::all()->where('study_year','=',$studyYear);
+            $courses = Course::query()->where('study_year','=',$studyYear)->get();
         elseif (! is_null($campus)):
             $courses = $campus->courses()->orderBy('study_year','desc');
         else:

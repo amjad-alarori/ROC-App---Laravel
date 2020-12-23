@@ -13,7 +13,7 @@ class Competence extends Model
         'title',
     ];
 
-    public function subjects()
+    public function attachedSubjects()
     {
         return $this->belongsToMany(
             Subject::class,
@@ -21,5 +21,10 @@ class Competence extends Model
             'subject_id',
             'competence_id'
         )->withTimestamps();
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class,'subject_id','id');
     }
 }

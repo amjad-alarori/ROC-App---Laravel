@@ -17,6 +17,7 @@ class CreateSubjectsTable extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedTinyInteger('e_credit');
+            $table->foreignId('program_id')->nullable()->constrained('programs');
             $table->timestamps();
         });
     }
