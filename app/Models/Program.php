@@ -22,4 +22,9 @@ class Program extends Model
     {
         return $this->belongsTo(ProgramArea::class, 'area_id', 'id');
     }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class,'program_id','id');
+    }
 }

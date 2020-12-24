@@ -1,7 +1,7 @@
 <div class="col-span-6 sm:col-span-4 mt-1">
     <div class="form-row">
         <div class="col">
-            <x-jet-label for="code" value="{{ __('Opleiding code') }}"/>
+            <x-jet-label for="code" value="{{ __('Programma code') }}"/>
             <x-jet-input id="code" name="code" value="{{optional($program)->code}}"
                          type="text" class="mt-1 block w-40"
                          autocomplete="code" required/>
@@ -12,7 +12,7 @@
 <div class="col-span-6 sm:col-span-4 mt-1">
     <div class="form-row">
         <div class="col">
-            <x-jet-label for="title" value="{{ __('Naam') }}"/>
+            <x-jet-label for="title" value="{{ __('Naam van de programma') }}"/>
             <x-jet-input id="title" name="title" value="{{optional($program)->title}}"
                          type="text" class="mt-1 block w-full"
                          autocomplete="title" required/>
@@ -50,7 +50,7 @@
 
 <div class="col-span-6 sm:col-span-4 mt-3">
     <div class="form-row">
-        <x-jet-label for="length" value="{{ __('Opleiding duur') }}"/>
+        <x-jet-label for="length" value="{{ __('Programma duur') }}"/>
     </div>
     <div class="form-row">
         <div class="col">
