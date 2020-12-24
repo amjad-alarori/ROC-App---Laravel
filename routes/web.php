@@ -8,6 +8,7 @@ use App\Http\Controllers\CVController;
 
 use App\Http\Controllers\StageBedrijvenController;
 
+use App\Http\Controllers\StageController;
 use App\Http\Middleware\Authenticate;
 use App\Models\StageBedrijven;
 use Illuminate\Support\Facades\Route;
@@ -35,8 +36,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('program',ProgramController::class);
 
 
-    Route::view('stageBedrijven','stageBedrijven');
+
+
     Route::resource('stageBedrijven',StageBedrijvenController::class);
+    Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
+        Route::resource('stage', StageController::class);
+    });
+
+
+
 
 
 

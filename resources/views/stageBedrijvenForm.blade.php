@@ -43,18 +43,20 @@
 <div class="form-row col-span-6 sm:col-span-4 mt-3">
     <x-jet-label for="email" value="{{ __('Email') }}"/>
     <x-jet-input id="email" name="email" value="{{optional($bedrijf)->email}}"
-                 type="text" class="mt-1 block w-full"
+                 type="email" class="mt-1 block w-full"
                  autocomplete="email" required/>
     <x-jet-input-error for="email" class="valErr mt-2"/>
 </div>
 
     <div class="form-row col-span-6 sm:col-span-4 mt-3">
-        <x-jet-label for="contactpersoon" value="{{ __('Contact persoon') }}"/>
-        <x-jet-input id="email" name="contactpersoon" value="{{optional($bedrijf)->contactpersoon}}"
+
+        <x-jet-label for="contact_persoon" value="{{ __('Contact persoon') }}"/>
+        <x-jet-input id="contact_persoon" name="contact_persoon" value=""
                      type="text" class="mt-1 block w-full"
-                     autocomplete="contactpersoon" required/>
-        <x-jet-input-error for="contactpersoon" class="valErr mt-2"/>
+                     autocomplete="contact_persoon" required/>
+
     </div>
+
 
 <div class="form-row col-span-6 sm:col-span-4 mt-3">
     <x-jet-label for="phone" value="{{ __('Telefoon') }}"/>
