@@ -261,3 +261,7 @@ div.container-fluid#main{
 .is-invalid {
     border: 1px solid red !important;
 }
+
+.bg-gray{
+    background-color: grey;
+}

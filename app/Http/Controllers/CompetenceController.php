@@ -10,11 +10,12 @@ class CompetenceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $competences = Competence::all();
+        return view('competences',['competences'=>$competences]);
     }
 
     /**
@@ -76,10 +77,13 @@ class CompetenceController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Competence  $competence
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Competence $competence)
     {
-        //
+        $subjects = $competence->attachedSubjects()->pluck('subjects.id')->toArray();
+        $competence->attachedSubjects()->detach($subjects);
+        $competence->delete();
+        return redirect()->back();
     }
 }

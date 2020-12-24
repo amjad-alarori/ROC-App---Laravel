@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CVController;
@@ -35,7 +36,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('campus',CampusController::class);
     Route::resource('program',ProgramController::class);
     Route::resource('subject',SubjectController::class);
-    Route::resource('competence',Competence::class);
+    Route::resource('competence',CompetenceController::class);
     Route::resource('course',CourseController::class);
     Route::prefix('course/{course}')->group(function (){
 

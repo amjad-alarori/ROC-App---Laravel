@@ -20,7 +20,7 @@ class Competence extends Model
             'competence_subject',
             'competence_id',
             'subject_id'
-        )->withTimestamps()->orderBy(id);
+        )->withTimestamps()->orderBy('id');
     }
 
     public function subject()
