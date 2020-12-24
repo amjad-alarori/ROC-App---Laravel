@@ -24,76 +24,79 @@
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-lg-4">
-                            Functie:
+                            <strong>Functie:</strong>
                         </div>
                         <div class="col-md-8">
-
+                            {{$stage->functie}}
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-md-5">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <strong>Leerweg:</strong>
-                        </div>
-                        <div class="col-md-8">
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <strong>Aantal plaatsen:</strong>
-                        </div>
-                        <div class="col-md-8">
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <strong>Periode:</strong>
-                        </div>
-                        <div class="col-md-8">
-
-                        </div>
-                    </div>
+                    </div><br>
                     <div class="row">
                         <div class="col-lg-4">
                             <strong>Wat ga je leren?</strong>
                         </div>
                         <div class="col-md-8">
-
+                            {{$stage->wat_te_doen}}<br>
                         </div>
-                    </div>
+                    </div><br>
                     <div class="row">
                         <div class="col-lg-4">
-                            <strong> Werkzaamheden </strong>
-                            <ul>
-                                <li>
-                                   - g
-                                </li>
-                            </ul>
+                            <strong>Werkzaamhede</strong>
 
                         </div>
 
                         <div class="col-md-8">
-
+                            <ul>
+                                <li>
+                                    - {{$stage->werkzaamheden}}
+                                </li>
+                            </ul><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-4">
                             <strong>Wat zoeken wij?</strong>
+
                         </div>
+
                         <div class="col-md-8">
 
+                            {{$stage->wat_zoeken_wij}}
+                            <br>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div>
-                <a href=""  class="btn btn-primary float-right"> Nu Reageren</a>
-            </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <strong>Leerweg: </strong><br>
+                        </div>
+                        <div class="col-md-8">
+                            {{$stage->leerweg}}
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <strong>Aantal plaatsen:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{$stage->aantal_plaatsen}}<br>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <strong>Periode: </strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{$stage->start_datum}} <strong>t/m</strong> {{$stage->eind_datum}}<br>
+                        </div>
+                    </div><br>
+                </div>
+
+
 
             <x-slot name="footer">
                 <div class="row justify-content-end">
@@ -111,7 +114,9 @@
                                              class="btn btn-warning btn-block float-right">Wijzigen
                         </x-form.modal-button>
                     </div>
-
+                    <div>
+                        <a href=""  class="btn btn-primary float-right"> Nu Reageren</a>
+                    </div>
                 </div>
             </x-slot>
         </x-cards.cardwfull>
