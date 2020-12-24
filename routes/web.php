@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\DocentController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProgramController;
 
-use App\Http\Controllers\CVController;
+use App\Http\Controllers\CvController;
 
 use App\Http\Controllers\StageBedrijvenController;
 
@@ -44,8 +45,10 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
-        Route::get('dashboard', [PagesController::class, 'index'])->name('dashboard');
-        Route::resource('cv', CVController::class);
+//        Route::get('dashboard', [PagesController::class, 'index'])->name('dashboard');
+        Route::resource('cv', CvController::class);
+        Route::resource('dashboard', PagesController::class );
+        Route::resource('docent', DocentController::class);
 
     });
 });
