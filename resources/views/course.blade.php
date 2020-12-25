@@ -16,7 +16,14 @@
     </div>
 
 {{--    <x-cards.accordion>--}}
-{{--        @foreach($areas as $area)--}}
+{{--        @foreach($years as $courses)--}}
+
+{{--        @endforeach--}}
+{{--    </x-cards.accordion>--}}
+
+{{--@dd($years)--}}
+{{--    <x-cards.accordion>--}}
+{{--        @foreach($courses as $course)--}}
 {{--            <x-cards.accordioncard order="{{$area->id}}" collapsed="{{$area === $areas[0]?'false':'true'}}">--}}
 {{--                <x-slot name="btnTxt">--}}
 {{--                    {{$area->title}}--}}

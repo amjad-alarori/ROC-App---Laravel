@@ -16,7 +16,6 @@ class ProgramController extends Controller
      */
     public function index()
     {
-//        $areas = ProgramArea::with('programs')->get()->sortBy('title')->sortBy('program.code');
         $areas = ProgramArea::with('programs')->has('programs','>','0')->get()->sortBy('title')->sortBy('program.code');
 
         return view('programs',['areas'=>$areas]);

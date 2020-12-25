@@ -21358,8 +21358,7 @@ $('.ModalButton').click(function () {
     success: function success(response) {
       var modal = $('#formModal');
       modal.find('.modal-body').html(response);
-      modal.modal('show');
-      modal.find('input[type="text"]').first().focus();
+      modal.modal('show'); // modal.find('input[type != "hidden"]').first().focus()
     }
   });
 });
@@ -21425,6 +21424,7 @@ $('.modal').on('shown.bs.modal', function (e) {
   st.select2({
     tags: false
   });
+  $('#formModal').find('input[type != "hidden"]').first().focus();
 });
 
 /***/ }),

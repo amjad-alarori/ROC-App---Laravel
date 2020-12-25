@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Campus;
 use App\Models\Course;
 use App\Models\Program;
+use App\Models\ProgramArea;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
@@ -16,17 +18,20 @@ class CourseController extends Controller
      * @param Campus|null $campus
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
-    public function index($studyYear = null, Campus $campus = null)
+    public function index()
     {
-        if (!is_null($studyYear)):
-            $courses = Course::query()->where('study_year', '=', $studyYear)->get();
-        elseif (!is_null($campus)):
-            $courses = $campus->courses()->orderBy('study_year', 'desc');
-        else:
-            $courses = Course::all();
-        endif;
+//        $areas = ProgramArea::with('programs')->has('programs','>','0')->whereHas()->sortBy('title')->sortBy('program.code');
 
-        return view('course', ['courses' => $courses]);
+        $yearArray =Course::query()->distinct('study_year')->pluck('study_year') ;
+
+
+        $years = Course::with(['program'=>function($query){
+            $query->with('area')->get();
+        }])->get()->groupBy('study_year');
+
+        dd($yearArray, $years);
+
+        return view('course', ['years' => $years]);
     }
 
     /**
@@ -45,21 +50,42 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $request->validate([
-            'year' => ['required', 'integer', 'between:' . date('Y') - 4 . ',9999'],
-            'program' => ['required', 'integer', 'exists:programs,id'],
-            'campus' => ['required', 'integer', 'exists: campuses,id']
+            'year' =>
+                [
+                    'required',
+                    'integer',
+                    'between:' . (date('Y') - 4) . ',9999'
+                ],
+            'program' =>
+                [
+                    'required',
+                    'integer',
+                    'exists:programs,id',
+                    Rule::unique('courses', 'program_id')->where(function ($q) use ($request) {
+                        return $q->where('study_year', $request['year']);
+                    })
+                ],
+            'campus' =>
+                [
+                    'required',
+                    'integer',
+                    'exists:campuses,id'
+                ]
         ]);
 
-        Course::create([
-            'study_year'=>$request['year'],
+        $course = new Course;
 
-        ]);
+        $course->study_year = $request['year'];
+        $course->program_id = $request['program'];
+        $course->campus_id = $request['campus'];
+        $course->save();
 
+        return response()->json(['url' => route('course.show', [$course])]);
     }
 
     /**
@@ -70,7 +96,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        dd($course);
     }
 
     /**
