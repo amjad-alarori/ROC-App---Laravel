@@ -101,9 +101,9 @@
             <x-slot name="footer">
                 <div class="row justify-content-end">
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <form method="POST" action="">
-{{--                            @csrf--}}
-{{--                            @method('DELETE')--}}
+                        <form method="POST" action="{{route('stage.destroy', ['stageBedrijven'=> $company, 'stage'=> $stage])}}">
+                            @csrf
+                            @method('DELETE')
                             <input type="submit" class="btn btn-danger btn-block float-right"
                                    value="Verwijderen"></input>
                         </form>

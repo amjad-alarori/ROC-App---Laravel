@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -16,8 +17,7 @@ class StageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return Application|Factory|View|Response
+     * @return void
      */
     public function index()
     {
@@ -77,7 +77,7 @@ class StageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\stage $stage
+     * @param stage $stage
      * @return void
      */
     public function show(stage $stage)
@@ -88,7 +88,7 @@ class StageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\stage  $stage
+     * @param stage $stage
      * @return Response
      */
     public function edit(stage $stage)
@@ -100,7 +100,7 @@ class StageController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Models\stage  $stage
+     * @param stage $stage
      * @return Response
      */
     public function update(Request $request, stage $stage)
@@ -111,11 +111,16 @@ class StageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\stage  $stage
-     * @return Response
+     * @param stage $stage
+     * @param StageBedrijven $company
+     * @return RedirectResponse
+     * @throws \Exception
      */
-    public function destroy(stage $stage)
+    public function destroy(stageBedrijven $stageBedrijven, Stage $stage)
     {
-        //
+
+        $stage->delete();
+
+        return redirect()->back();
     }
 }
