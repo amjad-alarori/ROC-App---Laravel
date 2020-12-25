@@ -4,11 +4,11 @@
 @csrf
 
 <div class="col-span-6 sm:col-span-4 mt-1">
-    <x-jet-label for="funcite" value="{{ __('Funcite') }}"/>
-    <x-jet-input id="funcite" name="Funcite" value="{{optional($company)->functie}}"
+    <x-jet-label for="functie" value="{{ __('Funcite') }}"/>
+    <x-jet-input id="functie" name="functie" value="{{optional($company)->functie}}"
                  type="text" class="mt-1 block w-full"
-                 autocomplete="funcite" required/>
-    <x-jet-input-error for="funcite" class="valErr mt-2"/>
+                 autocomplete="functie" required/>
+    <x-jet-input-error for="functie" class="valErr mt-2"/>
 </div>
 
 <div class="col-span-6 sm:col-span-4 mt-3">
@@ -35,14 +35,14 @@
 
 <div class="form-row col-span-6 sm:col-span-4 mt-3">
     <x-jet-label for="start" value="{{ __('Start datum') }}"/>
-    <x-jet-input id="start" name="start" value="{{optional($company)->start_datum}}"
+    <x-jet-input id="start" name="start_datum" value="{{optional($company)->start_datum}}"
                  type="date" class="mt-1 block w-full"
                  autocomplete="start" required/>
     <x-jet-input-error for="start" class="valErr mt-2"/>
 </div>
     <div class="form-row col-span-6 sm:col-span-4 mt-3">
         <x-jet-label for="eind" value="{{ __('Eind datum') }}"/>
-        <x-jet-input id="eind" name="eind" value="{{optional($company)->eind_datum}}"
+        <x-jet-input id="eind" name="eind_datum" value="{{optional($company)->eind_datum}}"
                      type="date" class="mt-1 block w-full"
                      autocomplete="eind" required/>
         <x-jet-input-error for="eind" class="valErr mt-2"/>

@@ -43,7 +43,7 @@ class StageController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, StageBedrijven $stageBedrijven)
     {
         $request->validate([
             'functie' => ['string', 'required'],
@@ -66,11 +66,12 @@ class StageController extends Controller
             'wat_te_doen' => $request['wat_te_doen'],
             'werkzaamheden' => $request['werkzaamheden'],
             'wat_zoeken_wij' => $request['wat_zoeken_wij'],
+            'stageBedrijf_id' => $stageBedrijven->id
         ]);
 
         $stage_plek->save();
 
-        return response()->json(['url' => route('stage.index')]);
+        return response()->json(['url' => route('stageBedrijven.show',['stageBedrijven'=>$stageBedrijven])]);
     }
 
     /**

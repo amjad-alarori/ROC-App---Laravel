@@ -18,6 +18,7 @@ class stage extends Model
         'wat_te_doen',
         'werkzaamheden',
         'wat_zoeken_wij',
+        'stageBedrijf_id',
     ];
 
     public function stageBedrijven()
