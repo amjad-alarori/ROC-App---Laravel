@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Campus;
 use App\Models\Course;
 use App\Models\Program;
-use App\Models\ProgramArea;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -20,18 +19,36 @@ class CourseController extends Controller
      */
     public function index()
     {
-//        $areas = ProgramArea::with('programs')->has('programs','>','0')->whereHas()->sortBy('title')->sortBy('program.code');
+        $yearArray = Course::query()->distinct('study_year')->pluck('study_year');
+        $years = [];
+        $areas = [];
 
-        $yearArray =Course::query()->distinct('study_year')->pluck('study_year') ;
+        foreach ($yearArray as $year):
+            $programsColl = Program::query()->with('courses')->whereHas('courses', function ($query) use ($year) {
+                $query->where('study_year', '=', $year);
+            }, '>', '0')->get();
 
+            $programs = [];
+            foreach ($programsColl as $program):
+                $courses = Course::with('program')
+                    ->where('study_year', '=', $year)
+                    ->where('program_id', '=', $program->id)->get();
 
-        $years = Course::with(['program'=>function($query){
-            $query->with('area')->get();
-        }])->get()->groupBy('study_year');
+                foreach ($courses as $course):
+                    $programs['area' . $program->area_id]['prog' . $course->id] = $course;
+                endforeach;
 
-        dd($yearArray, $years);
+                if (!array_key_exists($program->area_id, $areas)) {
+                    $areas['area' . $program->area_id] = $program->area;
+                }
+            endforeach;
 
-        return view('course', ['years' => $years]);
+            $years['year' . $year] = $programs;
+        endforeach;
+
+//        dd($years);
+
+        return view('course', ['years' => $years, 'areas' => $areas]);
     }
 
     /**
@@ -61,20 +78,20 @@ class CourseController extends Controller
                     'integer',
                     'between:' . (date('Y') - 4) . ',9999'
                 ],
+            'campus' =>
+                [
+                    'required',
+                    'integer',
+                    'exists:campuses,id'
+                ],
             'program' =>
                 [
                     'required',
                     'integer',
                     'exists:programs,id',
                     Rule::unique('courses', 'program_id')->where(function ($q) use ($request) {
-                        return $q->where('study_year', $request['year']);
+                        return $q->where('study_year', $request['year'])->where('campus_id', $request['campus']);
                     })
-                ],
-            'campus' =>
-                [
-                    'required',
-                    'integer',
-                    'exists:campuses,id'
                 ]
         ]);
 
@@ -103,11 +120,13 @@ class CourseController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Course $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Course $course)
     {
-        //
+        $programs = Program::all();
+        $campuses = Campus::all();
+        return view('course.edit', ['programs' => $programs, 'campuses' => $campuses, 'course' => $course]);
     }
 
     /**
@@ -115,21 +134,51 @@ class CourseController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Course $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $request->validate([
+            'year' =>
+                [
+                    'required',
+                    'integer',
+                    'between:' . (date('Y') - 4) . ',9999'
+                ],
+            'campus' =>
+                [
+                    'required',
+                    'integer',
+                    'exists:campuses,id'
+                ],
+            'program' =>
+                [
+                    'required',
+                    'integer',
+                    'exists:programs,id',
+                    Rule::unique('courses', 'program_id')->where(function ($q) use ($request) {
+                        return $q->where('study_year', $request['year'])->where('campus_id', $request['campus']);
+                    })->ignore($course)
+                ]
+        ]);
+
+        $course->study_year = $request['year'];
+        $course->program_id = $request['program'];
+        $course->campus_id = $request['campus'];
+        $course->update();
+
+        return response()->json(['url' => route('course.index')]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Course $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return redirect()->back();
     }
 }

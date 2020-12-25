@@ -62,6 +62,7 @@
                                         </x-form.modal-button>
                                     </div>
                                 </div>
+                            </div>
                         </li>
                     @endforeach
                 </ul>

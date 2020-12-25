@@ -1,3 +1,3 @@
-<div id="accordionComp" {{$attributes}}>
+<div id="{{$compId}}" {{$attributes}}>
     {{$slot}}
 </div>
