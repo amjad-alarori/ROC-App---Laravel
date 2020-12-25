@@ -2,15 +2,14 @@
 
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
-
 use App\Http\Controllers\CVController;
-
 use App\Http\Controllers\StageBedrijvenController;
-
 use App\Http\Controllers\StageController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Middleware\Authenticate;
-use App\Models\StageBedrijven;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +31,22 @@ Route::group(['middleware' => 'web'], function () {
 
 
     Route::view('studentDashboard','studentDashboard');
+
+
+
     Route::resource('campus',CampusController::class);
     Route::resource('program',ProgramController::class);
+    Route::resource('subject',SubjectController::class);
+    Route::resource('competence',CompetenceController::class);
+    Route::resource('course',CourseController::class);
+    Route::prefix('course/{course}')->group(function (){
+
+
+
+    });
+
+
+
 
 
 
