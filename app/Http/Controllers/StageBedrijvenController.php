@@ -91,12 +91,14 @@ class StageBedrijvenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param StageBedrijven $company
+     * @param StageBedrijven $stageBedrijven
      * @return void
      */
     public function show(StageBedrijven $stageBedrijven)
     {
-        $stages = Stage::all();
+
+        $stages = Stage::query()->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
+
 
         return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
     }

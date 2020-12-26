@@ -21,6 +21,9 @@ class stage extends Model
         'stageBedrijf_id',
     ];
 
+
+
+
     public function stageBedrijven()
     {
         return $this->belongsTo(StageBedrijven::class,'stageBedrijf_id','id');

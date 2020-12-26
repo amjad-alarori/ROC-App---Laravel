@@ -110,7 +110,7 @@
                     </div>
 
                     <div class="col-sm-4 col-md-3 col-lg-2">
-                        <x-form.modal-button data-target="#formModal" data-url=""
+                        <x-form.modal-button data-target="#formModal" data-url="{{route('stage.edit',['stageBedrijven'=>$company, 'stage'=> $stage])}}"
                                              class="btn btn-warning btn-block float-right">Wijzigen
                         </x-form.modal-button>
                     </div>

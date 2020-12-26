@@ -89,11 +89,11 @@ class StageController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param stage $stage
-     * @return Response
+     * @return Application|Factory|View|Response
      */
-    public function edit(stage $stage)
+    public function edit(stageBedrijven $stageBedrijven, Stage $stage)
     {
-        //
+        return view('stageEdit', ['stageBedrijven'=>$stageBedrijven, 'stage'=>$stage]);
     }
 
     /**
@@ -103,9 +103,36 @@ class StageController extends Controller
      * @param stage $stage
      * @return Response
      */
-    public function update(Request $request, stage $stage)
+    public function update(Request $request, stage $stage_plek)
     {
-        //
+        {
+            $request->validate([
+                'functie' => ['string', 'required'],
+                'leerweg' => ['string', 'required'],
+                'aantal_plaatsen' => ['integer', 'required'],
+                'start_datum' => ['date', 'required'],
+                'eind_datum' => ['date', 'required'],
+                'wat_te_doen' => ['string', 'required'],
+                'werkzaamheden'=>['string', 'required'],
+                'wat_zoeken_wij' =>['string', 'required'],
+            ]);
+
+            $stage_plek->fill([
+                'functie' => $request['functie'],
+                'leerweg' => $request['leerweg'],
+                'aantal_plaatsen' => $request['aantal_plaatsen'],
+                'start_datum' => $request['start_datum'],
+                'eind_datum' => $request['eind_datum'],
+                'wat_te_doen' => $request['wat_te_doen'],
+                'werkzaamheden' => $request['werkzaamheden'],
+                'wat_zoeken_wij' => $request['wat_zoeken_wij'],
+            ]);
+
+            $stage_plek->update();
+
+//        return redirect(route('stageBedrijven.index'));
+            return response()->json(['url' => route('stageBedrijven.show'),]);
+        }
     }
 
     /**
