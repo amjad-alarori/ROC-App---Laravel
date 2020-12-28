@@ -28,4 +28,10 @@ class stage extends Model
     {
         return $this->belongsTo(StageBedrijven::class,'stageBedrijf_id','id');
     }
+
+    public function user(){
+
+        return $this->belongsToMany(User::class);
+
+    }
 }

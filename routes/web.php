@@ -54,6 +54,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('stageBedrijven',StageBedrijvenController::class);
     Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
         Route::resource('stage', StageController::class);
+
     });
 
 

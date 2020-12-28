@@ -17,11 +17,11 @@ class StageController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param StageBedrijven $stageBedrijven
+     * @param stage $stage
      * @return void
      */
-    public function index()
-    {
-
+    public function index(){
 
     }
 
@@ -78,11 +78,16 @@ class StageController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param StageBedrijven $stageBedrijven
      * @param stage $stage
      * @return void
      */
-    public function show(stage $stage)
+    public function show(StageBedrijven $stageBedrijven, stage $stage)
     {
+
+        $user = auth()->user();
+        $user->stage()->attach($stage);
+        return redirect()->back();
 
     }
 
@@ -141,8 +146,8 @@ class StageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param StageBedrijven $stageBedrijven
      * @param stage $stage
-     * @param StageBedrijven $company
      * @return RedirectResponse
      * @throws \Exception
      */
