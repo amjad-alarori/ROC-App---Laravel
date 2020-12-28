@@ -21388,13 +21388,43 @@ $(document).on('submit', '.AjaxForm', function (e) {
       var errors = response.responseJSON.errors;
 
       for (var key in errors) {
-        $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+        if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
+          $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+        } else {
+          $('#' + key).select2({
+            'containerCssClass': 'is-invalid'
+          }).parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+        }
       }
     }
   });
 });
 $('.modal').on('hidden.bs.modal', function (e) {
   $(this).find('.modal-body').html('');
+});
+$('.modal').on('shown.bs.modal', function (e) {
+  var st = $(this).find('.select2.multiselect');
+  st.select2({
+    tags: true,
+    createTag: function createTag(params) {
+      var term = $.trim(params.term);
+
+      if (term === '') {
+        return null;
+      }
+
+      return {
+        id: 'new,' + term,
+        text: 'nieuw: ' + term,
+        newTag: true // add additional parameters
+
+      };
+    }
+  });
+  st = $(this).find('.select2.single2');
+  st.select2({
+    tags: false
+  });
 });
 
 /***/ }),

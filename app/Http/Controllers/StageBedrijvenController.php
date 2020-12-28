@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\stage;
 use App\Models\StageBedrijven;
 use App\Models\User;
 use Exception;
@@ -12,11 +13,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Hash;
 
 class StageBedrijvenController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -82,6 +83,8 @@ class StageBedrijvenController extends Controller
             'email' => $request['email'],
             'password' => 'newuser',
         ]);
+
+
 //        return redirect(route('stageBedrijven.index'));
 
         return response()->json(['url' => route('stageBedrijven.index')]);
@@ -90,12 +93,16 @@ class StageBedrijvenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param StageBedrijven $company
+     * @param StageBedrijven $stageBedrijven
      * @return void
      */
-    public function show(StageBedrijven $company)
+    public function show(StageBedrijven $stageBedrijven)
     {
-        //
+
+        $stages = Stage::query()->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
+
+
+        return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
     }
 
     /**
@@ -154,4 +161,6 @@ class StageBedrijvenController extends Controller
         $stageBedrijven->delete();
         return redirect()->back();
     }
+
+
 }

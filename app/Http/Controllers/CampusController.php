@@ -45,7 +45,7 @@ class CampusController extends Controller
             'house_nr_addition' => ['string', 'nullable'],
             'zip_code' => ['string', 'required'],
             'city' => ['string', 'required'],
-            'email' => ['string', 'required'],
+            'email' => ['email', 'required'],
             'phone_nr' => ['string', 'required'],
         ]);
 

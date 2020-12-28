@@ -60,4 +60,12 @@ class User extends Authenticatable
     ];
 
 
+
+
+    public function stage(){
+
+        return $this->belongsToMany(stage::class);
+
+    }
+
 }

@@ -50,6 +50,7 @@
 </div>
 
     <div class="form-row col-span-6 sm:col-span-4 mt-3">
+
         <x-jet-label for="contact_persoon" value="{{ __('Contact persoon') }}"/>
         <x-jet-input id="contact_persoon" name="contact_persoon" value=""
                      type="text" class="mt-1 block w-full"

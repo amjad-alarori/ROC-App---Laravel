@@ -4,7 +4,7 @@ $('#openNavButton').on('click', function () {
     document.getElementById('darkMain').style.display = 'block';
 })
 
-$('#closeNavButton').on('click',function (){
+$('#closeNavButton').on('click', function () {
     document.getElementById("mainSidenav").style.width = "0";
     document.getElementById("main").style.paddingLeft = "150px";
     document.getElementById('darkMain').style.display = 'none';
@@ -39,16 +39,24 @@ $(document).on('submit', '.AjaxForm', function (e) {
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data: _this.serialize(),
         success: function (response) {
-            if(response.url) {
+            if (response.url) {
                 window.location.href = response.url;
             }
         },
         error: function (response, textStatus, errorThrown) {
             let errors = response.responseJSON.errors
-            for(var key in errors) {
-                $('[name=' + key + ']')
-                    .addClass('is-invalid')
-                    .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+            for (var key in errors) {
+
+                if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2')==false) {
+                    $('[name=' + key + ']')
+                        .addClass('is-invalid')
+                        .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                } else {
+                    $('#' + key).select2({
+                        'containerCssClass': 'is-invalid',
+                    })
+                        .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                }
             }
         }
     })
@@ -57,4 +65,29 @@ $(document).on('submit', '.AjaxForm', function (e) {
 
 $('.modal').on('hidden.bs.modal', function (e) {
     $(this).find('.modal-body').html('')
+});
+
+$('.modal').on('shown.bs.modal', function (e) {
+    let st = $(this).find('.select2.multiselect');
+    st.select2({
+        tags: true,
+        createTag: function (params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+
+            return {
+                id: 'new,' + term,
+                text: 'nieuw: ' + term,
+                newTag: true // add additional parameters
+            }
+        }
+    });
+
+    st = $(this).find('.select2.single2');
+    st.select2({
+        tags: false,
+    });
 });
