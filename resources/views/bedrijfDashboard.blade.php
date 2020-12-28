@@ -115,7 +115,7 @@
                         </x-form.modal-button>
                     </div>
                     <div>
-                        <a href=""  class="btn btn-primary float-right"> Nu Reageren</a>
+                        <a href="#"  class="btn btn-primary float-right"> Nu Reageren</a>
                     </div>
                 </div>
             </x-slot>

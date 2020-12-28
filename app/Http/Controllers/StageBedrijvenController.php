@@ -83,6 +83,8 @@ class StageBedrijvenController extends Controller
             'email' => $request['email'],
             'password' => 'newuser',
         ]);
+
+
 //        return redirect(route('stageBedrijven.index'));
 
         return response()->json(['url' => route('stageBedrijven.index')]);
