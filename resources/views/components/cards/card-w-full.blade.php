@@ -7,7 +7,9 @@
             {{ $slot }}
         </div>
     </div>
+    @if($withFoot)
     <div class="card-footer" style="background-color: white">
         {{ $footer }}
     </div>
+    @endif
 </div>

@@ -46,16 +46,26 @@ $(document).on('submit', '.AjaxForm', function (e) {
         error: function (response, textStatus, errorThrown) {
             let errors = response.responseJSON.errors
             for (var key in errors) {
+                // if (key.search(/[.]\d/g)>-1){
+                if (key.search(".0")>-1){
+                    key = key.substr(0,key.search(/[.]\d/g));
+                    let errorTxt = 'er is iets misgegaan, venieuw de pagina en probeer het opnieuw.';
 
-                if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
-                    $('[name=' + key + ']')
-                        .addClass('is-invalid')
-                        .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
-                } else {
                     $('#' + key).select2({
                         'containerCssClass': 'is-invalid',
                     })
-                        .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                        .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errorTxt + '</p>')
+                }else {
+                    if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
+                        $('[name=' + key + ']')
+                            .addClass('is-invalid')
+                            .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                    } else {
+                        $('#' + key).select2({
+                            'containerCssClass': 'is-invalid',
+                        })
+                            .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                    }
                 }
             }
         }

@@ -1,6 +1,17 @@
 <form method="POST" class="AjaxForm" action="{{route('semester.store',['program'=>$program])}}">
     @csrf
 
+    @error('periodNr')
+    <p class="text-sm text-red-600">{{ $message }}</p>
+    @enderror
+    @error('subject')
+    <p class="text-sm text-red-600">{{ $message }}</p>
+    @enderror
+    {{--        @dd($errors)--}}
+    @error('subjects.*')
+    <p class="text-sm text-red-600">{{ $message }}</p>
+    @enderror
+
     @include('semester.form', ['program'=>$program,'semester' => null])
 
     <div class="modal-footer mt-4">

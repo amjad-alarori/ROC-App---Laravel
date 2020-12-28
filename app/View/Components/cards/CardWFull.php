@@ -7,15 +7,21 @@ use Illuminate\View\Component;
 class CardWFull extends Component
 {
     protected $title;
+    /**
+     * @var bool
+     */
+    private $withFoot;
 
     /**
      * Create a new component instance.
      *
      * @param $title
+     * @param bool $withFoot
      */
-    public function __construct($title)
+    public function __construct($title, $withFoot=true)
     {
         $this->title=$title;
+        $this->withFoot = $withFoot;
     }
 
     /**
@@ -25,6 +31,6 @@ class CardWFull extends Component
      */
     public function render()
     {
-        return view('components.cards.card-w-full',['title'=>$this->title]);
+        return view('components.cards.card-w-full',['title'=>$this->title, 'withFoot'=>$this->withFoot]);
     }
 }

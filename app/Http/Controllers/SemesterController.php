@@ -6,6 +6,7 @@ use App\Models\Program;
 use App\Models\Semester;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class SemesterController extends Controller
 {
@@ -17,7 +18,22 @@ class SemesterController extends Controller
      */
     public function index(Program $program)
     {
-        return view('programPlanning', ['program' => $program]);
+
+        $semesters = [];
+        foreach ($program->semesters as $semester):
+            if (!array_key_exists($semester->semester, $semesters)):
+                $semesters[$semester->semester] = [];
+            endif;
+
+            if (!array_key_exists($semester->period, $semesters[$semester->semester])):
+                $semesters[$semester->semester][$semester->period] = [];
+                ksort($semesters[$semester->semester]);
+            endif;
+
+            array_push($semesters[$semester->semester][$semester->period], $semester->load('subject'));
+        endforeach;
+
+        return view('programPlanning', ['program' => $program, 'semesters'=>$semesters]);
     }
 
     /**
@@ -29,12 +45,12 @@ class SemesterController extends Controller
      */
     public function create(Request $request, Program $program)
     {
-        $subjects = Subject::query()->where('program_id',null)->union($program->subjects())->get();
+        $subjects = Subject::query()->where('program_id', null)->union($program->subjects())->get();
 
         if ($request->has('stage')):
-            return view('semester.stageCreate',['program'=>$program,'subjects'=>$subjects]);
+            return view('semester.stageCreate', ['program' => $program, 'subjects' => $subjects]);
         else:
-            return view('semester.create',['program'=>$program,'subjects'=>$subjects]);
+            return view('semester.create', ['program' => $program, 'subjects' => $subjects]);
         endif;
     }
 
@@ -42,11 +58,46 @@ class SemesterController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Program $program
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, Program $program)
     {
-        dd($request);
+        $rule = [
+            'semester' => ['required', 'integer', 'between:1,' . $program->length * 2],
+            'subjects' => ['required', 'array', 'min:1'],
+            'subjects.*' => ['exists:subjects,id'],
+        ];
+
+        if ($request->has('period')):
+            $rule['period'] = ['required', Rule::in(['on'])];
+            $rule['periodNr'] = ['required', Rule::in([1, 2])];
+        endif;
+
+        $request->validate($rule);
+
+        foreach ($request['subjects'] as $subject):
+            $periodeNr = $request['periodNr'] == null ? 1 : $request['periodNr'];
+
+            $duplCount = Semester::query()
+                ->where('semester', '=', $request['semester'])
+                ->where('period', '=', $periodeNr)
+                ->where('subject_id', '=', $subject)->count();
+
+            if ($duplCount == 0):
+                $semester = new Semester();
+                $semester->semester = $request['semester'];
+                $semester->period = $periodeNr;
+                $semester->program_id = $program->id;
+                $semester->subject_id = $subject;
+
+                $semester->save();
+            endif;
+        endforeach;
+
+        return response()->json([
+            'url' => route('semester.index', ['program' => $program])]);
+
     }
 
     /**
@@ -63,10 +114,11 @@ class SemesterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Program $program
      * @param \App\Models\Semester $semester
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function edit(Semester $semester)
+    public function edit(Program $program, Semester $semester)
     {
         //
     }
@@ -75,10 +127,11 @@ class SemesterController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     * @param Program $program
      * @param \App\Models\Semester $semester
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function update(Request $request, Semester $semester)
+    public function update(Request $request,Program $program,  Semester $semester)
     {
         //
     }
@@ -86,11 +139,13 @@ class SemesterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Program $program
      * @param \App\Models\Semester $semester
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Semester $semester)
+    public function destroy(Program $program, Semester $semester)
     {
-        //
+        $semester->delete();
+        return redirect()->back();
     }
 }
