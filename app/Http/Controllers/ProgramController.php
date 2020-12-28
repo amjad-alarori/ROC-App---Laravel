@@ -68,11 +68,11 @@ class ProgramController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Program $program)
     {
-        //
+        return redirect()->back();
     }
 
     /**

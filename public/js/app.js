@@ -21425,6 +21425,15 @@ $('.modal').on('shown.bs.modal', function (e) {
     tags: false
   });
   $('#formModal').find('input[type != "hidden"]').first().focus();
+  $('input[type=checkbox].hider').click(function () {
+    var hiding = $('input[type=checkbox].hider').siblings('.hiding');
+
+    if (this.checked) {
+      hiding.removeClass('d-none');
+    } else {
+      hiding.addClass('d-none');
+    }
+  });
 });
 
 /***/ }),

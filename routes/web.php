@@ -6,6 +6,8 @@ use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CVController;
+use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\Stage;
 use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Middleware\Authenticate;
@@ -35,6 +37,10 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::resource('campus',CampusController::class);
     Route::resource('program',ProgramController::class);
+    Route::prefix('program/{program}')->group(function (){
+        Route::resource('semester',SemesterController::class);
+        Route::resource('stage',Stage::class);
+    });
     Route::resource('subject',SubjectController::class);
     Route::resource('competence',CompetenceController::class);
     Route::resource('course',CourseController::class);

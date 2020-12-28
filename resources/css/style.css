@@ -266,17 +266,6 @@ div.container-fluid#main{
     background-color: grey;
 }
 
-
-
-
-
-
-.card-title{
-    font-weight: 700 !important;
-    margin-top: 10px;
-    color: #3c4858;
-    font-family: Roboto Slab,Times New Roman,serif;
-}
 .card-profile {
     border: 0;
     margin-bottom: 30px;
@@ -289,14 +278,6 @@ div.container-fluid#main{
     text-align: center;
 }
 
-.card-profile .card-body{
-    padding: .9375rem 1.875rem;
-}
-
-.card-description{
-    color: #999;
-}
-
 .card.card-profile .card-header.card-header-image {
     position: relative;
     padding: 0;
@@ -306,10 +287,6 @@ div.container-fluid#main{
     margin-top: -30px;
     border-radius: 6px;
     max-height: 215px;
-}
-
-.card.card-profile .card-header.card-header-image a {
-    display: block;
 }
 
 .card.card-profile .card-header.card-header-image img {
@@ -333,15 +310,16 @@ div.container-fluid#main{
     opacity: 1;
 }
 
-.card.card-profile .card-header.card-header-image .card-title {
-    position: absolute;
-    bottom: 5px;
-    left: 15px;
-    color: #fff;
-    font-size: 1.125rem;
-    text-shadow: 0 2px 5px rgba(33,33,33,.5);
-    font-weight: 700;
-    font-family: 'Roboto Slab';
+.card-profile .card-body{
+    padding: .9375rem 1.875rem;
+    margin-top: 15px;
+}
+
+.card-profile .card-title{
+    font-weight: 700 !important;
+    margin-top: 10px;
+    color: #3c4858;
+    font-family: Roboto Slab,Times New Roman,serif;
 }
 
 .card.card-profile .card-category {
@@ -353,6 +331,7 @@ div.container-fluid#main{
     padding-top: 0;
     border: 0;
     border-radius: 6px;
+    margin-top: -15px;
 }
 
 .card.card-profile .card-footer {
@@ -360,6 +339,7 @@ div.container-fluid#main{
     align-items: center;
     background-color: transparent;
     border: 0;
+    padding: .9375rem 1.875rem;
 }
 
 .card-profile .card-footer .btn.btn-just-icon{
@@ -368,32 +348,3 @@ div.container-fluid#main{
     line-height: 1em;
 }
 
-.card.card-profile .card-footer {
-    padding: .9375rem 1.875rem;
-}
-
-
-.card-profile .card-body+.card-footer{
-    margin-top: -15px;
-}
-.card.card-profile .text-info {
-    color: #00bcd4!important;
-}
-
-.card-profile .card-avatar {
-    width: 130px;
-    max-width: 130px;
-    max-height: 130px;
-    margin: -50px auto 0;
-    border-radius: 50%;
-    overflow: hidden;
-    padding: 0;
-    box-shadow: 0 16px 38px -12px rgba(0,0,0,.56), 0 4px 25px 0 rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
-}
-
-.card-profile .card-avatar img{
-    width: 100%;
-}
-.card-profile .card-avatar+.card-body{
-    margin-top: 15px;
-}

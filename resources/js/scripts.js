@@ -47,7 +47,7 @@ $(document).on('submit', '.AjaxForm', function (e) {
             let errors = response.responseJSON.errors
             for (var key in errors) {
 
-                if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2')==false) {
+                if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
                     $('[name=' + key + ']')
                         .addClass('is-invalid')
                         .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
@@ -92,4 +92,17 @@ $('.modal').on('shown.bs.modal', function (e) {
     });
 
     $('#formModal').find('input[type != "hidden"]').first().focus()
+
+
+    $('input[type=checkbox].hider').click(function (){
+        let hiding = $('input[type=checkbox].hider').siblings('.hiding');
+
+        if (this.checked){
+            hiding.removeClass('d-none');
+        }else{
+            hiding.addClass('d-none');
+        }
+    })
+
 });
+

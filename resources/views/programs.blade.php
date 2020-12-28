@@ -61,6 +61,13 @@
                                                style="font-size:20px; color: orange"></i>
                                         </x-form.modal-button>
                                     </div>
+                                    <div class="float-right">
+                                        <a href="{{route('semester.index', ['program'=>$program])}}"
+                                           class="btn btn-block">
+                                            <i class='far fa-calendar-alt'
+                                               style="font-size:20px; color: forestgreen"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </li>

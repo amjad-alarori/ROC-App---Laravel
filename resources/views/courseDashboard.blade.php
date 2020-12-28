@@ -34,63 +34,32 @@
             </div>
         </div>
     </div>
-    <div class="row py-4 px-2">
+    <div class="row py-4 px-2 d-flex justify-content-around">
         <div class="col-md-4">
-            <div class="card card-profile">
-                <div class="card-header card-header-image">
-                    <a href="#">
-                        <img class="img" src="{{asset('images/rocafbeelding3.jpg')}}">
-                    </a>
-                    <div class="colored-shadow"
-                         style="background-image: url('{{asset("images/rocafbeelding3.jpg")}}'); opacity: 1;"></div>
-                </div>
-                <div class="card-body ">
-                    <h4 class="card-title">Studenten</h4>
-                    <h6 class="card-category text-gray">student management paneel</h6>
-
-
-                </div>
-                <div class="card-footer justify-content-center">
-                    <a href="#" class="btn btn-just-icon btn-twitter btn-round">
-                        <i class="fas fa-users"></i>
-                        <div class="ripple-container">lijst</div>
-                    </a>
-                    <a href="#" class="btn btn-just-icon btn-twitter btn-round">
-                        <i class="fas fa-medkit"></i>
-                        <div class="ripple-container">stages</div>
-                    </a>
-                </div>
-            </div>
+            <x-cards.profile-card title="Studenten" cardImage="images/rocafbeelding3.jpg">
+                <x-slot name="descrition">
+                    student management paneel
+                </x-slot>
+                <a href="#" class="btn btn-just-icon btn-round">
+                    <i class="fas fa-users"></i>
+                    <div class="ripple-container">lijst</div>
+                </a>
+                <a href="#" class="btn btn-just-icon btn-round">
+                    <i class="fas fa-medkit"></i>
+                    <div class="ripple-container">stages</div>
+                </a>
+            </x-cards.profile-card>
         </div>
         <div class="col-md-4">
-            <div class="card card-profile">
-                <div class="card-header card-header-image">
-                    <a href="#">
-                        <img class="img" src="{{asset('images/studievakken.jpg')}}">
-                    </a>
-                    <div class="colored-shadow"
-                         style="background-image: url('{{asset("images/studievakken.jpg")}}'); opacity: 1;"></div>
-                </div>
-                <div class="card-body ">
-                    <h4 class="card-title">Semesters</h4>
-                    <h6 class="card-category text-gray">studievakken en stages</h6>
-
-
-                </div>
-                <div class="card-footer justify-content-center">
-                    <a href="#" class="btn btn-just-icon btn-twitter btn-round">
-                        <i class="fas fa-users"></i>
-                        <div class="ripple-container">lijst</div>
-                    </a>
-                    <a href="#" class="btn btn-just-icon btn-twitter btn-round">
-                        <i class="fas fa-medkit"></i>
-                        <div class="ripple-container">stages</div>
-                    </a>
-                </div>
-            </div>
+            <x-cards.profile-card title="Semesters" cardImage="images/studievakken.jpg">
+                <x-slot name="descrition">
+                    studievakken en stages
+                </x-slot>
+                <a href="#" class="btn btn-just-icon btn-twitter btn-round">
+                    <i class="far fa-calendar-alt"></i>
+                    <div class="ripple-container">semesters</div>
+                </a>
+            </x-cards.profile-card>
         </div>
     </div>
-
-
-
 @endsection

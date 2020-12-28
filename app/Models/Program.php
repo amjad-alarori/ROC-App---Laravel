@@ -30,7 +30,11 @@ class Program extends Model
 
     public function Subjects()
     {
-        return $this->hasMany(Subject::class,'program_id','id')
-            ->union(Subject::query()->where('program_id','=',null))->get();
+        return $this->hasMany(Subject::class,'program_id','id');
+    }
+
+    public function semesters()
+    {
+        return $this->hasMany(Semester::class,'program_id','id');
     }
 }

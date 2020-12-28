@@ -83,14 +83,14 @@
                                                     <div class="float-right">
                                                         <x-form.modal-button data-target="#formModal"
                                                                              data-url="{{route('course.edit',['course'=>$course])}}"
-                                                                             class="btn btn-block float-right">
+                                                                             class="btn btn-block">
                                                             <i class='fas fa-pencil-alt'
                                                                style="font-size:20px; color: orange"></i>
                                                         </x-form.modal-button>
                                                     </div>
                                                     <div class="float-right">
                                                         <a href="{{route('course.show', ['course'=>$course])}}"
-                                                           class="btn btn-block float-right">
+                                                           class="btn btn-block">
                                                             <i class='far fa-folder-open'
                                                                style="font-size:20px; color: forestgreen"></i>
                                                         </a>
