@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cv;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CvController extends Controller
 {
@@ -13,9 +14,9 @@ class CvController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
-        $cv = CV::query()->where('email', '=', $user->email)->get();
+        $cv = CV::query()->where('user_id', '=', Auth::id())->get();
         return view('cv', ['cv'=>$cv]);
 
     }
@@ -40,43 +41,43 @@ class CvController extends Controller
     {
 
         $request->validate([
-            'firstName' => ['string'],
-            'lastName' => ['string'],
-            'birthDate' => ['string'],
-            'address' => ['string'],
-            'city' => ['string'],
-            'zip_code' => ['string'],
-            'email' => ['email'],
-            'phone_nr' => ['string'],
+            'firstName' => ['nullable','nullable','string'],
+            'lastName' => ['nullable','string'],
+            'birthDate' => ['nullable','string'],
+            'address' => ['nullable','string'],
+            'city' => ['nullable','string'],
+            'zip_code' => ['nullable','string'],
+            'email' => ['nullable','email'],
+            'phone_nr' => ['nullable','string'],
 
-            'education_mbo'=>['string'],
-            'institute_mbo'=>['string'],
-            'startDate_mbo'=>['string'],
-            'endDate_mbo'=>['string'],
+            'education_mbo'=>['nullable','string'],
+            'institute_mbo'=>['nullable','string'],
+            'startDate_mbo'=>['nullable','string'],
+            'endDate_mbo'=>['nullable','string'],
 
-            'level'=>['string'],
-            'institute_middle'=>['string'],
-            'startDate_middle'=>['string'],
-            'endDate_middle'=>['string'],
+            'level'=>['nullable','string'],
+            'institute_middle'=>['nullable','string'],
+            'startDate_middle'=>['nullable','string'],
+            'endDate_middle'=>['nullable','string'],
 
-            'institute_basic'=>['string'],
-            'startDate_basic'=>['string'],
-            'endDate_basic'=>['string'],
+            'institute_basic'=>['nullable','string'],
+            'startDate_basic'=>['nullable','string'],
+            'endDate_basic'=>['nullable','string'],
 
-            'company'=>['string'],
-            'function'=>['string'],
-            'startDate_work'=>['string'],
-            'endDate_work'=>['string'],
+            'company'=>['nullable','string'],
+            'function'=>['nullable','string'],
+            'startDate_work'=>['nullable','string'],
+            'endDate_work'=>['nullable','string'],
 
-            'hobbyOne'=>['string'],
-            'hobbyTwo'=>['string'],
-            'hobbyThree'=>['string'],
-            'hobbyFour'=>['string'],
+            'hobbyOne'=>['nullable','string'],
+            'hobbyTwo'=>['nullable','string'],
+            'hobbyThree'=>['nullable','string'],
+            'hobbyFour'=>['nullable','string'],
 
-            'skillOne'=>['string'],
-            'skillTwo'=>['string'],
-            'skillThree'=>['string'],
-            'skillFour'=>['string'],
+            'skillOne'=>['nullable','string'],
+            'skillTwo'=>['nullable','string'],
+            'skillThree'=>['nullable','string'],
+            'skillFour'=>['nullable','string'],
 
         ]);
 
@@ -120,6 +121,8 @@ class CvController extends Controller
 
 
         ]);
+
+        $cv->user_id= Auth::id();
 
         $cv->save();
 

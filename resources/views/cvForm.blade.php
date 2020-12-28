@@ -2,6 +2,7 @@
 
 @csrf
 
+
 <div class="col-span-6 sm:col-span-4 mt-1">
     <x-jet-label for="firstName" value="{{ __('Voornaam') }}"/>
     <x-jet-input id="firstName" name="firstName" value="{{optional($cv)->firstName}}"
@@ -190,6 +191,7 @@
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
             Werk
         </div>
+        <br>
 
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
             <x-jet-label for="company" value="{{ __('Werkgever') }}"/>
@@ -277,7 +279,7 @@
         </div>
 
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
-            <x-jet-label for="skillTwo" value="{{ __('VskillThree') }}"/>
+            <x-jet-label for="skillTwo" value="{{ __('Vaardigheid') }}"/>
             <x-jet-input id="skillTwo" name="skillTwo"
                          value="{{optional($cv)->skillTwo}}" type="text"
                          class="mt-1 block w-full"

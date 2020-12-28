@@ -38,7 +38,7 @@ class DocentController extends Controller
 
         $request->validate([
             'name' => ['string', 'required'],
-            'email' => ['email', 'required'],
+            'email' => ['email', 'required', 'unique:users,email'],
             'role' => ['integer', 'required'],
 
         ]);

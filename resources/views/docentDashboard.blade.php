@@ -31,7 +31,7 @@ Student Dashboard
                     </div>
                 </div>
             </div>
-        </div>
+        </div>S
     </div>
 
     <div class="content">

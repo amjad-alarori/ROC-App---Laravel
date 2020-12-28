@@ -24,15 +24,18 @@
     <x-jet-input-error for="email" class="valErr mt-2"/>
 </div>
 
+
     <div class="form-row col-span-6 sm:col-span-4 mt-3">
-        <x-jet-label for="role" value="{{ __('Rol') }}"/>
+        Rol
+    </div>
+
+
+    <div class="form-row col-span-6 sm:col-span-4 mt-3">
         <input type="radio" id="roleStudent" name="role" value="1">
-        <label for="roleStudent">Student</label><br>
+        <label for="roleStudent">Student</label><br><br>
         <input type="radio" id="roleDocent" name="role" value="2">
-        <label for="roleDocent">Docent</label><br>
-        <x-jet-input id="role" name="role"
-                     type="" class="mt-1 block w-full"
-                     autocomplete="role" required/>
+        <label for="roleDocent">Docent</label><br><br>
+
     </div>
 
 

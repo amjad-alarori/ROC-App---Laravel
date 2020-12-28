@@ -15,6 +15,7 @@ class CreateCvsTable extends Migration
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->string('firstName')->nullable();
             $table->string('lastName')->nullable();
             $table->string( 'birthDate')->nullable();
