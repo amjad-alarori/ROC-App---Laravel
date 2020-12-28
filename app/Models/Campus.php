@@ -22,10 +22,10 @@ class Campus extends Model
         'phone_nr',
     ];
 
-    public function programArea()
-    {
-        return $this->hasMany(ProgramArea::class, 'campusId', 'id');
-    }
+//    public function programArea()
+//    {
+//        return $this->hasMany(ProgramArea::class, 'campusId', 'id');
+//    }
 
     public function courses()
     {

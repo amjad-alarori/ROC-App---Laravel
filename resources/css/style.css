@@ -42,6 +42,91 @@
     .sidenav a {font-size: 18px;}
 }
 
+/*Landing Page (Home) Start*/
+
+.carousel-item {
+    height: 70vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+.img-fluid {
+    height: auto;
+    width: 100%;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+.containerLandingPage{
+
+    text-align: center;
+    color: coral;
+
+}
+
+.btnLogin {
+    border-radius: 5px;
+    color: coral;
+    background-color: #f1f1f1;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+    opacity: 75%;
+
+}
+
+.btnLogin:hover {
+    opacity: 100%;
+}
+
+/*profile page*/
+
+#profileBtn{
+    position: absolute;
+    top: 0;
+    left: 0px;
+    font-size: 36px;
+    margin-left: 0px;
+
+}
+ /*endofprofilepage*/
+
+/*cv page*/
+
+.cv {
+    /*margin-left:auto;*/
+    /*margin-right:auto;*/
+    width: 965px;
+    /*height: 450px;*/
+    padding:10px;
+    background-color: coral;
+    color: #f1f1f1;
+
+    border-radius: 10px;
+
+}
+
+.cvProperties{
+    font-weight: bold;
+}
+
 
 /*studentDashboard*/
 
@@ -175,4 +260,8 @@ div.container-fluid#main{
 
 .is-invalid {
     border: 1px solid red !important;
+}
+
+.bg-gray{
+    background-color: grey;
 }

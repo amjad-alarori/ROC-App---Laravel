@@ -1,10 +1,8 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
-
         <x-jet-validation-errors class="mb-4" />
+
+        <x-slot name="logo"><img style="height: 150px; width: 130px; border-radius: 10px;" src="{{ asset('images/roclogo.png') }}"></x-slot>
 
         @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">

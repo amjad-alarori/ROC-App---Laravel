@@ -58,7 +58,7 @@
                          value="{{optional($program)->length}}"
                          type="number" min="1"
                          class="mt-1 inline-block w-40" autocomplete="length"
-                         oninput="validity.valid||(value='');"/>
+                         oninput="validity.valid||(value='');" required/>
             <span class="text-center align-items-center justify-content-center h-100">Jaar</span>
         </div>
     </div>

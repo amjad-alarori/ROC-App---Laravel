@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\stage;
 use App\Models\StageBedrijven;
+use App\Models\User;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Hash;
 
 class StageBedrijvenController extends Controller
 {
@@ -33,14 +38,15 @@ class StageBedrijvenController extends Controller
      */
     public function create()
     {
-        return view('stageBedrijvenForm');
+
+        return view('stageBedrijvenForm',['bedrijf'=>null]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Response|Redirector
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -49,8 +55,9 @@ class StageBedrijvenController extends Controller
             'address' => ['string', 'required'],
             'zip_code' => ['string', 'required'],
             'city' => ['string', 'required'],
-            'email' => ['string', 'required'],
+            'email' => ['email', 'required'],
             'phone_nr' => ['string', 'required'],
+            'contact_persoon'=>['string', 'required']
         ]);
 
         $company = new StageBedrijven();
@@ -65,6 +72,17 @@ class StageBedrijvenController extends Controller
 
         $company->save();
 
+//        $user= New User();
+//        $user->name = $request['contactpersoon'];
+//        $user->email = $company->email;
+//        $user->password = 'newcompany';
+//        $user->save();
+
+        User::create([
+            'name' => $request['contact_persoon'],
+            'email' => $request['email'],
+            'password' => 'newuser',
+        ]);
 //        return redirect(route('stageBedrijven.index'));
 
         return response()->json(['url' => route('stageBedrijven.index')]);
@@ -73,12 +91,16 @@ class StageBedrijvenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param StageBedrijven $company
+     * @param StageBedrijven $stageBedrijven
      * @return void
      */
-    public function show(StageBedrijven $company)
+    public function show(StageBedrijven $stageBedrijven)
     {
-        //
+
+        $stages = Stage::query()->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
+
+
+        return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
     }
 
     /**
@@ -97,7 +119,7 @@ class StageBedrijvenController extends Controller
      *
      * @param Request $request
      * @param StageBedrijven $stageBedrijven
-     * @return Application|RedirectResponse|Response|Redirector
+     * @return JsonResponse
      */
     public function update(Request $request, StageBedrijven $stageBedrijven)
     {
@@ -130,7 +152,7 @@ class StageBedrijvenController extends Controller
      *
      * @param StageBedrijven $stageBedrijven
      * @return RedirectResponse|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(StageBedrijven $stageBedrijven)
     {

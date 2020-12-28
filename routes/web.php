@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ProgramAreaController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\CVController;
 use App\Http\Controllers\StageBedrijvenController;
+use App\Http\Controllers\StageController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Middleware\Authenticate;
-use App\Models\StageBedrijven;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +27,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'web'], function () {
     /** voeg hier de routes welke zonder authorisatie te bereiken is */
 
-    Route::view('','welcome');
-    Route::view('studentDashboard','studentDashboard');
 
+    Route::view('', 'home');
+
+
+    Route::view('studentDashboard','studentDashboard');
 
 
     Route::resource('program',ProgramController::class);
@@ -37,11 +43,13 @@ Route::group(['middleware' => 'web'], function () {
 
     });
 
+    Route::resource('campus',CampusController::class);
+    Route::resource('program',ProgramController::class);
+    Route::resource('subject',SubjectController::class);
+    Route::resource('competence',CompetenceController::class);
+    Route::resource('course',CourseController::class);
+    Route::prefix('course/{course}')->group(function (){
 
-
-
-    Route::view('stageBedrijven','stageBedrijven');
-    Route::resource('stageBedrijven',StageBedrijvenController::class);
 
         Route::resource('opleiding', ProgramAreaController::class);
 //        Route::prefix('locatie/{id}')->group(function (){
@@ -51,20 +59,34 @@ Route::group(['middleware' => 'web'], function () {
 //            });
 //        });
 
+    });
+
+
+
+
+
+
+
+    Route::resource('stageBedrijven',StageBedrijvenController::class);
+    Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
+        Route::resource('stage', StageController::class);
+    });
+
+
+
+
+
+
 
 
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
-
-
-
-
-
-
+        Route::get('dashboard', [PagesController::class, 'index'])->name('dashboard');
+        Route::resource('cv', CVController::class);
 
     });
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+//Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//    return view('dashboard');
+//})->name('dashboard');

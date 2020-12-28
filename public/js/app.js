@@ -21388,13 +21388,43 @@ $(document).on('submit', '.AjaxForm', function (e) {
       var errors = response.responseJSON.errors;
 
       for (var key in errors) {
-        $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+        if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
+          $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+        } else {
+          $('#' + key).select2({
+            'containerCssClass': 'is-invalid'
+          }).parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+        }
       }
     }
   });
 });
 $('.modal').on('hidden.bs.modal', function (e) {
   $(this).find('.modal-body').html('');
+});
+$('.modal').on('shown.bs.modal', function (e) {
+  var st = $(this).find('.select2.multiselect');
+  st.select2({
+    tags: true,
+    createTag: function createTag(params) {
+      var term = $.trim(params.term);
+
+      if (term === '') {
+        return null;
+      }
+
+      return {
+        id: 'new,' + term,
+        text: 'nieuw: ' + term,
+        newTag: true // add additional parameters
+
+      };
+    }
+  });
+  st = $(this).find('.select2.single2');
+  st.select2({
+    tags: false
+  });
 });
 
 /***/ }),
@@ -21406,8 +21436,9 @@ $('.modal').on('hidden.bs.modal', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/amjadalarori/rocapp/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/amjadalarori/rocapp/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\css\app.css */"./resources/css/app.css");
+
 
 
 /***/ })

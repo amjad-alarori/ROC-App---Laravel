@@ -24,7 +24,7 @@
                          type="number" min="1"
                          placeHolder="nr."
                          class="mt-1 block w-full" autocomplete="street"
-                         oninput="validity.valid||(value='');"/>
+                         oninput="validity.valid||(value='');" required/>
         </div>
         <div class="col-md-2">
             <x-jet-input id="addition" name="house_nr_addition"
