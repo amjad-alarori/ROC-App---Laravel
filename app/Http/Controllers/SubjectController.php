@@ -24,13 +24,16 @@ class SubjectController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+
+        $isStage = $request->has('isStage')?$request['isStage']:false;
         $competences = Competence::all();
         $programs = Program::all();
-        return view('subject.create', ['competences' => $competences, 'programs' => $programs]);
+        return view('subject.create', ['competences' => $competences, 'programs' => $programs, 'isStage' => $isStage]);
     }
 
     /**
@@ -48,10 +51,13 @@ class SubjectController extends Controller
             'program' => ['integer', 'nullable'],
         ]);
 
+        $isStage = $request->has('isStage')?$request['isStage']:false;
+
         $subject = new Subject();
         $subject->forceFill([
             'title' => $request['title'],
             'e_credit' => $request['credits'],
+            'co_op'=>$isStage
         ]);
         $subject->program_id = $request['program'];
         $subject->save();
@@ -78,11 +84,11 @@ class SubjectController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Subject $subject
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Subject $subject)
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -93,9 +99,10 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
+        $isStage = $subject->co_op;
         $competences = Competence::all();
         $programs = Program::all();
-        return view('subject.edit', ['subject' => $subject, 'competences' => $competences, 'programs' => $programs]);
+        return view('subject.edit', ['subject' => $subject, 'competences' => $competences, 'programs' => $programs,'isStage' => $isStage]);
     }
 
     /**
@@ -145,7 +152,7 @@ class SubjectController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Subject $subject
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Subject $subject)
     {

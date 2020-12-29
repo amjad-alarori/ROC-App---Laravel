@@ -16,7 +16,6 @@ class ProgramController extends Controller
      */
     public function index()
     {
-//        $areas = ProgramArea::with('programs')->get()->sortBy('title')->sortBy('program.code');
         $areas = ProgramArea::with('programs')->has('programs','>','0')->get()->sortBy('title')->sortBy('program.code');
 
         return view('programs',['areas'=>$areas]);
@@ -69,11 +68,11 @@ class ProgramController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Program $program)
     {
-        //
+        return redirect()->back();
     }
 
     /**

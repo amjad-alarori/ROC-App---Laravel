@@ -11,7 +11,7 @@
     </div>
 
     <div id="collapse{{$order}}" class="collapse {{$collapsed=='true'?'':'show'}}" aria-labelledby="heading{{$order}}"
-         data-parent="#accordionComp">
+         data-parent="#{{$compId}}">
         <div class="card-body">
             {{$slot}}
         </div>

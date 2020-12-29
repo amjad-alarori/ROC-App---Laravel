@@ -21358,10 +21358,12 @@ $('.ModalButton').click(function () {
     success: function success(response) {
       var modal = $('#formModal');
       modal.find('.modal-body').html(response);
-      modal.modal('show');
-      modal.find('input[type="text"]').first().focus();
+      modal.modal('show'); // modal.find('input[type != "hidden"]').first().focus()
     }
   });
+});
+$('#formModal .select2').select2({
+  dropdownParent: $('#formModal')
 });
 $(document).on('submit', '.AjaxForm', function (e) {
   e.preventDefault();
@@ -21388,12 +21390,21 @@ $(document).on('submit', '.AjaxForm', function (e) {
       var errors = response.responseJSON.errors;
 
       for (var key in errors) {
-        if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
-          $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
-        } else {
+        // if (key.search(/[.]\d/g)>-1){
+        if (key.search(".0") > -1) {
+          key = key.substr(0, key.search(/[.]\d/g));
+          var errorTxt = 'er is iets misgegaan, venieuw de pagina en probeer het opnieuw.';
           $('#' + key).select2({
             'containerCssClass': 'is-invalid'
-          }).parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+          }).parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errorTxt + '</p>');
+        } else {
+          if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
+            $('[name=' + key + ']').addClass('is-invalid').after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+          } else {
+            $('#' + key).select2({
+              'containerCssClass': 'is-invalid'
+            }).parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>');
+          }
         }
       }
     }
@@ -21425,6 +21436,16 @@ $('.modal').on('shown.bs.modal', function (e) {
   st.select2({
     tags: false
   });
+  $('#formModal').find('input[type != "hidden"]').first().focus();
+  $('input[type=checkbox].hider').click(function () {
+    var hiding = $('input[type=checkbox].hider').siblings('.hiding');
+
+    if (this.checked) {
+      hiding.removeClass('d-none');
+    } else {
+      hiding.addClass('d-none');
+    }
+  });
 });
 
 /***/ }),
@@ -21438,7 +21459,6 @@ $('.modal').on('shown.bs.modal', function (e) {
 
 __webpack_require__(/*! C:\Code\rocapp\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Code\rocapp\resources\css\app.css */"./resources/css/app.css");
-
 
 /***/ })
 
