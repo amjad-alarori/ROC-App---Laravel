@@ -51,15 +51,15 @@ $(document).on('submit', '.AjaxForm', function (e) {
             let errors = response.responseJSON.errors
             for (var key in errors) {
                 // if (key.search(/[.]\d/g)>-1){
-                if (key.search(".0")>-1){
-                    key = key.substr(0,key.search(/[.]\d/g));
+                if (key.search(".0") > -1) {
+                    key = key.substr(0, key.search(/[.]\d/g));
                     let errorTxt = 'er is iets misgegaan, venieuw de pagina en probeer het opnieuw.';
 
                     $('#' + key).select2({
                         'containerCssClass': 'is-invalid',
                     })
                         .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errorTxt + '</p>')
-                }else {
+                } else {
                     if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
                         $('[name=' + key + ']')
                             .addClass('is-invalid')
@@ -108,15 +108,44 @@ $('.modal').on('shown.bs.modal', function (e) {
     $('#formModal').find('input[type != "hidden"]').first().focus()
 
 
-    $('input[type=checkbox].hider').click(function (){
+    $('input[type=checkbox].hider').click(function () {
         let hiding = $('input[type=checkbox].hider').siblings('.hiding');
 
-        if (this.checked){
+        if (this.checked) {
             hiding.removeClass('d-none');
-        }else{
+        } else {
             hiding.addClass('d-none');
         }
     })
 
+
+});
+
+
+$("#searchUser").select2({
+    ajax: {
+        url: "docent/search",
+        type: "post",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                _token: $('input[name=_token]').val(),
+                searchTerm: params.term // search term
+            };
+        },
+        processResults: function (response) {
+            // console.log(response);
+            return {
+                results: $.map(response, function (item){
+                    return {
+                        text: item.name,
+                        id: item.id
+                    }
+                })
+            };
+        },
+        cache: true
+    }
 });
 

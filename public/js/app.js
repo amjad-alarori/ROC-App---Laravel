@@ -21447,6 +21447,33 @@ $('.modal').on('shown.bs.modal', function (e) {
     }
   });
 });
+$("#searchUser").select2({
+  ajax: {
+    url: "docent/search",
+    type: "post",
+    dataType: 'json',
+    delay: 250,
+    data: function data(params) {
+      return {
+        _token: $('input[name=_token]').val(),
+        searchTerm: params.term // search term
+
+      };
+    },
+    processResults: function processResults(response) {
+      // console.log(response);
+      return {
+        results: $.map(response, function (item) {
+          return {
+            text: item.name,
+            id: item.id
+          };
+        })
+      };
+    },
+    cache: true
+  }
+});
 
 /***/ }),
 
@@ -21459,6 +21486,7 @@ $('.modal').on('shown.bs.modal', function (e) {
 
 __webpack_require__(/*! C:\Code\rocapp\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Code\rocapp\resources\css\app.css */"./resources/css/app.css");
+
 
 /***/ })
 

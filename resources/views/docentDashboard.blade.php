@@ -37,29 +37,40 @@ Student Dashboard
     <div class="content">
         <div class="container-fluid">
                       <div class="wrap">
-                        <form class="search">
-                            <input type="text" class="searchTerm" placeholder="Wie zoek je?">
+                        <form method="post" class="search" action="{{route('DashGo')}}">
+                            @csrf
+                            <select class="select2 single2" name="SearchId" id='searchUser' style='width: 200px;'>
+                                <option value='0'>- Zoek account -</option>
+                            </select>
+                            <br>
+                            <button class="btn btn-primary" type="submit"> Klik hier voor dashboard</button>
+
+
+
+
+
+{{--                            <input type="text" class="searchTerm" name="searchTerm" placeholder="Wie zoek je?">--}}
                             <button type="submit" class="searchButton">
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
                     </div>
 
-            @foreach ($data as $searchvalue)
+{{--            @foreach ($data as $searchvalue)--}}
 
-                <table>
-                    <tr>
-                        <th>Zoekresultaten</th>
+{{--                <table>--}}
+{{--                    <tr>--}}
+{{--                        <th>Zoekresultaten</th>--}}
 
-                    </tr>
-                    <tr>
-                        <td>{{$searchvalue->name}}</td>
+{{--                    </tr>--}}
+{{--                    <tr>--}}
+{{--                        <td>{{$searchvalue->name}}</td>--}}
 
-                    </tr>
+{{--                    </tr>--}}
 
-                </table>
+{{--                </table>--}}
 
-                @endforeach
+{{--                @endforeach--}}
 
 
 

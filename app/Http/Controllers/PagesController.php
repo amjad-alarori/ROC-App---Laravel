@@ -29,4 +29,10 @@ class PagesController extends Controller
 
 
     }
+    public function redirectToDashboard(Request $request){
+//        dd($request);
+        $user = User::query()->find($request['searchId']);
+
+        return view('studentDashboard', ['user'=>$user]);
+    }
 }

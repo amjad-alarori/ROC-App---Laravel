@@ -24,13 +24,13 @@ class DocentController extends Controller
      */
     public function create()
     {
-        return view('userForm', ['userProperty'=>null]);
+        return view('userForm', ['userProperty' => null]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -44,13 +44,14 @@ class DocentController extends Controller
         ]);
 
 
-        $user =New User();
-            $user->name = $request['name'];
-            $user->email = $request['email'];
-            $user->password = 'newuser';
+        $user = new User();
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->password = 'newuser';
+        $user->role = $request['role'];
 
 
-            $user->save();
+        $user->save();
 
 
         return response()->json(['url' => route('docent.index')]);
@@ -59,7 +60,7 @@ class DocentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -70,7 +71,7 @@ class DocentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -81,8 +82,8 @@ class DocentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -93,7 +94,7 @@ class DocentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -103,8 +104,23 @@ class DocentController extends Controller
 
     public function search(Request $request)
     {
-        $data = User::query()->where('name', 'LIKE', '%'. $request['searchKey'] .'%');
+        if (!isset($request['searchTerm'])) {
+            $fetchData = User::all();
+        } else {
+            $search = $request['searchTerm'];
+            $fetchData = User::query()->where('name', 'LIKE', '%' . $search . '%')->get();
+        }
 
-        return view ('docentDashboard', ['data'=>$data]);
+//        dd($fetchData);
+
+        $data = array();
+        foreach ($fetchData as $user):
+            $data[$user->id] = ['id' => $user->id, 'name' => $user->name];
+        endforeach;
+
+        return json_encode($data);
+//        $data = User::query()->where('name', 'LIKE', '%'. $request['searchKey'] .'%');
+//
+//        return view ('docentDashboard', ['data'=>$data]);
     }
 }

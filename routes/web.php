@@ -76,7 +76,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('cv', CvController::class);
         Route::resource('dashboard', PagesController::class );
         Route::resource('docent', DocentController::class);
-
+        Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
+        Route::post('test',[PagesController::class,'redirectToDashboard'])->name('DashGo');
     });
 });
 
