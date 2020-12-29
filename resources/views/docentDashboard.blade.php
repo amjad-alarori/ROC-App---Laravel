@@ -31,20 +31,42 @@ Student Dashboard
                     </div>
                 </div>
             </div>
-        </div>S
+        </div>
     </div>
 
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3 col-6">
+                      <div class="wrap">
+                        <form class="search">
+                            <input type="text" class="searchTerm" placeholder="Wie zoek je?">
+                            <button type="submit" class="searchButton">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+            @foreach ($data as $searchvalue)
+
+                <table>
+                    <tr>
+                        <th>Zoekresultaten</th>
+
+                    </tr>
+                    <tr>
+                        <td>{{$searchvalue->name}}</td>
+
+                    </tr>
+
+                </table>
+
+                @endforeach
 
 
 
 
         </div>
-            </div>
-        </div>
+    </div>
+
 
 
     </div>

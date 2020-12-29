@@ -100,4 +100,11 @@ class DocentController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $data = User::query()->where('name', 'LIKE', '%'. $request['searchKey'] .'%');
+
+        return view ('docentDashboard', ['data'=>$data]);
+    }
 }
