@@ -1,5 +1,5 @@
 <div {{$attributes->merge(['class'=>"card row no-gutter"])}}>
-    <div class="card-header w-full">
+    <div class="card-header w-full" style="{{$headerColor != null?'background-color:'.$headerColor:''}}">
         <h3 class="card-title h3">{{ $title }}</h3>
     </div>
     <div class="card-body w-100">
@@ -7,7 +7,9 @@
             {{ $slot }}
         </div>
     </div>
+    @if($withFoot)
     <div class="card-footer" style="background-color: white">
         {{ $footer }}
     </div>
+    @endif
 </div>

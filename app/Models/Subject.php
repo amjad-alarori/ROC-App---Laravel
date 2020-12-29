@@ -9,9 +9,10 @@ class Subject extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-      'title',
-      'e_credit',
+    protected $fillable = [
+        'title',
+        'e_credit',
+        'co_op',
     ];
 
     public function attachedCompetences()
@@ -26,12 +27,16 @@ class Subject extends Model
 
     public function competences()
     {
-        return $this->hasMany(Competence::class,'subject_id','id')
-            ->union(Competence::query()->where('subject_id','=',null))->get();
+        return $this->hasMany(Competence::class, 'subject_id', 'id');
     }
 
     public function program()
     {
-        return $this->belongsTo(Program::class,'program_id','id');
+        return $this->belongsTo(Program::class, 'program_id', 'id');
+    }
+
+    public function semesters()
+    {
+        return $this->hasMany(Semester::class,'subject_id','id');
     }
 }
