@@ -30,10 +30,11 @@
                         <div class="d-flex flex-wrap">
                             @foreach($subjects as $subject)
                                 <div class="p-2">
-                                    <div class="card bg-gray d-flex h-100">
+                                    <div
+                                        class="card bg-gray d-flex h-100" style="{{$subject->subject->co_op==1?'background-color: #ffe680;':''}}">
                                         <div class="d-flex flex-row border-bottom justify-content-between">
                                             <div class="p-2">
-                                                {{$subject->subject->title}}
+                                                {{$subject->subject->title}} ({{$subject->subject->e_credit}} EC's)
                                             </div>
                                             <div class="p-2">
                                                 <form method="POST"
@@ -46,7 +47,12 @@
                                         </div>
                                         <div class="flex-row">
                                             <div class="p-2" style="width: 200px;">
-                                                {{$subject->subject->e_credit}} EC's
+                                                competenties:
+                                                <ul style="list-style-position: inside; list-style-type: disc;">
+                                                    @foreach($subject->subject->attachedCompetences as $competence)
+                                                        <li>{{$competence->title}}</li>
+                                                    @endforeach
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -57,29 +63,37 @@
                 @endforeach
             @else
                 <div class="d-flex flex-wrap">
-                    @foreach($periods[array_key_first($periods)] as $subject)
-                        <div class="p-2">
-                            <div class="card bg-gray d-flex h-100">
-                                <div class="d-flex flex-row border-bottom justify-content-between">
-                                    <div class="p-2">
-                                        {{$subject->subject->title}}
+                    @foreach($periods as $period=>$subjects)
+                        @foreach($subjects as $subject)
+                            <div class="p-2">
+                                <div
+                                    class="card bg-gray d-flex h-100" style="{{$subject->subject->co_op==1?'background-color: #ffe680;':''}}">
+                                    <div class="d-flex flex-row border-bottom justify-content-between">
+                                        <div class="p-2">
+                                            {{$subject->subject->title}} ({{$subject->subject->e_credit}} EC's)
+                                        </div>
+                                        <div class="p-2">
+                                            <form method="POST"
+                                                  action="{{route('semester.destroy',['program'=>$program,'semester'=>$subject])}}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger mx-2 align-self-center">X</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="p-2">
-                                        <form method="POST"
-                                              action="{{route('semester.destroy',['program'=>$program,'semester'=>$subject])}}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger mx-2 align-self-center">X</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="flex-row">
-                                    <div class="p-2" style="width: 200px;">
-                                        {{$subject->subject->e_credit}} EC's
+                                    <div class="flex-row">
+                                        <div class="p-2" style="width: 200px;">
+                                            competenties:
+                                            <ul style="list-style-position: inside; list-style-type: disc;">
+                                                @foreach($subject->subject->attachedCompetences as $competence)
+                                                    <li>{{$competence->title}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     @endforeach
                 </div>
             @endif

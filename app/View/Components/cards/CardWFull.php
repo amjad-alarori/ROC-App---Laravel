@@ -11,17 +11,23 @@ class CardWFull extends Component
      * @var bool
      */
     private $withFoot;
+    /**
+     * @var null
+     */
+    private $headerColor;
 
     /**
      * Create a new component instance.
      *
      * @param $title
      * @param bool $withFoot
+     * @param null $headerColor
      */
-    public function __construct($title, $withFoot=true)
+    public function __construct($title, $withFoot=true, $headerColor = null)
     {
         $this->title=$title;
         $this->withFoot = $withFoot;
+        $this->headerColor = $headerColor;
     }
 
     /**
@@ -31,6 +37,11 @@ class CardWFull extends Component
      */
     public function render()
     {
-        return view('components.cards.card-w-full',['title'=>$this->title, 'withFoot'=>$this->withFoot]);
+        return view('components.cards.card-w-full',
+            [
+                'title'=>$this->title,
+                'withFoot'=>$this->withFoot,
+                'headerColor'=>$this->headerColor
+            ]);
     }
 }

@@ -25,6 +25,10 @@ $('.ModalButton').click(function () {
     })
 })
 
+$('#formModal .select2').select2({
+    dropdownParent: $('#formModal')
+});
+
 $(document).on('submit', '.AjaxForm', function (e) {
     e.preventDefault()
     e.stopPropagation()

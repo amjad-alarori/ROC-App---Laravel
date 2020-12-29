@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use App\Models\Semester;
 use App\Models\Subject;
+use App\Rules\SemesterSubjecRule;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -27,13 +28,16 @@ class SemesterController extends Controller
 
             if (!array_key_exists($semester->period, $semesters[$semester->semester])):
                 $semesters[$semester->semester][$semester->period] = [];
+                if ($semester->period == 2 && !array_key_exists(1, $semesters[$semester->semester])):
+                    $semesters[$semester->semester][1] = [];
+                endif;
                 ksort($semesters[$semester->semester]);
             endif;
 
             array_push($semesters[$semester->semester][$semester->period], $semester->load('subject'));
         endforeach;
 
-        return view('programPlanning', ['program' => $program, 'semesters'=>$semesters]);
+        return view('programPlanning', ['program' => $program, 'semesters' => $semesters]);
     }
 
     /**
@@ -48,10 +52,12 @@ class SemesterController extends Controller
         $subjects = Subject::query()->where('program_id', null)->union($program->subjects())->get();
 
         if ($request->has('stage')):
-            return view('semester.stageCreate', ['program' => $program, 'subjects' => $subjects]);
+            $isStage = true;
         else:
-            return view('semester.create', ['program' => $program, 'subjects' => $subjects]);
+            $isStage = false;
         endif;
+
+        return view('semester.create', ['program' => $program, 'subjects' => $subjects, 'isStage' => $isStage]);
     }
 
     /**
@@ -65,18 +71,33 @@ class SemesterController extends Controller
     {
         $rule = [
             'semester' => ['required', 'integer', 'between:1,' . $program->length * 2],
-            'subjects' => ['required', 'array', 'min:1'],
-            'subjects.*' => ['exists:subjects,id'],
         ];
 
         if ($request->has('period')):
             $rule['period'] = ['required', Rule::in(['on'])];
             $rule['periodNr'] = ['required', Rule::in([1, 2])];
+            $period = $request['periodNr'];
+        else:
+            $period = 1;
+        endif;
+
+        if ($request['isStage']==1):
+            $rule['subjects'] = ['required', 'integer', 'min:1', new SemesterSubjecRule(true, $program, $request['semester'],$period)];
+        else:
+            $rule['subjects'] = ['required', 'array', 'min:1'];
+            $rule['subjects.*'] = [new SemesterSubjecRule(false, $program)];
         endif;
 
         $request->validate($rule);
 
-        foreach ($request['subjects'] as $subject):
+        $subjectsArray=[];
+        if ($request['isStage']==1):
+            array_push($subjectsArray,$request['subjects']);
+        else:
+            $subjectsArray=$request['subjects'];
+        endif;
+
+        foreach ($subjectsArray as $subject):
             $periodeNr = $request['periodNr'] == null ? 1 : $request['periodNr'];
 
             $duplCount = Semester::query()
@@ -131,7 +152,7 @@ class SemesterController extends Controller
      * @param \App\Models\Semester $semester
      * @return void
      */
-    public function update(Request $request,Program $program,  Semester $semester)
+    public function update(Request $request, Program $program, Semester $semester)
     {
         //
     }
