@@ -58,6 +58,8 @@
 
     </div>
 
+    <input type="hidden" name="role" value="3">
+
 
 <div class="form-row col-span-6 sm:col-span-4 mt-3">
     <x-jet-label for="phone" value="{{ __('Telefoon') }}"/>

@@ -29,6 +29,16 @@
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
+            <div class="mt-4">
+                <x-jet-label for="role" value="{{ __('Role') }}" />
+                <select id="role" name="role">
+                    <option value="1">Docent</option>
+                    <option value="2">Student</option>
+                    <option value="3">Bedrijf</option>
+                </select>
+            </div>
+
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}

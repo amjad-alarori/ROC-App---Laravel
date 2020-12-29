@@ -68,6 +68,7 @@ class StageBedrijvenController extends Controller
             'city' => $request['city'],
             'email' => $request['email'],
             'phone_nr' => $request['phone_nr'],
+
         ]);
 
         $company->save();
@@ -82,6 +83,8 @@ class StageBedrijvenController extends Controller
             'name' => $request['contact_persoon'],
             'email' => $request['email'],
             'password' => 'newuser',
+            'role' => 3,
+
         ]);
 
 
