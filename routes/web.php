@@ -35,11 +35,11 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
+    Route::view('beheer','opleidingBeheer')->name('beheer');
     Route::resource('campus',CampusController::class);
     Route::resource('program',ProgramController::class);
     Route::prefix('program/{program}')->group(function (){
         Route::resource('semester',SemesterController::class);
-        Route::resource('stage',Stage::class);
     });
     Route::resource('subject',SubjectController::class);
     Route::resource('competence',CompetenceController::class);

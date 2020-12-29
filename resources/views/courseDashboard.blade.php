@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Opleidingen
+    Opleiding dashboard
 @endsection
 
 @section('content')
