@@ -34,7 +34,8 @@
                     <div class="card h-100" style="width: 18rem;">
                         <div class="card-body">
                             <h3 class="h3 card-title">{{$user->name}}</h3>
-                            <a href="#">Link naar profiel</a>
+
+
 
                         </div>
                     </div>

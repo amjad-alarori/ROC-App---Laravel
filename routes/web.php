@@ -41,7 +41,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('stageBedrijven', StageBedrijvenController::class);
     Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
         Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+
         Route::resource('stage', StageController::class);
+        Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
+
 
 
     });
@@ -55,6 +58,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('docent', DocentController::class);
         Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
         Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
+
 
 
 
