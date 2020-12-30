@@ -120,7 +120,8 @@
                         </x-form.modal-button>
                     </div>
                     <div>
-                        @if(!Auth::user()->stage)
+                        @if(!Auth::user()->stage->count())
+
                         <a href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right"> Ik heb interesse</a>
                         @else
                         <a class="btn btn-primary float-right"> Ik heb interesse</a>
