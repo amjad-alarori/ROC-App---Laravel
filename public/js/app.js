@@ -21490,7 +21490,6 @@ __webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\js
 module.exports = __webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\css\app.css */"./resources/css/app.css");
 
 
-
 /***/ })
 
 /******/ });

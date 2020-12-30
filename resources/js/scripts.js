@@ -108,7 +108,6 @@ $('.modal').on('shown.bs.modal', function (e) {
 
     $('#formModal').find('input[type != "hidden"]').first().focus()
 
-
     $('input[type=checkbox].hider').click(function (){
         let hiding = $('input[type=checkbox].hider').siblings('.hiding');
 
