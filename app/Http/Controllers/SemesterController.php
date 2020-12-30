@@ -20,6 +20,7 @@ class SemesterController extends Controller
     public function index(Program $program)
     {
 
+
         $semesters = [];
         foreach ($program->semesters as $semester):
             if (!array_key_exists($semester->semester, $semesters)):
@@ -36,6 +37,8 @@ class SemesterController extends Controller
 
             array_push($semesters[$semester->semester][$semester->period], $semester->load('subject'));
         endforeach;
+
+//        dd($semesters);
 
         return view('programPlanning', ['program' => $program, 'semesters' => $semesters]);
     }

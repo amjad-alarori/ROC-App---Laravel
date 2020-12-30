@@ -33,11 +33,11 @@
     <a href="{{route('dashboard.index')}}" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Overzicht</a>
     <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
     <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
-    @if(!Auth::guest())
-        @if(Auth::user()->role == 2)
+    @auth()
+        @if(auth()->user()->role == 2)
             <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>
         @endif
-    @endif
+    @endauth
 
 </div>
 <div id="darkMain"></div>
