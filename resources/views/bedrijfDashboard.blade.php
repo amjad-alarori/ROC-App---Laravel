@@ -98,7 +98,7 @@
 
 
 
-              <i class="fa fa-heart float-left" style="font-size:24px;color:firebrick">      <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;">{{$count = DB::table('stages_users')->where('stage_id', '=', $stage->id)->count('user_id')}}</a></i><br>
+              <i class="fa fa-heart float-left" style="font-size:24px;color:firebrick">      <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;">{{$count}}</a></i><br>
 
 
 

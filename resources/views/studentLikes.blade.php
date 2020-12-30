@@ -37,6 +37,13 @@
 
 
 
+
+                            <form method="post" class="search" action="{{route('DashGo')}}">
+                                @csrf
+                                <button class="btn btn-primary" type="submit"> Klik hier voor dashboard</button>
+                            </form>
+
+
                         </div>
                     </div>
                 </div>

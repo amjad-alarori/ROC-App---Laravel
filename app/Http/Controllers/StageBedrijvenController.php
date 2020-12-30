@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class StageBedrijvenController extends Controller
 {
@@ -104,8 +105,11 @@ class StageBedrijvenController extends Controller
 
         $stages = Stage::query()->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
 
+        foreach ($stages as $stage)
 
-        return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
+        $count = DB::table('stages_users')->where('stage_id', '=', $stage->id)->count('user_id');
+
+        return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven,'count'=>$count]);
     }
 
     /**
