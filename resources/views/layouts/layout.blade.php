@@ -29,9 +29,12 @@
     @endif
    </div>
     <a href="javascript:void(0)" class="closebtn" id="closeNavButton">&times;</a>
-    <a href="#" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Overzicht</a>
+
+    <a href="{{route('dashboard.index')}}" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Overzicht</a>
     <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
-    <a href="#" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+    <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+    <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>
+
 
 </div>
 <div id="darkMain"></div>
@@ -81,7 +84,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-{{--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
 
 <script src="{{asset('js/app.js')}}"></script>

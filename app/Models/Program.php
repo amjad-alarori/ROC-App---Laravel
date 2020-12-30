@@ -25,6 +25,16 @@ class Program extends Model
 
     public function courses()
     {
-        return $this->hasMany(Course::class, 'program_id', 'id');
+        return $this->hasMany(Course::class,'program_id','id');
+    }
+
+    public function Subjects()
+    {
+        return $this->hasMany(Subject::class,'program_id','id');
+    }
+
+    public function semesters()
+    {
+        return $this->hasMany(Semester::class,'program_id','id');
     }
 }

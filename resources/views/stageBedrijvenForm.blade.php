@@ -1,6 +1,7 @@
 <form method="POST" class="AjaxForm" action="{{route('stageBedrijven.store')}}">
 
 @csrf
+    <input type="hidden" name="role" value="3">
 
 <div class="col-span-6 sm:col-span-4 mt-1">
     <x-jet-label for="name" value="{{ __('Naam van bedrijf') }}"/>
@@ -56,6 +57,8 @@
                      autocomplete="contact_persoon" required/>
 
     </div>
+
+    <input type="hidden" name="role" value="3">
 
 
 <div class="form-row col-span-6 sm:col-span-4 mt-3">

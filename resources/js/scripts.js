@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    $('#formModal .select2').select2({
+        dropdownParent: $('#formModal')
+    });
+});
+
 $('#openNavButton').on('click', function () {
     document.getElementById("mainSidenav").style.width = "250px";
     document.getElementById("main").style.paddingLeft = "266px";
@@ -10,7 +16,6 @@ $('#closeNavButton').on('click', function () {
     document.getElementById('darkMain').style.display = 'none';
 })
 
-
 $('.ModalButton').click(function () {
     let url = $(this).data('url');
     $.ajax({
@@ -20,7 +25,7 @@ $('.ModalButton').click(function () {
             let modal = $('#formModal')
             modal.find('.modal-body').html(response)
             modal.modal('show');
-            modal.find('input[type="text"]').first().focus()
+            // modal.find('input[type != "hidden"]').first().focus()
         }
     })
 })
@@ -46,16 +51,26 @@ $(document).on('submit', '.AjaxForm', function (e) {
         error: function (response, textStatus, errorThrown) {
             let errors = response.responseJSON.errors
             for (var key in errors) {
+                // if (key.search(/[.]\d/g)>-1){
+                if (key.search(".0") > -1) {
+                    key = key.substr(0, key.search(/[.]\d/g));
+                    let errorTxt = 'er is iets misgegaan, venieuw de pagina en probeer het opnieuw.';
 
-                if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2')==false) {
-                    $('[name=' + key + ']')
-                        .addClass('is-invalid')
-                        .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
-                } else {
                     $('#' + key).select2({
                         'containerCssClass': 'is-invalid',
                     })
-                        .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                        .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errorTxt + '</p>')
+                } else {
+                    if ($('[name=' + key + ']').length && $('[name=' + key + ']').hasClass('select2') == false) {
+                        $('[name=' + key + ']')
+                            .addClass('is-invalid')
+                            .after('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                    } else {
+                        $('#' + key).select2({
+                            'containerCssClass': 'is-invalid',
+                        })
+                            .parent().append('<p class ="invaliderror text-sm text-red-600 mt-2">' + errors[key][0] + '</p>')
+                    }
                 }
             }
         }
@@ -90,4 +105,47 @@ $('.modal').on('shown.bs.modal', function (e) {
     st.select2({
         tags: false,
     });
+
+    $('#formModal').find('input[type != "hidden"]').first().focus()
+
+    $('input[type=checkbox].hider').click(function (){
+        let hiding = $('input[type=checkbox].hider').siblings('.hiding');
+
+        if (this.checked) {
+            hiding.removeClass('d-none');
+        } else {
+            hiding.addClass('d-none');
+        }
+    })
+
+
 });
+
+
+$("#searchUser").select2({
+    ajax: {
+        url: "docent/search",
+        type: "post",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                _token: $('input[name=_token]').val(),
+                searchTerm: params.term // search term
+            };
+        },
+        processResults: function (response) {
+            // console.log(response);
+            return {
+                results: $.map(response, function (item){
+                    return {
+                        text: item.name,
+                        id: item.id
+                    }
+                })
+            };
+        },
+        cache: true
+    }
+});
+

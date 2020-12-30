@@ -17,11 +17,11 @@ class StageController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param StageBedrijven $stageBedrijven
+     * @param stage $stage
      * @return void
      */
-    public function index()
-    {
-
+    public function index(){
 
     }
 
@@ -33,7 +33,8 @@ class StageController extends Controller
     public function create(stageBedrijven $stageBedrijven)
     {
 
-        return view('stageForm',['company'=>$stageBedrijven]);
+
+        return view('stageCreate',['stageBedrijven'=>$stageBedrijven]);
 
     }
 
@@ -77,11 +78,16 @@ class StageController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param StageBedrijven $stageBedrijven
      * @param stage $stage
      * @return void
      */
-    public function show(stage $stage)
+    public function show(StageBedrijven $stageBedrijven, stage $stage)
     {
+
+        $user = auth()->user();
+        $user->stage()->attach($stage);
+        return redirect()->back();
 
     }
 
@@ -93,6 +99,7 @@ class StageController extends Controller
      */
     public function edit(stageBedrijven $stageBedrijven, Stage $stage)
     {
+
         return view('stageEdit', ['stageBedrijven'=>$stageBedrijven, 'stage'=>$stage]);
     }
 
@@ -103,9 +110,10 @@ class StageController extends Controller
      * @param stage $stage
      * @return Response
      */
-    public function update(Request $request, stage $stage_plek)
-    {
+    public function update(Request $request,StageBedrijven $stageBedrijven, stage $stage)
+
         {
+
             $request->validate([
                 'functie' => ['string', 'required'],
                 'leerweg' => ['string', 'required'],
@@ -117,7 +125,7 @@ class StageController extends Controller
                 'wat_zoeken_wij' =>['string', 'required'],
             ]);
 
-            $stage_plek->fill([
+            $stage->fill([
                 'functie' => $request['functie'],
                 'leerweg' => $request['leerweg'],
                 'aantal_plaatsen' => $request['aantal_plaatsen'],
@@ -128,18 +136,18 @@ class StageController extends Controller
                 'wat_zoeken_wij' => $request['wat_zoeken_wij'],
             ]);
 
-            $stage_plek->update();
+            $stage->update();
 
 //        return redirect(route('stageBedrijven.index'));
-            return response()->json(['url' => route('stageBedrijven.show'),]);
+            return response()->json(['url' => route('stageBedrijven.show', ['stageBedrijven' => $stageBedrijven]),]);
         }
-    }
+
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param StageBedrijven $stageBedrijven
      * @param stage $stage
-     * @param StageBedrijven $company
      * @return RedirectResponse
      * @throws \Exception
      */

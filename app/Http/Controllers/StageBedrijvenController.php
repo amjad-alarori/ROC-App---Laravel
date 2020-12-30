@@ -13,11 +13,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Hash;
 
 class StageBedrijvenController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -68,6 +68,7 @@ class StageBedrijvenController extends Controller
             'city' => $request['city'],
             'email' => $request['email'],
             'phone_nr' => $request['phone_nr'],
+
         ]);
 
         $company->save();
@@ -82,7 +83,11 @@ class StageBedrijvenController extends Controller
             'name' => $request['contact_persoon'],
             'email' => $request['email'],
             'password' => 'newuser',
+            'role' => 3,
+
         ]);
+
+
 //        return redirect(route('stageBedrijven.index'));
 
         return response()->json(['url' => route('stageBedrijven.index')]);
@@ -159,4 +164,6 @@ class StageBedrijvenController extends Controller
         $stageBedrijven->delete();
         return redirect()->back();
     }
+
+
 }

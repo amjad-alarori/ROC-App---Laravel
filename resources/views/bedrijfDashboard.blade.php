@@ -115,11 +115,11 @@
                         </x-form.modal-button>
                     </div>
                     <div>
-                        <a href=""  class="btn btn-primary float-right"> Nu Reageren</a>
+                        <a href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right"> Ik heb interesse</a>
                     </div>
                 </div>
-            </x-slot>
-        </x-cards.cardwfull>
+            </x-slot></div>
+        </x-cards.cardwfull><hr>
     @endforeach
 @endsection
 
