@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    $('#formModal .select2').select2({
+        dropdownParent: $('#formModal')
+    });
+});
+
 $('#openNavButton').on('click', function () {
     document.getElementById("mainSidenav").style.width = "250px";
     document.getElementById("main").style.paddingLeft = "266px";
@@ -9,7 +15,6 @@ $('#closeNavButton').on('click', function () {
     document.getElementById("main").style.paddingLeft = "150px";
     document.getElementById('darkMain').style.display = 'none';
 })
-
 
 $('.ModalButton').click(function () {
     let url = $(this).data('url');
@@ -24,10 +29,6 @@ $('.ModalButton').click(function () {
         }
     })
 })
-
-$('#formModal .select2').select2({
-    dropdownParent: $('#formModal')
-});
 
 $(document).on('submit', '.AjaxForm', function (e) {
     e.preventDefault()
@@ -108,7 +109,7 @@ $('.modal').on('shown.bs.modal', function (e) {
     $('#formModal').find('input[type != "hidden"]').first().focus()
 
 
-    $('input[type=checkbox].hider').click(function () {
+    $('input[type=checkbox].hider').click(function (){
         let hiding = $('input[type=checkbox].hider').siblings('.hiding');
 
         if (this.checked) {
