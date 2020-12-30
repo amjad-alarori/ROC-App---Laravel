@@ -36,23 +36,23 @@ Student Dashboard
 
     <div class="content">
         <div class="container-fluid">
+
+
                       <div class="wrap">
                         <form method="post" class="search" action="{{route('DashGo')}}">
                             @csrf
-                            <select class="select2 single2" name="SearchId" id='searchUser' style='width: 200px;'>
+                            <select class="select2 single2" name="SearchId" id='searchUser' style='width: 400px;'>
                                 <option value='0'>- Zoek account -</option>
-                            </select>
-                            <br>
-                            <button class="btn btn-primary" type="submit"> Klik hier voor dashboard</button>
+                            </select>&nbsp; &nbsp; <button class="btnSearch" type="submit" style="background-color: coral; color: white;"> Ga naar account</button>
 
 
 
 
 
 {{--                            <input type="text" class="searchTerm" name="searchTerm" placeholder="Wie zoek je?">--}}
-                            <button type="submit" class="searchButton">
-                                <i class="fa fa-search"></i>
-                            </button>
+{{--                            <button type="submit" class="searchButton">--}}
+{{--                                <i class="fa fa-search"></i>--}}
+{{--                            </button>--}}
                         </form>
                     </div>
 
