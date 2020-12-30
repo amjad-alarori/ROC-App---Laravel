@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class StageController extends Controller
 {
@@ -155,6 +156,7 @@ class StageController extends Controller
     public function destroy(stageBedrijven $stageBedrijven, Stage $stage)
     {
 
+        DB::table('stages_users')->where('stage_id', $stage->id)->delete();
         $stage->delete();
 
         return redirect()->back();
