@@ -98,6 +98,11 @@
 
 
 
+              <i class="fa fa-heart float-left" style="font-size:24px;color:firebrick">      <a href="/student_list" style="font-size:24px;color:black;">{{$count = DB::table('stage_user')->count()}}</a></i><br>
+
+
+
+
             <x-slot name="footer">
                 <div class="row justify-content-end">
                     <div class="col-sm-4 col-md-3 col-lg-2">

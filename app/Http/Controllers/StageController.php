@@ -23,6 +23,7 @@ class StageController extends Controller
      */
     public function index(){
 
+
     }
 
     /**
