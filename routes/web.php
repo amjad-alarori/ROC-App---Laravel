@@ -12,6 +12,7 @@ use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\DocentAccess;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,52 +33,47 @@ Route::group(['middleware' => 'web'], function () {
     Route::view('', 'home');
 
 
-    Route::view('studentDashboard','studentDashboard');
-
-
-
-    Route::view('beheer','opleidingBeheer')->name('beheer');
-    Route::resource('campus',CampusController::class);
-    Route::resource('program',ProgramController::class);
-    Route::prefix('program/{program}')->group(function (){
-        Route::resource('semester',SemesterController::class);
-    });
-    Route::resource('subject',SubjectController::class);
-    Route::resource('competence',CompetenceController::class);
-    Route::resource('course',CourseController::class);
-    Route::prefix('course/{course}')->group(function (){
-
-
-
-    });
+    Route::view('studentDashboard', 'studentDashboard');
 
 
 
 
-
-
-
-    Route::resource('stageBedrijven',StageBedrijvenController::class);
+    Route::resource('stageBedrijven', StageBedrijvenController::class);
     Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
+        Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
         Route::resource('stage', StageController::class);
 
+
     });
-
-
-
-
-
-
 
 
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
 //        Route::get('dashboard', [PagesController::class, 'index'])->name('dashboard');
         Route::resource('cv', CvController::class);
-        Route::resource('dashboard', PagesController::class );
+        Route::resource('dashboard', PagesController::class);
         Route::resource('docent', DocentController::class);
         Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
-        Route::post('test',[PagesController::class,'redirectToDashboard'])->name('DashGo');
+        Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
+
+
+
+        Route::middleware(DocentAccess::class)->group(function () {
+            /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
+            Route::view('beheer', 'opleidingBeheer')->name('beheer');
+            Route::resource('campus', CampusController::class);
+            Route::resource('program', ProgramController::class);
+            Route::prefix('program/{program}')->group(function () {
+                Route::resource('semester', SemesterController::class);
+            });
+            Route::resource('subject', SubjectController::class);
+            Route::resource('competence', CompetenceController::class);
+            Route::resource('course', CourseController::class);
+            Route::prefix('course/{course}')->group(function () {
+
+
+            });
+        });
     });
 });
 

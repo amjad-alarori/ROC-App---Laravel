@@ -54,9 +54,9 @@ class SemesterSubjecRule implements Rule
 
                 $comArray = [];
                 foreach ($semesters as $sem):
-                    if ($sem->semester < $this->semester || ($sem->semester = $this->semester && $sem->period < $this->period)):
+                    if ($sem->semester < $this->semester || ($sem->semester == $this->semester && $sem->period < $this->period)):
                         $subject = $sem->subject;
-                        $comArray = $comArray + $subject->attachedCompetences->pluck('id')->toArray();
+                        $comArray = array_merge($comArray ,$subject->attachedCompetences->pluck('id')->toArray());
                     endif;
                 endforeach;
 

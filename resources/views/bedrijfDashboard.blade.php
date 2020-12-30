@@ -98,6 +98,12 @@
 
 
 
+              <i class="fa fa-heart float-left" style="font-size:24px;color:firebrick">      <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;">{{$count = DB::table('stages_users')->where('stage_id', '=', $stage->id)->count('user_id')}}</a></i><br>
+
+
+
+
+
             <x-slot name="footer">
                 <div class="row justify-content-end">
                     <div class="col-sm-4 col-md-3 col-lg-2">
@@ -115,7 +121,12 @@
                         </x-form.modal-button>
                     </div>
                     <div>
+                        @if(!Auth::user()->stage->count())
+
                         <a href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right"> Ik heb interesse</a>
+                        @else
+                        <a class="btn btn-primary float-right"> Ik heb interesse</a>
+                        @endif
                     </div>
                 </div>
             </x-slot></div>

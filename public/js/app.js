@@ -21340,6 +21340,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+$(document).ready(function () {
+  $('#formModal .select2').select2({
+    dropdownParent: $('#formModal')
+  });
+});
 $('#openNavButton').on('click', function () {
   document.getElementById("mainSidenav").style.width = "250px";
   document.getElementById("main").style.paddingLeft = "266px";
@@ -21361,9 +21366,6 @@ $('.ModalButton').click(function () {
       modal.modal('show'); // modal.find('input[type != "hidden"]').first().focus()
     }
   });
-});
-$('#formModal .select2').select2({
-  dropdownParent: $('#formModal')
 });
 $(document).on('submit', '.AjaxForm', function (e) {
   e.preventDefault();
@@ -21484,8 +21486,8 @@ $("#searchUser").select2({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Code\rocapp\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Code\rocapp\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

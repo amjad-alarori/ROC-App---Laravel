@@ -16,25 +16,28 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://kit.fontawesome.com/de68f974dc.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
 </head>
 <body>
 
 <div id="mainSidenav" class="sidenav">
-   <div id="profileBtn">
-       @if (Route::has('login'))
-        @auth
-            @livewire('navigation-dropdown')
+    <div id="profileBtn">
+        @if (Route::has('login'))
+            @auth
+                @livewire('navigation-dropdown')
+            @endif
         @endif
-    @endif
-   </div>
+    </div>
     <a href="javascript:void(0)" class="closebtn" id="closeNavButton">&times;</a>
 
     <a href="{{route('dashboard.index')}}" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Overzicht</a>
     <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
     <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
-    <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>
-
+    @auth()
+        @if(auth()->user()->role == 2)
+            <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>
+        @endif
+    @endauth
 
 </div>
 <div id="darkMain"></div>
