@@ -98,7 +98,7 @@
 
 
 
-              <i class="fa fa-heart float-left" style="font-size:24px;color:firebrick">      <a href="/student_list" style="font-size:24px;color:black;">{{$count = DB::table('stage_user')->count()}}</a></i><br>
+              <i class="fa fa-heart float-left" style="font-size:24px;color:firebrick">      <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;">{{$count = DB::table('stages_users')->count()}}</a></i><br>
 
 
 
@@ -120,7 +120,11 @@
                         </x-form.modal-button>
                     </div>
                     <div>
+                        @if(!Auth::user()->stage)
                         <a href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right"> Ik heb interesse</a>
+                        @else
+                        <a class="btn btn-primary float-right"> Ik heb interesse</a>
+                        @endif
                     </div>
                 </div>
             </x-slot></div>

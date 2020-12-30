@@ -87,7 +87,7 @@ class StageController extends Controller
     {
 
         $user = auth()->user();
-        $user->stage()->attach($stage);
+        $stage->users()->attach($user);
         return redirect()->back();
 
     }
@@ -158,5 +158,13 @@ class StageController extends Controller
         $stage->delete();
 
         return redirect()->back();
+    }
+
+    public function getLikes(stageBedrijven $stageBedrijven, Stage $stage)
+    {
+        $users = $stage->users;
+        return view('studentLikes', compact('users'));
+
+
     }
 }

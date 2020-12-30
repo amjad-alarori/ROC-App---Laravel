@@ -66,7 +66,8 @@ class User extends Authenticatable
 
     public function stage(){
 
-        return $this->belongsToMany(stage::class);
+        return $this->belongsToMany(stage::class, 'stages_users');
+
 
     }
 
