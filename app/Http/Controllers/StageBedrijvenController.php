@@ -105,11 +105,8 @@ class StageBedrijvenController extends Controller
 
         $stages = Stage::query()->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
 
-        foreach ($stages as $stage)
 
-        $count = DB::table('stages_users')->where('stage_id', '=', $stage->id)->count('user_id');
-
-        return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven,'count'=>$count]);
+        return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
     }
 
     /**
