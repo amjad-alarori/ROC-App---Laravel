@@ -21476,6 +21476,20 @@ $("#searchUser").select2({
     cache: true
   }
 });
+$('.confirm').click(function () {
+  var accpet = confirm('Bij deze geeft u de recht aan de bedrijf om u gegevens te beheren, wilt u door gaan?');
+
+  if (!accpet) {
+    return false;
+  }
+});
+$('.diconfirm').click(function () {
+  var accpet = confirm('Bent u zeker niet meer geintereseerd?');
+
+  if (!accpet) {
+    return false;
+  }
+});
 
 /***/ }),
 
@@ -21486,8 +21500,8 @@ $("#searchUser").select2({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! /Users/amjadalarori/rocapp/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/amjadalarori/rocapp/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })

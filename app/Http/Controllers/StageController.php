@@ -171,4 +171,11 @@ class StageController extends Controller
     }
 
 
+    public function undo(stageBedrijven $stageBedrijven, Stage $stage)
+    {
+       $user = auth()->user()->stage()->detach();
+       return redirect()->back();
+    }
+
+
 }

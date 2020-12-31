@@ -98,7 +98,7 @@
 
 
 
-                     <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-left" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a><br>
+                     <a href= "{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-left" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a><br>
 
 
 
@@ -122,11 +122,16 @@
                     <div>
                         @if(!Auth::user()->stage->count())
 
-                        <a href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right"> Ik heb interesse</a>
+                        <a  href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right confirm"> Ik heb interesse</a>
+
                         @else
-                        <a class="btn btn-primary float-right"> Ik heb interesse</a>
+
+                            <a  href="{{route('stage.likes.undo',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-info float-right diconfirm"> Niet meer Geintereseerd</a>
+
                         @endif
+
                     </div>
+
                 </div>
             </x-slot></div>
         </x-cards.cardwfull><hr>

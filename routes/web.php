@@ -41,6 +41,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('stageBedrijven', StageBedrijvenController::class);
     Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
         Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+        Route::get('stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
+
         Route::resource('stage', StageController::class);
 
 
