@@ -161,7 +161,7 @@ $('.confirm').click(function() {
 });
 
 $('.diconfirm').click(function() {
-    var accpet = confirm('Bent u zeker niet meer geintereseerd?');
+    var accpet = confirm('Bent u zeker niet meer geïnteresseerd?');
 
     if(!accpet){
         return false;
