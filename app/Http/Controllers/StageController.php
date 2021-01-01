@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class StageController extends Controller
 {
@@ -22,6 +23,7 @@ class StageController extends Controller
      * @return void
      */
     public function index(){
+
 
     }
 
@@ -86,7 +88,7 @@ class StageController extends Controller
     {
 
         $user = auth()->user();
-        $user->stage()->attach($stage);
+        $stage->users()->attach($user);
         return redirect()->back();
 
     }
@@ -154,8 +156,26 @@ class StageController extends Controller
     public function destroy(stageBedrijven $stageBedrijven, Stage $stage)
     {
 
+        DB::table('stages_users')->where('stage_id', $stage->id)->delete();
         $stage->delete();
 
         return redirect()->back();
     }
+
+    public function getLikes(stageBedrijven $stageBedrijven, Stage $stage)
+    {
+        $users = $stage->users;
+        return view('studentLikes', compact('users'));
+
+
+    }
+
+
+    public function undo(stageBedrijven $stageBedrijven, Stage $stage)
+    {
+       $user = auth()->user()->stage()->detach();
+       return redirect()->back();
+    }
+
+
 }

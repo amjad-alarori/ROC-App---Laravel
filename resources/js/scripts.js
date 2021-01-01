@@ -147,5 +147,25 @@ $("#searchUser").select2({
         },
         cache: true
     }
+
+
+});
+
+$('.confirm').click(function() {
+    var accpet = confirm('Bij deze geeft u de recht aan de bedrijf om u gegevens te beheren, wilt u door gaan?');
+
+   if(!accpet){
+        return false;
+   }
+
+});
+
+$('.diconfirm').click(function() {
+    var accpet = confirm('Bent u zeker niet meer geintereseerd?');
+
+    if(!accpet){
+        return false;
+    }
+
 });
 

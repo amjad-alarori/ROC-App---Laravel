@@ -98,6 +98,11 @@
 
 
 
+                     <a href= "{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-left" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a><br>
+
+
+
+
             <x-slot name="footer">
                 <div class="row justify-content-end">
                     <div class="col-sm-4 col-md-3 col-lg-2">
@@ -115,8 +120,18 @@
                         </x-form.modal-button>
                     </div>
                     <div>
-                        <a href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right"> Ik heb interesse</a>
+                        @if(!Auth::user()->stage->count())
+
+                        <a  href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right confirm"> Ik heb interesse</a>
+
+                        @else
+
+                            <a  href="{{route('stage.likes.undo',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-info float-right diconfirm"> Niet meer Geintereseerd</a>
+
+                        @endif
+
                     </div>
+
                 </div>
             </x-slot></div>
         </x-cards.cardwfull><hr>
