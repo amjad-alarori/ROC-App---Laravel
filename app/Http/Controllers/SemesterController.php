@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use App\Models\Semester;
 use App\Models\Subject;
-use App\Rules\SemesterSubjecRule;
+use App\Rules\SemesterSubjectRule;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -19,8 +19,6 @@ class SemesterController extends Controller
      */
     public function index(Program $program)
     {
-
-
         $semesters = [];
         foreach ($program->semesters as $semester):
             if (!array_key_exists($semester->semester, $semesters)):
@@ -37,8 +35,6 @@ class SemesterController extends Controller
 
             array_push($semesters[$semester->semester][$semester->period], $semester->load('subject'));
         endforeach;
-
-//        dd($semesters);
 
         return view('programPlanning', ['program' => $program, 'semesters' => $semesters]);
     }
@@ -85,10 +81,10 @@ class SemesterController extends Controller
         endif;
 
         if ($request['isStage']==1):
-            $rule['subjects'] = ['required', 'integer', 'min:1', new SemesterSubjecRule(true, $program, $request['semester'],$period)];
+            $rule['subjects'] = ['required', 'integer', 'min:1', new SemesterSubjectRule(true, $program,null, $request['semester'],$period)];
         else:
             $rule['subjects'] = ['required', 'array', 'min:1'];
-            $rule['subjects.*'] = [new SemesterSubjecRule(false, $program)];
+            $rule['subjects.*'] = [new SemesterSubjectRule(false, $program)];
         endif;
 
         $request->validate($rule);
@@ -101,17 +97,15 @@ class SemesterController extends Controller
         endif;
 
         foreach ($subjectsArray as $subject):
-            $periodeNr = $request['periodNr'] == null ? 1 : $request['periodNr'];
-
             $duplCount = Semester::query()
                 ->where('semester', '=', $request['semester'])
-                ->where('period', '=', $periodeNr)
+                ->where('period', '=', $period)
                 ->where('subject_id', '=', $subject)->count();
 
             if ($duplCount == 0):
                 $semester = new Semester();
                 $semester->semester = $request['semester'];
-                $semester->period = $periodeNr;
+                $semester->period = $period;
                 $semester->program_id = $program->id;
                 $semester->subject_id = $subject;
 
@@ -128,11 +122,11 @@ class SemesterController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Semester $semester
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Semester $semester)
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -140,11 +134,11 @@ class SemesterController extends Controller
      *
      * @param Program $program
      * @param \App\Models\Semester $semester
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Program $program, Semester $semester)
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -153,11 +147,11 @@ class SemesterController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Program $program
      * @param \App\Models\Semester $semester
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Program $program, Semester $semester)
     {
-        //
+        return redirect()->back();
     }
 
     /**

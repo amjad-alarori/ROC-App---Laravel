@@ -22,4 +22,9 @@ class Course extends Model
     {
         return $this->belongsTo(Campus::class,'campus_id','id');
     }
+
+    public function plans()
+    {
+        return $this->hasMany(CoursePlan::class,'course_id','id');
+    }
 }

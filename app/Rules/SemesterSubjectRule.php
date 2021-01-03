@@ -2,11 +2,12 @@
 
 namespace App\Rules;
 
+use App\Models\Course;
 use App\Models\Program;
 use App\Models\Subject;
 use Illuminate\Contracts\Validation\Rule;
 
-class SemesterSubjecRule implements Rule
+class SemesterSubjectRule implements Rule
 {
     private $isStage;
     /**
@@ -16,21 +17,27 @@ class SemesterSubjecRule implements Rule
     private $semester;
     private $period;
     private $errorText;
+    /**
+     * @var Course|null
+     */
+    private $course;
 
     /**
      * Create a new rule instance.
      *
      * @param $isStage
      * @param Program $program
-     * @param $semester
-     * @param $period
+     * @param int $semester
+     * @param int $period
+     * @param Course|null $course
      */
-    public function __construct($isStage, Program $program, $semester = 0, $period = 0)
+    public function __construct($isStage, Program $program, Course $course = null, $semester = 0, $period = 0)
     {
         $this->isStage = $isStage;
         $this->program = $program;
         $this->semester = $semester;
         $this->period = $period;
+        $this->course = $course;
     }
 
     /**
@@ -42,29 +49,30 @@ class SemesterSubjecRule implements Rule
      */
     public function passes($attribute, $value)
     {
+        $subject = Subject::find($value);
+
         if ($this->isStage):
-            $count = Subject::query()->where('id', '=', $value)
-                ->where('co_op', '=', true)
-                ->where(function ($q) {
-                    $q->where('program_id', '=', $this->program->id)->orWhere('program_id', '=', null);
-                })->count();
+            if ($subject->co_op && ($subject->program_id == $this->program->id || $subject->program_id == null)):
 
-            if ($count > 0):
-                $semesters = $this->program->semesters->load('subject');
+                if ($this->course == null):
+                    $semesters = $this->program->semesters->load('subject');
+                else:
+                    $semesters = $this->course->plans->load('subject');
+                endif;
 
-                $comArray = [];
+                $compArray = [];
                 foreach ($semesters as $sem):
                     if ($sem->semester < $this->semester || ($sem->semester == $this->semester && $sem->period < $this->period)):
                         $subject = $sem->subject;
-                        $comArray = array_merge($comArray ,$subject->attachedCompetences->pluck('id')->toArray());
+                        $compArray = array_merge($compArray, $subject->attachedCompetences->pluck('id')->toArray());
                     endif;
                 endforeach;
 
-                $stageComp = Subject::query()->where('id', '=', $value)->first()
+                $stageComp = Subject::find($value)
                     ->attachedCompetences->pluck('id')->toArray();
 
                 foreach ($stageComp as $comp):
-                    if (!in_array($comp, $comArray)):
+                    if (!in_array($comp, $compArray)):
                         $this->errorText = 'niet alle competenties van de gekozen stage komen in eerdere perioden voor.';
                         return false;
                     endif;
@@ -76,13 +84,7 @@ class SemesterSubjecRule implements Rule
                 return false;
             endif;
         else:
-            $count = Subject::query()->where('id', '=', $value)
-                ->where('co_op', '=', false)
-                ->where(function ($q) {
-                    $q->where('program_id', '=', $this->program->id)->orWhere('program_id', '=', null);
-                })->count();
-
-            if ($count > 0):
+            if (!$subject->co_op && ($subject->program_id == $this->program->id || $subject->program_id == null)):
                 return true;
             else:
                 $this->errorText = 'een gekozen studievak kan niet worden togevoegd.';
