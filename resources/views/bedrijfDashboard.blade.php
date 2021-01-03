@@ -98,8 +98,7 @@
 
 
 
-              <i class="fa fa-heart float-left" style="font-size:24px;color:firebrick">      <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;">{{$count}}</a></i><br>
-
+                     <a href= "{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-left" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a><br>
 
 
 
@@ -121,13 +120,18 @@
                         </x-form.modal-button>
                     </div>
                     <div>
-                        @if(!Auth::user()->stage->count())
+                        @if($stage->users->where('id', '=', auth()->id())->count() === 0)
 
-                        <a href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right"> Ik heb interesse</a>
+                        <a  href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right confirm"> Ik heb interesse</a>
+
                         @else
-                        <a class="btn btn-primary float-right"> Ik heb interesse</a>
+
+                            <a  href="{{route('stage.likes.undo',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-info float-right diconfirm"> Niet meer Geïnteresseerd</a>
+
                         @endif
+
                     </div>
+
                 </div>
             </x-slot></div>
         </x-cards.cardwfull><hr>

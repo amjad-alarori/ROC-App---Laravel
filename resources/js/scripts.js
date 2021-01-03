@@ -146,6 +146,26 @@ $("#searchUser").select2({
         },
         cache: true
     }
+
+
+});
+
+$('.confirm').click(function() {
+    var accpet = confirm('Door je interesse in deze stage kenbaar te maken geef je het bedrijf de mogelijkheid om je studieresultaten te bekijken, wilt u door gaan?');
+
+   if(!accpet){
+        return false;
+   }
+
+});
+
+$('.diconfirm').click(function() {
+    var accpet = confirm('Weet u zeker dat je niet meer geïnteresseerd bent?');
+
+    if(!accpet){
+        return false;
+    }
+
 });
 
 
