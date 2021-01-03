@@ -2,7 +2,7 @@
 
 @section('title')
 
-Student Dashboard
+    Student Dashboard
 @endsection
 
 
@@ -13,7 +13,7 @@ Student Dashboard
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="h1">
-                     Welkom  {{-- {{$user->name}}--}}
+                        Welkom {{-- {{$user->name}}--}}
                     </h1>
 
                     <hr>
@@ -38,41 +38,41 @@ Student Dashboard
         <div class="container-fluid">
 
 
-                      <div class="wrap">
-                        <form method="post" class="search" action="{{route('DashGo')}}">
-                            @csrf
-                            <select class="select2 single2" name="SearchId" id='searchUser' style='width: 400px;'>
-                                <option value='0'>- Zoek account -</option>
-                            </select>&nbsp; &nbsp; <button class="btnSearch" type="submit" style="background-color: coral; color: white;"> Ga naar account</button>
-
-
-
-
-
-{{--                            <input type="text" class="searchTerm" name="searchTerm" placeholder="Wie zoek je?">--}}
-{{--                            <button type="submit" class="searchButton">--}}
-{{--                                <i class="fa fa-search"></i>--}}
-{{--                            </button>--}}
-                        </form>
+            <div class="wrap">
+                <form method="post" class="search" action="{{route('DashGo')}}">
+                    @csrf
+                    <div class="searchUser2">
+                        <select class="select2 single2" name="SearchId" id='searchUser' style='width: 400px;'>
+                            <option value='0'>- Zoek account -</option>
+                        </select>&nbsp; &nbsp;
+                        <button class="btnSearch" type="submit" style="background-color: coral; color: white;"> Ga naar
+                            account
+                        </button>
                     </div>
 
-{{--            @foreach ($data as $searchvalue)--}}
 
-{{--                <table>--}}
-{{--                    <tr>--}}
-{{--                        <th>Zoekresultaten</th>--}}
+                    {{--                            <input type="text" class="searchTerm" name="searchTerm" placeholder="Wie zoek je?">--}}
+                    {{--                            <button type="submit" class="searchButton">--}}
+                    {{--                                <i class="fa fa-search"></i>--}}
+                    {{--                            </button>--}}
+                </form>
+            </div>
 
-{{--                    </tr>--}}
-{{--                    <tr>--}}
-{{--                        <td>{{$searchvalue->name}}</td>--}}
+            {{--            @foreach ($data as $searchvalue)--}}
 
-{{--                    </tr>--}}
+            {{--                <table>--}}
+            {{--                    <tr>--}}
+            {{--                        <th>Zoekresultaten</th>--}}
 
-{{--                </table>--}}
+            {{--                    </tr>--}}
+            {{--                    <tr>--}}
+            {{--                        <td>{{$searchvalue->name}}</td>--}}
 
-{{--                @endforeach--}}
+            {{--                    </tr>--}}
 
+            {{--                </table>--}}
 
+            {{--                @endforeach--}}
 
 
         </div>
@@ -81,9 +81,9 @@ Student Dashboard
 
 
     </div>
-    @endsection
+@endsection
 
-    @section('script')
+@section('script')
 
 
 @endsection

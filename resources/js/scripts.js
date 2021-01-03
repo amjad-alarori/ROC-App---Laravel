@@ -121,9 +121,6 @@ $('.modal').on('shown.bs.modal', function (e) {
 
 });
 
-
-
-
 $("#searchUser").select2({
     ajax: {
         url: "docent/search",
