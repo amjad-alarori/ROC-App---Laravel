@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\CoursePlanController;
 use App\Http\Controllers\DocentController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CompetenceController;
@@ -72,6 +73,9 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('competence', CompetenceController::class);
             Route::resource('course', CourseController::class);
             Route::prefix('course/{course}')->group(function () {
+
+                Route::resource('plan',CoursePlanController::class)->parameter('plan','coursePlan');
+
             });
         });
     });
