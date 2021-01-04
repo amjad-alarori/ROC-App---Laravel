@@ -40,7 +40,7 @@
                 <x-slot name="descrition">
                     student management paneel
                 </x-slot>
-                <a href="#" class="btn btn-just-icon btn-round">
+                <a href="{{route('enrollment.index',['course'=>$course])}}" class="btn btn-just-icon btn-round">
                     <i class="fas fa-users"></i>
                     <div class="ripple-container">lijst</div>
                 </a>
