@@ -25,12 +25,14 @@ class PagesController extends Controller
             return view('studentDashboard', ['user'=>$user]);
         } elseif (Auth::user()->role === 2) {
             return view('docentDashboard');
+        }elseif (Auth::user()->role ===3){
+            return view('bedrijfDashboard');
         }
 
 
     }
     public function redirectToDashboard(Request $request){
-//        dd($request);
+
         $user = User::query()->find($request['searchId']);
 
         return view('studentDashboard', ['user'=>$user]);

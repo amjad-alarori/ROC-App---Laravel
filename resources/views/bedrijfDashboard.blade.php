@@ -120,13 +120,13 @@
                         </x-form.modal-button>
                     </div>
                     <div>
-                        @if(!Auth::user()->stage->count())
+                        @if($stage->users->where('id', '=', auth()->id())->count() === 0)
 
                         <a  href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right confirm"> Ik heb interesse</a>
 
                         @else
 
-                            <a  href="{{route('stage.likes.undo',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-info float-right diconfirm"> Niet meer Geintereseerd</a>
+                            <a  href="{{route('stage.likes.undo',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-info float-right diconfirm"> Niet meer Geïnteresseerd</a>
 
                         @endif
 

@@ -103,9 +103,8 @@ class StageBedrijvenController extends Controller
     public function show(StageBedrijven $stageBedrijven)
     {
 
-        $stages = Stage::query()->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
-
-
+        $stages = Stage::query()->with('users')->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
+//       dd($stages);
         return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
     }
 

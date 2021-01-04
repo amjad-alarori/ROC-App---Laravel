@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProgramAreaController;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\CoursePlanController;
 use App\Http\Controllers\DocentController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CompetenceController;
@@ -40,9 +41,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('stageBedrijven', StageBedrijvenController::class);
     Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
         Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+
         Route::get('stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
 
+
         Route::resource('stage', StageController::class);
+        Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
+
 
 
     });
@@ -59,33 +64,53 @@ Route::group(['middleware' => 'web'], function () {
 
 
     //Route::middleware(DocentAccess::class)->group(function () {
-    /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
-    Route::view('beheer', 'opleidingBeheer')->name('beheer');
-    Route::resource('campus', CampusController::class);
-    Route::prefix('campus/{campus}')->group(function () {
-        Route::resource('study', ProgramAreaController::class);
-        Route::prefix('study/{programArea}')->group(function () {
+//    /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
+//    Route::view('beheer', 'opleidingBeheer')->name('beheer');
+//    Route::resource('campus', CampusController::class);
+//    Route::prefix('campus/{campus}')->group(function () {
+//        Route::resource('study', ProgramAreaController::class);
+//        Route::prefix('study/{programArea}')->group(function () {
 //                Route::resource('program', ProgramController::class);
 //                Route::prefix('program/{program}')->group(function () {
 //                    Route::resource('semester', SemesterController::class);
 //            });
-        });
-    });
+//        });
+//    });
+        Route::resource('cv', CvController::class);
+        Route::resource('dashboard', PagesController::class);
+        Route::resource('docent', DocentController::class);
+        Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
+        Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
+
+
+
+
+        Route::middleware(DocentAccess::class)->group(function () {
+            /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
+            Route::view('beheer', 'opleidingBeheer')->name('beheer');
+            Route::resource('campus', CampusController::class);
             Route::resource('program', ProgramController::class);
             Route::prefix('program/{program}')->group(function () {
                 Route::resource('semester', SemesterController::class);
             });
+
         Route::resource('subject', SubjectController::class);
         Route::resource('competence', CompetenceController::class);
         Route::resource('course', CourseController::class);
         Route::prefix('course/{course}')->group(function () {
 
 
+            Route::resource('subject', SubjectController::class);
+            Route::resource('competence', CompetenceController::class);
+            Route::resource('course', CourseController::class);
+            Route::prefix('course/{course}')->group(function () {
+                Route::resource('plan',CoursePlanController::class)->parameter('plan','coursePlan');
+            });
         });
         //});
         //});
     });
-//});
+});
 
 //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //    return view('dashboard');

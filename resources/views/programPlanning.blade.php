@@ -102,8 +102,4 @@
             @endif
         </x-cards.cardwfull>
     @endforeach
-
-
-
-
 @endsection

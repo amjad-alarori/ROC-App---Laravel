@@ -121,7 +121,6 @@ $('.modal').on('shown.bs.modal', function (e) {
 
 });
 
-
 $("#searchUser").select2({
     ajax: {
         url: "docent/search",
@@ -152,7 +151,7 @@ $("#searchUser").select2({
 });
 
 $('.confirm').click(function() {
-    var accpet = confirm('Bij deze geeft u de recht aan de bedrijf om u gegevens te beheren, wilt u door gaan?');
+    var accpet = confirm('Door je interesse in deze stage kenbaar te maken geef je het bedrijf de mogelijkheid om je studieresultaten te bekijken, wilt u door gaan?');
 
    if(!accpet){
         return false;
@@ -161,11 +160,12 @@ $('.confirm').click(function() {
 });
 
 $('.diconfirm').click(function() {
-    var accpet = confirm('Bent u zeker niet meer geintereseerd?');
+    var accpet = confirm('Weet u zeker dat je niet meer geïnteresseerd bent?');
 
     if(!accpet){
         return false;
     }
 
 });
+
 
