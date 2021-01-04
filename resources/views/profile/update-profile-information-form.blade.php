@@ -73,12 +73,12 @@
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="email" value="{{ __('Email') }}" />
-            <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" value="{{Auth::user()->email }}"/>
+            <div class="form-input rounded-md shadow-sm mt-1 block w-full" id="email">{{Auth::user()->email }}</div>
             <x-jet-input-error for="email" class="mt-2" />
         </div>
         <br>
 
-        <!-- biograohy -->
+        <!-- biography -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="biography" value="{{ __('Iets over jezelf') }}" />
             <textarea class="form-input rounded-md shadow-sm block mt-1 w-full" id="biography" name="biography" wire:model.defer="state.biography" style="margin-top: 4px; margin-bottom: 0px;">{{Auth::user()->biography }}</textarea>

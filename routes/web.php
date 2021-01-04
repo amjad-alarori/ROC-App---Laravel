@@ -12,7 +12,9 @@ use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\CompanyAccess;
 use App\Http\Middleware\DocentAccess;
+use App\Http\Middleware\StudentAccess;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,45 +30,38 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'web'], function () {
     /** voeg hier de routes welke zonder authorisatie te bereiken is */
-
-
     Route::view('', 'home');
-
-
-    Route::view('studentDashboard', 'studentDashboard');
-
-
-
-
-    Route::resource('stageBedrijven', StageBedrijvenController::class);
-    Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
-        Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
-
-        Route::get('stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
-
-
-        Route::resource('stage', StageController::class);
-        Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
-
-
-
-    });
-
 
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
-//        Route::get('dashboard', [PagesController::class, 'index'])->name('dashboard');
-        Route::resource('cv', CvController::class);
+
         Route::resource('dashboard', PagesController::class);
-        Route::resource('docent', DocentController::class);
-        Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
-        Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
+        Route::resource('stageBedrijven', StageBedrijvenController::class);
 
 
+
+        Route::middleware(CompanyAccess::class)->group(function () {
+//            Route::resource('stageBedrijven', StageBedrijvenController::class);
+            Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
+                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+                Route::get('stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
+                Route::resource('stage', StageController::class);
+                Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
+            });
+        });
+
+
+        Route::middleware(StudentAccess::class)->group(function () {
+            Route::resource('cv', CvController::class);
+            Route::view('user/profile', 'profile.show')->name('profile');
+        });
 
 
         Route::middleware(DocentAccess::class)->group(function () {
             /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
+            Route::resource('docent', DocentController::class);
+            Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
+            Route::post('studentDashboard', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
             Route::view('beheer', 'opleidingBeheer')->name('beheer');
             Route::resource('campus', CampusController::class);
             Route::resource('program', ProgramController::class);
@@ -77,8 +72,6 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('competence', CompetenceController::class);
             Route::resource('course', CourseController::class);
             Route::prefix('course/{course}')->group(function () {
-
-
             });
         });
     });
