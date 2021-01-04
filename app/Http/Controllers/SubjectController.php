@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-=======
 use App\Models\Competence;
 use App\Models\Program;
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -15,13 +12,6 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      *
-<<<<<<< HEAD
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-=======
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
@@ -29,40 +19,26 @@ class SubjectController extends Controller
         $subjects = Subject::all();
 
         return view('subjects', ['subjects' => $subjects]);
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
     }
 
     /**
      * Show the form for creating a new resource.
      *
-<<<<<<< HEAD
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-=======
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+
+        $isStage = $request->has('isStage')?$request['isStage']:false;
         $competences = Competence::all();
         $programs = Program::all();
-        return view('subject.create', ['competences' => $competences, 'programs' => $programs]);
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
+        return view('subject.create', ['competences' => $competences, 'programs' => $programs, 'isStage' => $isStage]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-=======
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -75,10 +51,13 @@ class SubjectController extends Controller
             'program' => ['integer', 'nullable'],
         ]);
 
+        $isStage = $request->has('isStage')?$request['isStage']:false;
+
         $subject = new Subject();
         $subject->forceFill([
             'title' => $request['title'],
             'e_credit' => $request['credits'],
+            'co_op'=>$isStage
         ]);
         $subject->program_id = $request['program'];
         $subject->save();
@@ -99,58 +78,36 @@ class SubjectController extends Controller
         return response()->json([
             'url' => route('subject.index')
         ]);
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
     }
 
     /**
      * Display the specified resource.
      *
-<<<<<<< HEAD
-     * @param  \App\Models\Subject  $subject
-=======
      * @param \App\Models\Subject $subject
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Subject $subject)
     {
-        //
+        return redirect()->back();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-<<<<<<< HEAD
-     * @param  \App\Models\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Subject $subject)
-    {
-        //
-=======
      * @param \App\Models\Subject $subject
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Subject $subject)
     {
+        $isStage = $subject->co_op;
         $competences = Competence::all();
         $programs = Program::all();
-        return view('subject.edit', ['subject' => $subject, 'competences' => $competences, 'programs' => $programs]);
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
+        return view('subject.edit', ['subject' => $subject, 'competences' => $competences, 'programs' => $programs,'isStage' => $isStage]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-<<<<<<< HEAD
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Subject $subject)
-    {
-        //
-=======
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Subject $subject
      * @return \Illuminate\Http\JsonResponse
@@ -189,28 +146,19 @@ class SubjectController extends Controller
         return response()->json([
             'url' => route('subject.index')
         ]);
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
     }
 
     /**
      * Remove the specified resource from storage.
      *
-<<<<<<< HEAD
-     * @param  \App\Models\Subject  $subject
-=======
      * @param \App\Models\Subject $subject
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Subject $subject)
     {
-<<<<<<< HEAD
-        //
-=======
         $competences = $subject->attachedCompetences()->pluck('competences.id')->toArray();
         $subject->attachedCompetences()->detach($competences);
         $subject->delete();
         return redirect()->back();
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
     }
 }

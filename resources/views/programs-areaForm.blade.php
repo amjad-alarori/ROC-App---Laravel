@@ -1,4 +1,4 @@
-<form id="areaForm" method="Post" action="{{route('opleiding.store')}}">
+<form id="areaForm" method="Post" action="{{route('study.store')}}">
     <x-form.modal title="Opleiding toevoegen">
      @csrf
      <div class="form-group form-row">

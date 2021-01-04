@@ -16,10 +16,7 @@ class CreateCompetencesTable extends Migration
         Schema::create('competences', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-<<<<<<< HEAD
-=======
             $table->foreignId('subject_id')->nullable()->constrained('subjects');
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
             $table->timestamps();
         });
     }

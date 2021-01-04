@@ -18,7 +18,7 @@ class ProgramAreaController extends Controller
     {
         $programAreas = ProgramArea::all();
 
-        return view('programs-area', ['programArea'=>$programAreas]);
+        return view('programs-area', ['campus'=>$campus, 'programArea'=>$programAreas]);
     }
 
     /**
@@ -29,32 +29,41 @@ class ProgramAreaController extends Controller
      */
     public function create(Campus $campus)
     {
-        return view('programs-areaForms', ['campus' => $campus]);
+        $programAreas = ProgramArea::all();
+        return view('programs-area.create', ['campus'=>$campus->id, 'programAreas'=>$programAreas]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     * @param Campus $campus
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Campus $campus)
     {
         $request->validate([
             'title' => ['string', 'required'],
-            'description' => ['string', 'required'],
+            'description' => ['text', 'required'],
+            'type' => ['string', 'required'],
+            'code' => ['integer', 'required']
         ]);
 
         $opleiding = new ProgramArea();
         $opleiding->title = $request->get('title');
         $opleiding->description = $request->get('description');
-//        $opleiding->campusId = $campus->id;
+        $opleiding->type = $request->get('type');
+        $opleiding->code = $request->get('code');
+        $opleiding->campusId = $campus->id;
 
 
         $opleiding->save();
 
 //        return redirect(route('opleiding.index',['campus'=>$campus]));
-        return redirect(route('opleiding.index'));
+//        return redirect(route('study.index'));
+        return response()->json([
+            'url' => route('study.index', ['campus' =>  $campus])
+        ]);
     }
 
     /**
@@ -76,7 +85,8 @@ class ProgramAreaController extends Controller
      */
     public function edit(ProgramArea $programArea)
     {
-        //
+        $programAreas = ProgramArea::all();
+        return view('programs-area.edit', compact('programAreas'));
     }
 
     /**
@@ -102,7 +112,6 @@ class ProgramAreaController extends Controller
     public function destroy(ProgramArea $programArea)
     {
         $programArea->delete($programArea->id);
-        dd($programArea);
-        return redirect(route('opleiding.index'));
+        return redirect(route('study.index'));
     }
 }

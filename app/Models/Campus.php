@@ -31,4 +31,9 @@ class Campus extends Model
     {
         return $this->hasMany(Course::class,'campus_id','id');
     }
+
+    public function programarea()
+    {
+        return $this->hasMany(ProgramArea::class, 'campusId', 'id');
+    }
 }
