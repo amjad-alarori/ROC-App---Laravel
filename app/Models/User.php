@@ -72,4 +72,8 @@ class User extends Authenticatable
 
     }
 
+    public function company(){
+        return $this->hasOne(StageBedrijven::class, 'user_id');
+    }
+
 }

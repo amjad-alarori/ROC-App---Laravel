@@ -39,22 +39,23 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('dashboard', PagesController::class);
         Route::resource('stageBedrijven', StageBedrijvenController::class);
 
+        Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
+            Route::get('stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
+            Route::resource('stage', StageController::class);
+        });
 
 
         Route::middleware(CompanyAccess::class)->group(function () {
-//            Route::resource('stageBedrijven', StageBedrijvenController::class);
-            Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
-                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
-                Route::get('stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
-                Route::resource('stage', StageController::class);
-                Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
-            });
+            Route::get('stageBedrijven/{stageBedrijven}/stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+            Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
+
         });
 
 
         Route::middleware(StudentAccess::class)->group(function () {
             Route::resource('cv', CvController::class);
             Route::view('user/profile', 'profile.show')->name('profile');
+
         });
 
 

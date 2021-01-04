@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\stage;
+use App\Models\StageBedrijven;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +22,15 @@ class PagesController extends Controller
 
 
 
-
         if (Auth::user()->role === 1) {
             return view('studentDashboard', ['user'=>$user]);
         } elseif (Auth::user()->role === 2) {
             return view('docentDashboard');
         }elseif (Auth::user()->role ===3){
-            return view('bedrijfDashboard');
+            $company = Auth::user()->company;
+            $stages = $company->stages;
+
+            return view('bedrijfDashboard', ['company'=>$company,'user'=>$user, 'stages'=>$stages]);
         }
 
 

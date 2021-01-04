@@ -40,7 +40,7 @@ class StageBedrijvenController extends Controller
     public function create()
     {
 
-        return view('stageBedrijvenForm',['bedrijf'=>null]);
+        return view('stageBedrijvenForm', ['bedrijf' => null]);
     }
 
     /**
@@ -51,6 +51,7 @@ class StageBedrijvenController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => ['string', 'required'],
             'address' => ['string', 'required'],
@@ -58,20 +59,29 @@ class StageBedrijvenController extends Controller
             'city' => ['string', 'required'],
             'email' => ['email', 'required'],
             'phone_nr' => ['string', 'required'],
-            'contact_persoon'=>['string', 'required']
+            'contact_persoon' => ['string', 'required']
         ]);
 
+
+        $user = new User;
+        $user->forceFill([
+            'name' => $request['contact_persoon'],
+            'email' => $request['email'],
+            'password' => 'newuser',
+            'role' => 3,
+        ]);
+        $user->save();
+
         $company = new StageBedrijven();
-        $company->fill([
+        $company->forceFill([
             'name' => $request['name'],
             'address' => $request['address'],
             'zip_code' => $request['zip_code'],
             'city' => $request['city'],
             'email' => $request['email'],
             'phone_nr' => $request['phone_nr'],
-
-        ]);
-
+            'user_id' => $user->id,
+        ]);;
         $company->save();
 
 //        $user= New User();
@@ -79,14 +89,6 @@ class StageBedrijvenController extends Controller
 //        $user->email = $company->email;
 //        $user->password = 'newcompany';
 //        $user->save();
-
-        User::create([
-            'name' => $request['contact_persoon'],
-            'email' => $request['email'],
-            'password' => 'newuser',
-            'role' => 3,
-
-        ]);
 
 
 //        return redirect(route('stageBedrijven.index'));
@@ -103,7 +105,7 @@ class StageBedrijvenController extends Controller
     public function show(StageBedrijven $stageBedrijven)
     {
 
-        $stages = Stage::query()->with('users')->where('stageBedrijf_id', '=',  $stageBedrijven->id)->get();
+        $stages = Stage::query()->with('users')->where('stageBedrijf_id', '=', $stageBedrijven->id)->get();
 //       dd($stages);
         return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
     }
@@ -116,7 +118,7 @@ class StageBedrijvenController extends Controller
      */
     public function edit(StageBedrijven $stageBedrijven)
     {
-        return view('stageBedrijvenEdit', ['stageBedrijven'=>$stageBedrijven]);
+        return view('stageBedrijvenEdit', ['stageBedrijven' => $stageBedrijven]);
     }
 
     /**
