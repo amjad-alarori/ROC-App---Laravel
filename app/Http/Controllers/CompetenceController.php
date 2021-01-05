@@ -10,7 +10,8 @@ class CompetenceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+<<<<<<< HEAD
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -77,6 +78,7 @@ class CompetenceController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Competence  $competence
+     * @return \Illuminate\Http\Response
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Competence $competence)

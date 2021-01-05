@@ -33,7 +33,7 @@
                 <i class='far fa-clipboard' style="font-size: 36px;"></i>
             </div>
         </a>
-        <a href="#" class="d-flex flex-column justify-content-center btn m-4 p-2 rounded shadow border" style="width: 300px;height: 300px;">
+        <a href="{{route('study.index')}}" class="d-flex flex-column justify-content-center btn m-4 p-2 rounded shadow border" style="width: 300px;height: 300px;">
             <div class="align-self-center h3">Sectoren</div>
             <div class="align-self-center h3">
                 <i class='fas fa-sitemap' style="font-size: 36px;"></i>

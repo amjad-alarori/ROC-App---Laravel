@@ -8,11 +8,14 @@
     <div class="row display-4 border-bottom border-secondary rounded-bottom px-4 pb-4">
         <div class="col-md-4">{{$company->name}}</div>
         <div class="col-md-8" style="text-align: end">
+            @if (Auth::user()->role === 1 )
 
+            @else
             <x-form.modal-button data-target="#formModal" data-url="{{route('stage.create', ['stageBedrijven'=> $company])}}"
                                  class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-4">
                 Nieuwe stageplek
             </x-form.modal-button>
+                @endif
 
         </div>
     </div>
@@ -20,8 +23,20 @@
     @foreach($stages as $stage)
         <x-cards.cardwfull :title="$stage->functie" class="my-4">
 
+            <section>
+                <strong>Wie zijn wij?</strong>
+                <p>{{$stage->wie_zijn_wij}}
+                    @if (Auth::user()->role === 1 )
+
+                    @else
+                    <a href= "{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-right" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a>
+                @endif
+                </p>
+            </section><br><hr><br>
+
             <div class="row">
                 <div class="col-md-5">
+
                     <div class="row">
                         <div class="col-lg-4">
                             <strong>Functie:</strong>
@@ -98,28 +113,34 @@
 
 
 
-                     <a href= "{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-left" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a><br>
-
-
 
 
             <x-slot name="footer">
                 <div class="row justify-content-end">
-                    <div class="col-sm-4 col-md-3 col-lg-2">
-                        <form method="POST" action="{{route('stage.destroy', ['stageBedrijven'=> $company, 'stage'=> $stage])}}">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="btn btn-danger btn-block float-right"
-                                   value="Verwijderen"></input>
-                        </form>
-                    </div>
+                    @if (Auth::user()->role === 1 )
 
-                    <div class="col-sm-4 col-md-3 col-lg-2">
-                        <x-form.modal-button data-target="#formModal" data-url="{{route('stage.edit',['stageBedrijven'=>$company, 'stage'=> $stage])}}"
-                                             class="btn btn-warning btn-block float-right">Wijzigen
-                        </x-form.modal-button>
-                    </div>
+                    @else
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <form method="POST" action="{{route('stage.destroy', ['stageBedrijven'=> $company, 'stage'=> $stage])}}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger btn-block float-right"
+                                       value="Verwijderen"></input>
+                            </form>
+                        </div>
+
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <x-form.modal-button data-target="#formModal" data-url="{{route('stage.edit',['stageBedrijven'=>$company, 'stage'=> $stage])}}"
+                                                 class="btn btn-warning btn-block float-right">Wijzigen
+                            </x-form.modal-button>
+                        </div>
+                    @endif
                     <div>
+
+                        @if(Auth::user()->role === 2)
+                        @elseif (Auth::user()->role === 3)
+
+                        @else
                         @if($stage->users->where('id', '=', auth()->id())->count() === 0)
 
                         <a  href="{{route('stage.show',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-primary float-right confirm"> Ik heb interesse</a>
@@ -128,6 +149,7 @@
 
                             <a  href="{{route('stage.likes.undo',['stageBedrijven'=>$company, 'stage'=>$stage])}}"  class="btn btn-info float-right diconfirm"> Niet meer Geïnteresseerd</a>
 
+                        @endif
                         @endif
 
                     </div>

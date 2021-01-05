@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\cards;
 
 use Illuminate\View\Component;
 use function PHPUnit\Framework\isNull;
@@ -9,20 +9,17 @@ class ProfileCard extends Component
 {
     private $cardImage;
     private $title;
-    private $bgImage;
 
     /**
      * Create a new component instance.
      *
      * @param $cardImage
      * @param $title
-     * @param $bgImage
      */
-    public function __construct($cardImage, $title, $bgImage = null)
+    public function __construct($cardImage, $title)
     {
         $this->cardImage = $cardImage;
         $this->title = $title;
-        $this->bgImage = $bgImage;
     }
 
     /**
@@ -35,7 +32,6 @@ class ProfileCard extends Component
         return view('components.cards.profile-card',
             [
                 'cardImage' => $this->cardImage,
-                'bgImage' => $this->bgImage,
                 'title' => $this->title
             ]);
     }

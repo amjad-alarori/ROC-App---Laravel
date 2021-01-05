@@ -56,7 +56,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger btn-block float-right"
-                                   value="Verwijderen"></input>
+                                   value="Verwijderen"/>
                         </form>
                     </div>
                     <div class="col-sm-4 col-md-3 col-lg-2">
@@ -64,6 +64,9 @@
                                              class="btn btn-warning btn-block float-right">
                             Wijzigen
                         </x-form.modal-button>
+                    </div>
+                    <div class="col-sm-4 col-md-3 col-lg-2">
+                        <a href="{{route('study.index',['campus'=>$campus])}}" class="btn btn-primary"> Ga naar opleidingen</a>
                     </div>
                 </div>
             </x-slot>

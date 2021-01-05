@@ -10,9 +10,10 @@ class CampusController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Campus $campus
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index(Campus $campus)
     {
 
         $campuses = Campus::all();
@@ -76,7 +77,7 @@ class CampusController extends Controller
      */
     public function show(Campus $campus)
     {
-        //
+
     }
 
     /**

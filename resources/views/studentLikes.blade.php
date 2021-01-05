@@ -38,10 +38,12 @@
 
 
 
+
 {{--                            <form method="post" class="search" action="{{route('DashGo')}}">--}}
 {{--                                @csrf--}}
                                 <a class="btn btn-goToStudent" href="{{route('companyGoesToStudent', ['stageBedrijven'=>auth()->id(),'user'=>$user])}}"> Bekijk student</a>
 {{--                            </form>--}}
+
 
 
                         </div>

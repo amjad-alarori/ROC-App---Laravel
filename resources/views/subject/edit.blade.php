@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+<?php
+=======
 <form method="POST" class="AjaxForm" action="{{route('subject.update', ['subject' => $subject])}}">
     @csrf
     @method('PUT')
@@ -9,3 +12,4 @@
         <button type="submit" class="btn btn-primary">Opslaan</button>
     </div>
 </form>
+>>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e
