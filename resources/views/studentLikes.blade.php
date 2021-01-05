@@ -38,10 +38,10 @@
 
 
 
-                            <form method="post" class="search" action="{{route('DashGo')}}">
-                                @csrf
-                                <button class="btn btn-primary" type="submit"> Klik hier voor dashboard</button>
-                            </form>
+{{--                            <form method="post" class="search" action="{{route('DashGo')}}">--}}
+{{--                                @csrf--}}
+                                <a class="btn btn-goToStudent" href="{{route('companyGoesToStudent', ['stageBedrijven'=>auth()->id(),'user'=>$user])}}"> Bekijk student</a>
+{{--                            </form>--}}
 
 
                         </div>

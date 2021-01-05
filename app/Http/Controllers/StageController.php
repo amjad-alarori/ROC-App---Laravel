@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CompanyAccess;
+use App\Http\Middleware\DocentAccess;
+use App\Http\Middleware\DocentAndCompanyAccess;
+use App\Http\Middleware\StudentAccess;
 use App\Models\stage;
 use App\Models\StageBedrijven;
 use App\Models\User;
@@ -24,6 +28,13 @@ class StageController extends Controller
      * @param stage $stage
      * @return void
      */
+
+    public function __construct()
+    {
+        $this->middleware(StudentAccess::class)->only('show', 'undo');
+        $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
+
+    }
     public function index(){
 
 
@@ -37,7 +48,7 @@ class StageController extends Controller
     public function create(stageBedrijven $stageBedrijven)
     {
 
-        dd('GVD');
+
 
         return view('stageCreate',['stageBedrijven'=>$stageBedrijven]);
 

@@ -48,7 +48,7 @@
         @auth()
             <a class="btn btnLogin" href="{{ route('dashboard.index') }}">Home</a>
         @else
-            <a class="btn btnLogin" href="{{ route('login') }}">Login</a>
+            <a class="btn btnLogin"  href="{{ route('login') }}">Login</a>
         @endauth
     </div>
 </section>

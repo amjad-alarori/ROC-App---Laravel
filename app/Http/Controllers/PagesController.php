@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
-    public function index(User $user)
+    public function index()
     {
 
 //        $user= User::query()->where('id', '=', 4);
@@ -21,11 +21,11 @@ class PagesController extends Controller
 
 
 
-
+        $user = Auth::user();
         if (Auth::user()->role === 1) {
             return view('studentDashboard', ['user'=>$user]);
         } elseif (Auth::user()->role === 2) {
-            return view('docentDashboard');
+            return view('docentDashboard', ['user'=>$user]);
         }elseif (Auth::user()->role ===3){
             $company = Auth::user()->company;
             $stages = $company->stages;
@@ -40,5 +40,12 @@ class PagesController extends Controller
         $user = User::query()->find($request['searchId']);
 
         return view('studentDashboard', ['user'=>$user]);
+    }
+
+    public function companyLooksAtStudent(User $user)
+    {
+        return view('studentDashboard', ['user'=>$user]);
+
+
     }
 }

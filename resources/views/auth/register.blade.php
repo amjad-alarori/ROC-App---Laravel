@@ -32,8 +32,8 @@
             <div class="mt-4">
                 <x-jet-label for="role" value="{{ __('Role') }}" />
                 <select id="role" name="role">
-                    <option value="1">Docent</option>
-                    <option value="2">Student</option>
+                    <option value="2">Docent</option>
+                    <option value="1">Student</option>
                     <option value="3">Bedrijf</option>
                 </select>
             </div>
