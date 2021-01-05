@@ -37,7 +37,7 @@ class StageController extends Controller
     public function create(stageBedrijven $stageBedrijven)
     {
 
-        dd('GVD');
+
 
         return view('stageCreate',['stageBedrijven'=>$stageBedrijven]);
 
@@ -141,8 +141,10 @@ class StageController extends Controller
                 'wat_zoeken_wij' => $request['wat_zoeken_wij'],
             ]);
             $stage->update();
+
             return response()->json(['url' => route('stageBedrijven.show', ['stageBedrijven' => $stageBedrijven]),]);
         }
+
 
 
     /**
