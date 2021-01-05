@@ -42,7 +42,7 @@
                 <form method="post" class="search" action="{{route('DashGo')}}">
                     @csrf
                     <div class="searchUser2">
-                        <select class="select2 single2" name="SearchId" id='searchUser' style='width: 400px;'>
+                        <select class="select2 single2" name="SearchId" id='searchUser' style='width: 400px;' data-url="{{route('searchUser')}}">
                             <option value='0'>- Zoek account -</option>
                         </select>&nbsp; &nbsp;
                         <button class="btnSearch" type="submit" style="background-color: coral; color: white;"> Ga naar

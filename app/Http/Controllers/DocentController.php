@@ -108,10 +108,10 @@ class DocentController extends Controller
             $fetchData = User::all();
         } else {
             $search = $request['searchTerm'];
-            $fetchData = User::query()->where('name', 'LIKE', '%' . $search . '%')->get();
+            $fetchData = User::query()
+                ->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
         }
-
-//        dd($fetchData);
 
         $data = array();
         foreach ($fetchData as $user):
@@ -119,8 +119,5 @@ class DocentController extends Controller
         endforeach;
 
         return json_encode($data);
-//        $data = User::query()->where('name', 'LIKE', '%'. $request['searchKey'] .'%');
-//
-//        return view ('docentDashboard', ['data'=>$data]);
     }
 }

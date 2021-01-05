@@ -37,6 +37,9 @@
     <div class="row py-4 px-2 d-flex justify-content-around">
         <div class="col-md-4">
             <x-cards.profile-card title="Studenten" cardImage="images/rocafbeelding3.jpg">
+                <x-slot name="image">
+                    <img class="img" src="{{asset('images/rocafbeelding3.jpg')}}">
+                </x-slot>
                 <x-slot name="descrition">
                     student management paneel
                 </x-slot>
@@ -52,6 +55,9 @@
         </div>
         <div class="col-md-4">
             <x-cards.profile-card title="Semesters" cardImage="images/studievakken.jpg">
+                <x-slot name="image">
+                    <img class="img" src="{{asset('images/studievakken.jpg')}}">
+                </x-slot>
                 <x-slot name="descrition">
                     studievakken en stages
                 </x-slot>
