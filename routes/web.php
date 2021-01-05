@@ -3,6 +3,7 @@
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\CoursePlanController;
 use App\Http\Controllers\DocentController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CourseController;
@@ -36,8 +37,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['middleware' => Authenticate::class], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
 
+
         Route::resource('dashboard', PagesController::class);
         Route::resource('stageBedrijven', StageBedrijvenController::class);
+
 
         Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
             Route::get('stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
@@ -58,12 +61,11 @@ Route::group(['middleware' => 'web'], function () {
 
         });
 
-
         Route::middleware(DocentAccess::class)->group(function () {
             /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
             Route::resource('docent', DocentController::class);
             Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
-            Route::post('studentDashboard', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
+            Route::post('studentDashboard', [PagesController::class, 'redirectToDashboard'])->name('studentDash');
             Route::view('beheer', 'opleidingBeheer')->name('beheer');
             Route::resource('campus', CampusController::class);
             Route::resource('program', ProgramController::class);
@@ -74,9 +76,8 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('competence', CompetenceController::class);
             Route::resource('course', CourseController::class);
             Route::prefix('course/{course}')->group(function () {
-
                 Route::resource('plan',CoursePlanController::class)->parameter('plan','coursePlan');
-
+                Route::resource('enrollment',EnrollmentController::class);
             });
         });
     });

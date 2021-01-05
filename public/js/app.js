@@ -21448,10 +21448,36 @@ $('.modal').on('shown.bs.modal', function (e) {
       hiding.addClass('d-none');
     }
   });
+  $("#searchUser").select2({
+    ajax: {
+      url: $("#searchUser").data('url'),
+      type: "post",
+      dataType: 'json',
+      delay: 250,
+      data: function data(params) {
+        return {
+          _token: $('input[name=_token]').val(),
+          searchTerm: params.term // search term
+
+        };
+      },
+      processResults: function processResults(response) {
+        return {
+          results: $.map(response, function (item) {
+            return {
+              text: item.name,
+              id: item.id
+            };
+          })
+        };
+      },
+      cache: true
+    }
+  });
 });
 $("#searchUser").select2({
   ajax: {
-    url: "docent/search",
+    url: $("#searchUser").data('url'),
     type: "post",
     dataType: 'json',
     delay: 250,
@@ -21463,7 +21489,6 @@ $("#searchUser").select2({
       };
     },
     processResults: function processResults(response) {
-      // console.log(response);
       return {
         results: $.map(response, function (item) {
           return {
