@@ -8,7 +8,7 @@
     <div class="row display-4 border-bottom border-secondary rounded-bottom px-4 pb-4">
         <div class="col-md-4">{{$company->name}}</div>
         <div class="col-md-8" style="text-align: end">
-            @if (Auth::user()->role === 2 )
+            @if (Auth::user()->role === 1 )
 
             @else
             <x-form.modal-button data-target="#formModal" data-url="{{route('stage.create', ['stageBedrijven'=> $company])}}"
@@ -24,9 +24,13 @@
         <x-cards.cardwfull :title="$stage->functie" class="my-4">
 
             <section>
-                <strong>Wie zijn ons?</strong>
+                <strong>Wie zijn wij?</strong>
                 <p>{{$stage->wie_zijn_wij}}
+                    @if (Auth::user()->role === 1 )
+
+                    @else
                     <a href= "{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-right" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a>
+                @endif
                 </p>
             </section><br><hr><br>
 
@@ -113,7 +117,7 @@
 
             <x-slot name="footer">
                 <div class="row justify-content-end">
-                    @if (Auth::user()->role === 2 )
+                    @if (Auth::user()->role === 1 )
 
                     @else
                         <div class="col-sm-4 col-md-3 col-lg-2">
@@ -133,7 +137,7 @@
                     @endif
                     <div>
 
-                        @if(Auth::user()->role === 1)
+                        @if(Auth::user()->role === 2)
                         @elseif (Auth::user()->role === 3)
 
                         @else
