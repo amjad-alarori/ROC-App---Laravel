@@ -51,7 +51,9 @@ class StageController extends Controller
      */
     public function store(Request $request, StageBedrijven $stageBedrijven)
     {
+
         $request->validate([
+            'wie_zijn_wij' => ['string', 'required'],
             'functie' => ['string', 'required'],
             'leerweg' => ['string', 'required'],
             'aantal_plaatsen' => ['integer', 'required'],
@@ -64,6 +66,7 @@ class StageController extends Controller
 
         $stage_plek = new Stage();
         $stage_plek->fill([
+            'wie_zijn_wij' => $request['wie_zijn_wij'],
             'functie' => $request['functie'],
             'leerweg' => $request['leerweg'],
             'aantal_plaatsen' => $request['aantal_plaatsen'],
@@ -120,6 +123,7 @@ class StageController extends Controller
         {
 
             $request->validate([
+                'wie_zijn_ons' => ['string', 'required'],
                 'functie' => ['string', 'required'],
                 'leerweg' => ['string', 'required'],
                 'aantal_plaatsen' => ['integer', 'required'],
@@ -131,6 +135,7 @@ class StageController extends Controller
             ]);
 
             $stage->fill([
+                'wie_zijn_ons' => $request['wie_zijn_ons'],
                 'functie' => $request['functie'],
                 'leerweg' => $request['leerweg'],
                 'aantal_plaatsen' => $request['aantal_plaatsen'],
