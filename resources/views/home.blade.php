@@ -45,8 +45,11 @@
         <h1 class="display-4">Welkom bij ROC Flevoland</h1>
         <br>
 
-        <button type="button" class="btnLogin">
-            <a href="{{ route('login') }}">Login</a></button>
+        @auth()
+            <a class="btn btnLogin" href="{{ route('dashboard.index') }}">Home</a>
+        @else
+            <a class="btn btnLogin" href="{{ route('login') }}">Login</a>
+        @endauth
     </div>
 </section>
 

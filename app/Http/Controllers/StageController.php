@@ -37,6 +37,7 @@ class StageController extends Controller
     public function create(stageBedrijven $stageBedrijven)
     {
 
+        dd('GVD');
 
         return view('stageCreate',['stageBedrijven'=>$stageBedrijven]);
 

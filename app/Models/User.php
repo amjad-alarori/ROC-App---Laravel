@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'biography'
     ];
 
     /**
@@ -62,13 +63,22 @@ class User extends Authenticatable
     ];
 
 
-
-
     public function stage(){
-
         return $this->belongsToMany(stage::class, 'stages_users');
+    }
 
+    public function courses()
+    {
+        return $this->belongsToMany(
+            Course::class,
+            'course_user',
+            'user_id',
+            'course_id'
+        )->withTimestamps()->orderBy('course_id')->orderBy('user_id');
+    }
 
+    public function company(){
+        return $this->hasOne(StageBedrijven::class, 'user_id');
     }
 
 }

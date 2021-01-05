@@ -11,11 +11,6 @@
 </div>
 
 
-
-
-
-
-
 <div class="form-row col-span-6 sm:col-span-4 mt-3">
     <x-jet-label for="email" value="{{ __('Studenten email') }}"/>
     <x-jet-input id="email" name="email" value="{{optional($userProperty)->email}}"

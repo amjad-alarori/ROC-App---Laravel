@@ -33,7 +33,6 @@
     <a href="{{route('dashboard.index')}}" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Overzicht</a>
     <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
     <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
-    <a href="{{route('campus.index')}}" class="text-nowrap"><i class="fas fa-graduation-cap"></i> Schoolmateriaal</a>
     @auth()
         @if(auth()->user()->role == 2)
             <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>
@@ -62,21 +61,9 @@
 </div>
 
 <x-form.modal id="formModal"></x-form.modal>
-
+@livewireScripts
 <!-- Optional JavaScript -->
-<script type="text/javascript">
-    // var bar = new ProgressBar.Circle(container, {
-    //     strokeWidth: 7,
-    //     easing: 'easeInOut',
-    //     duration: 1400,
-    //     color: '#FFEA82',
-    //     trailColor: '#eee',
-    //     trailWidth: 1,
-    //     svgStyle: null
-    // });
-    //
-    // bar.animate(0.5);  // Number from 0.0 to 1.0
-</script>
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
