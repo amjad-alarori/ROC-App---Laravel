@@ -1,7 +1,7 @@
-<form method="POST" class="AjaxForm" action="{{route('study.store' [$campus->id])}}">
+<form method="POST" class="AjaxForm" action="{{route('study.store')}}">
     @csrf
 
-    @include('programs-area.form', ['programsArea' => null])
+    @include('programs-area.form', ['programsAreas' => null])
 
     <div class="modal-footer mt-4">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>

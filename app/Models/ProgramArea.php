@@ -13,18 +13,11 @@ class ProgramArea extends Model
 
     protected $fillable = [
         'title',
-        'description',
-        'type',
-        'code'
+        'description'
     ];
 
     public function programs()
     {
         return $this->hasMany(Program::class,'area_id','id');
-    }
-
-    public function campus()
-    {
-        return$this->belongsTo(Campus::class, 'campusId', 'id');
     }
 }

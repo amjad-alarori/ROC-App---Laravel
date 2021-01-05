@@ -53,29 +53,9 @@ Route::group(['middleware' => 'web'], function () {
     });
 
 
-    //Route::group(['middleware' => Authenticate::class], function () {
-    /** voeg hier de routes welke authorisatie nodig hebben */
+    Route::group(['middleware' => Authenticate::class], function () {
+        /** voeg hier de routes welke authorisatie nodig hebben **/
 //        Route::get('dashboard', [PagesController::class, 'index'])->name('dashboard');
-    Route::resource('cv', CvController::class);
-    Route::resource('dashboard', PagesController::class);
-    Route::resource('docent', DocentController::class);
-    Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
-    Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
-
-
-    //Route::middleware(DocentAccess::class)->group(function () {
-//    /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
-//    Route::view('beheer', 'opleidingBeheer')->name('beheer');
-//    Route::resource('campus', CampusController::class);
-//    Route::prefix('campus/{campus}')->group(function () {
-//        Route::resource('study', ProgramAreaController::class);
-//        Route::prefix('study/{programArea}')->group(function () {
-//                Route::resource('program', ProgramController::class);
-//                Route::prefix('program/{program}')->group(function () {
-//                    Route::resource('semester', SemesterController::class);
-//            });
-//        });
-//    });
         Route::resource('cv', CvController::class);
         Route::resource('dashboard', PagesController::class);
         Route::resource('docent', DocentController::class);
@@ -83,32 +63,22 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('DashGo');
 
 
-
-
         Route::middleware(DocentAccess::class)->group(function () {
             /** voeg hier de routes welke alleen een user met role 2 (docent) mag daar heen */
             Route::view('beheer', 'opleidingBeheer')->name('beheer');
             Route::resource('campus', CampusController::class);
+            Route::resource('study', ProgramAreaController::class)->parameter('study', 'programArea');
             Route::resource('program', ProgramController::class);
             Route::prefix('program/{program}')->group(function () {
                 Route::resource('semester', SemesterController::class);
             });
-
-        Route::resource('subject', SubjectController::class);
-        Route::resource('competence', CompetenceController::class);
-        Route::resource('course', CourseController::class);
-        Route::prefix('course/{course}')->group(function () {
-
-
             Route::resource('subject', SubjectController::class);
             Route::resource('competence', CompetenceController::class);
             Route::resource('course', CourseController::class);
             Route::prefix('course/{course}')->group(function () {
-                Route::resource('plan',CoursePlanController::class)->parameter('plan','coursePlan');
+                Route::resource('plan', CoursePlanController::class)->parameter('plan', 'coursePlan');
             });
         });
-        //});
-        //});
     });
 });
 

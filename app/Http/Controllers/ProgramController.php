@@ -15,7 +15,7 @@ class ProgramController extends Controller
      *
      * @param Campus $campus
      * @param ProgramArea $programArea
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index(Campus $campus, ProgramArea $programArea)
     {
@@ -87,7 +87,7 @@ class ProgramController extends Controller
     public function edit(Program $program)
     {
         $areas = ProgramArea::all();
-        return view('program.edit',compact(['program','areas']));
+        return view('program.edit',compact(['program']));
     }
 
     /**
