@@ -19,13 +19,13 @@ class CompanyAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        $comp = Auth::user()->company;
-        $stages = $comp->stages;
-
-        $studentsArray = [];
-        foreach ($stages as $stage):
-            $studentsArray = array_merge($studentsArray, $stage->students);
-        endforeach;
+//        $comp = Auth::user()->company;
+//        $stages = $comp->stages;
+//
+//        $studentsArray = [];
+//        foreach ($stages as $stage):
+//            $studentsArray = array_merge($studentsArray, $stage->students);
+//        endforeach;
 
 //        $users = $stage->users;
         if (Auth::guest()):
@@ -38,19 +38,20 @@ class CompanyAccess
                 $compId = $request->route('stageBedrijven');
             endif;
 
-            if (Auth::user()->company->id === $compId):
+            if (Auth::user()->company->id == $compId):
 
-                if (in_array($request->route('stage')->id, $studentsArray)):
+//                if (in_array($request->route('stage')->id, $studentsArray)):
 
                 return $next($request);
 //                else:
-//                    return redirect()->back()->with('Geen toegang', 'Je hebt geen toegang tot deze pagina');
+//                    return redirect()->back()->with('NoAccess', 'Je hebt geen toegang tot deze pagina');
 //                endif
             else:
-                return redirect()->back()->with('Geen toegang', 'Je hebt geen toegang tot deze pagina');
+                return redirect()->back()->with('NoAccess', 'Je hebt geen toegang tot deze pagina');
             endif;
         else:
-            return redirect()->back()->with('Geen toegang', 'Je hebt geen toegang tot deze pagina');
+            return redirect()->back()->with('NoAccess', 'Je hebt geen toegang tot deze pagina');
         endif;
+
     }
 }

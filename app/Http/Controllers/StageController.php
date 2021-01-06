@@ -33,6 +33,7 @@ class StageController extends Controller
     {
         $this->middleware(StudentAccess::class)->only('show', 'undo');
         $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
+        $this->middleware(CompanyAccess::class)->except('show', 'undo', 'destroy', 'getLikes');
 
     }
     public function index(){
@@ -47,8 +48,6 @@ class StageController extends Controller
      */
     public function create(stageBedrijven $stageBedrijven)
     {
-
-
 
         return view('stageCreate',['stageBedrijven'=>$stageBedrijven]);
 
@@ -74,6 +73,9 @@ class StageController extends Controller
             'werkzaamheden'=>['string', 'required'],
             'wat_zoeken_wij' =>['string', 'required'],
         ]);
+
+        $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];
+        $stageBedrijven->update();
 
         $stage_plek = new Stage();
         $stage_plek->fill([
