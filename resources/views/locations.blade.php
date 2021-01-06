@@ -65,9 +65,6 @@
                             Wijzigen
                         </x-form.modal-button>
                     </div>
-                    <div class="col-sm-4 col-md-3 col-lg-2">
-                        <a href="{{route('study.index',['campus'=>$campus])}}" class="btn btn-primary"> Ga naar opleidingen</a>
-                    </div>
                 </div>
             </x-slot>
         </x-cards.cardwfull>
