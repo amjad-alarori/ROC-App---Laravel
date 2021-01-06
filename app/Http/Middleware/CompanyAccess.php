@@ -52,5 +52,7 @@ class CompanyAccess
         else:
             return redirect()->back()->with('Geen toegang', 'Je hebt geen toegang tot deze pagina');
         endif;
+        endif;
     }
+
 }
