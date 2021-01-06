@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-<?php
-=======
 <div class="col-span-6 sm:col-span-4 mt-1">
     <div class="form-row">
         <div class="col">
@@ -58,4 +55,3 @@
         </div>
     </div>
 </div>
->>>>>>> 6350fef58f7c176cc687f7c261cd4731bb3be24e

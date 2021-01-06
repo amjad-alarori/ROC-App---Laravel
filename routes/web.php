@@ -77,6 +77,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::middleware(DocentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen de docent toegang heeft */
 
+
             Route::resource('docent', DocentController::class);
             Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
             Route::post('studentDashboard', [PagesController::class, 'redirectToDashboard'])->name('studentDash');
@@ -84,6 +85,8 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('campus', CampusController::class);
             Route::resource('study', ProgramAreaController::class)->parameter('study', 'programArea');
             Route::resource('program', ProgramController::class);
+
+
             Route::prefix('program/{program}')->group(function () {
                 Route::resource('semester', SemesterController::class);
             });
