@@ -28,6 +28,7 @@ class PagesController extends Controller
             return view('docentDashboard', ['user'=>$user]);
         }elseif (Auth::user()->role ===3){
             $company = Auth::user()->company;
+
             $stages = $company->stages;
 
             return view('bedrijfDashboard', ['company'=>$company,'user'=>$user, 'stages'=>$stages]);
@@ -42,8 +43,9 @@ class PagesController extends Controller
         return view('studentDashboard', ['user'=>$user]);
     }
 
-    public function companyLooksAtStudent(User $user)
+    public function companyLooksAtStudent(StageBedrijven $stageBedrijven,User $user)
     {
+
         return view('studentDashboard', ['user'=>$user]);
 
 
