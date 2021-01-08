@@ -24,19 +24,22 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($students as $student)
+            @foreach($plan->course->students as $student)
                 <tr>
                     <td scope="row">{{$student->name}}</td>
                     <td class="text-center">
                         <div class="form-check">
                             <input class="form-check-input passBox" id="{{$student->id}}" type="checkbox"
-                                   name="{{$student->id}}[]" value="passed">
+                                   name="passedBox[]" value="{{$student->id}}"
+                                   {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->passed?'checked':''):''}}
+                                   {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->definitive?'disabled':''):''}}>
                         </div>
                     </td>
                     <td class="text-center">
                         <div class="form-check">
                             <input class="form-check-input defBox" id="defBox{{$student->id}}" type="checkbox"
-                                   name="{{$student->id}}[]" value="definitive" disabled>
+                                   name="defBox[]" value="{{$student->id}}"
+                                {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->definitive?'checked':''):''}}>
                         </div>
                     </td>
                 </tr>
@@ -60,8 +63,21 @@
 @section('script')
     <script>
         $(document).ready(function () {
+            $('[type=checkbox]').map(function () {
+                let chkBoxElement = $('#' + this.id);
+                if (chkBoxElement.hasClass('passBox')) {
+                    let cBoxId = this.id;
+
+                    if (!this.checked) {
+                        $("#defBox" + cBoxId).prop("checked", false);
+                        $("#defBox" + cBoxId).attr("disabled", "disabled");
+                    }
+                }
+            })
+
             $('[type=checkbox]').on('change', function () {
-                if (this.value == 'passed') {
+                let chkBoxElement = $('#' + this.id);
+                if (chkBoxElement.hasClass('passBox')) {
                     let cBoxId = this.id;
 
                     if (this.checked) {
@@ -70,6 +86,16 @@
                         $("#defBox" + cBoxId).prop("checked", false);
                         $("#defBox" + cBoxId).attr("disabled", "disabled");
                     }
+                }else if (chkBoxElement.hasClass('defBox')){
+                    let cBoxId = this.id;
+                    cBoxId = cBoxId.substring(6,cBoxId.length)
+
+                    if (this.checked) {
+                        $("#" + cBoxId).attr("disabled", "disabled");
+                    } else {
+                        $("#" + cBoxId).removeAttr("disabled");
+                    }
+
                 }
             });
         });

@@ -19,4 +19,9 @@ class Grade extends Model
     {
         return $this->belongsTo(User::class,'student_id','id');
     }
+
+    public function coursePlan()
+    {
+        return $this->belongsTo(CoursePlan::class,'course_plan_id','id');
+    }
 }

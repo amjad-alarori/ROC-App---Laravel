@@ -23,4 +23,9 @@ class CoursePlan extends Model
     {
         return $this->belongsTo(Subject::class,'subject_id','id');
     }
+
+    public function grades()
+    {
+        return $this->hasMany(Grade::class,'course_plan_id','id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campus;
 use App\Models\CoursePlan;
 use App\Models\Grade;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -18,14 +19,15 @@ class GradeController extends Controller
     public function index(Request $request, $id)
     {
         if ($request->route()->hasParameter('coursePlan')):
-            $plan = CoursePlan::find($id)->load('subject')->load('course.students');
-            $students = $plan->course->students->map(function ($student) {
-                return $student->load('grades');
-            });
-
+            $plan = CoursePlan::find($id)->load('grades.student')->load('course.students');
             $campus = Campus::find($plan->course->campus_id);
-//            dd($plan, $students);
-            return view('courseGrades', ['plan' => $plan, 'students' => $students, 'campus' => $campus]);
+
+            $filledStudents = [];
+            foreach ($plan->grades as $grade):
+                $filledStudents [$grade->student->id] = $grade;
+            endforeach;
+
+            return view('courseGrades', ['plan' => $plan, 'filledStudents' => $filledStudents, 'campus' => $campus]);
         else:
             //course
             dd($request->route()->parameterNames);
@@ -46,11 +48,54 @@ class GradeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param CoursePlan $coursePlan
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, CoursePlan $coursePlan)
     {
-        dd($request);
+        $defIds = $request['defBox']===null?[]:$request['defBox'];
+        $passedIds = $request['passedBox']===null?[]:$request['passedBox'];
+        $passedIds = array_unique(array_merge($passedIds,$defIds));
+
+        $studentIds = $coursePlan->grades->map(function ($grade) use ($passedIds, $defIds) {
+            if (in_array($grade->student_id, $passedIds)):
+                $grade->passed = true;
+
+                if (in_array($grade->student_id, $defIds)):
+                    $grade->definitive = true;
+                else:
+                    $grade->definitive = false;
+                endif;
+            else:
+                $grade->passed = false;
+                $grade->definitive = false;
+            endif;
+
+            if ($grade->getOriginal("passed") != $grade->passed || $grade->getOriginal("definitive") != $grade->definitive):
+                $grade->update();
+            endif;
+
+            return $grade->student_id;
+        });
+
+        foreach ($passedIds as $studentId):
+            if (!$studentIds->contains($studentId)):
+                $grade = new Grade;
+
+                $grade->student_id = $studentId;
+                $grade->course_plan_id = $coursePlan->id;
+                $grade->passed = true;
+
+                if (in_array($grade->student_id, $defIds)):
+                    $grade->definitive = true;
+                endif;
+
+                $grade->save();
+            endif;
+        endforeach;
+
+
+        return redirect()->back();
     }
 
     /**
