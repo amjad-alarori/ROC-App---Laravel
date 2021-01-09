@@ -2,12 +2,15 @@
 
 @csrf
 
+
+
 <div class="col-span-6 sm:col-span-4 mt-1">
     <x-jet-label for="wie_zijn_wij" value="{{ __('Wie zijn wij?') }}"/>
     <x-jet-input id="wie_zijn_wij" name="wie_zijn_wij" value="{{optional($stageBedrijven)->wie_zijn_wij}}"
                  type="textarea" class="mt-1 block w-full"
                  autocomplete="wie_zijn_wij" required/>
     <x-jet-input-error for="wie_zijn_wij" class="valErr mt-2"/>
+
 </div>
 
 <div class="col-span-6 sm:col-span-4 mt-1">
@@ -79,6 +82,15 @@
                  class="mt-1 block w-full"
                  autocomplete="wat_zoeken_wij" required/>
     <x-jet-input-error for="wat_zoeken_wij" class="valErr mt-2"/>
+</div>
+
+<div class="mt-4">
+    <x-jet-label for="role" value="{{ __('Sector') }}" />
+    <select id="sectors" name="sectors">
+        @foreach($sectors as $sector)
+        <option value="{{$sector->id}}">{{$sector->title}}</option>
+       @endforeach
+    </select>
 </div>
 
 

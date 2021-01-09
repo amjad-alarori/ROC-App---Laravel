@@ -20,4 +20,9 @@ class ProgramArea extends Model
     {
         return $this->hasMany(Program::class,'area_id','id');
     }
+
+    public function stages()
+    {
+        return $this->hasMany(Stage::class,'sector_id','id');
+    }
 }

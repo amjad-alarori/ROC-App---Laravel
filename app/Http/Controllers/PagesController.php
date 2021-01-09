@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProgramArea;
 use App\Models\stage;
 use App\Models\StageBedrijven;
 use App\Models\User;
@@ -31,7 +32,17 @@ class PagesController extends Controller
 
             $stages = $company->stages;
 
-            return view('bedrijfDashboard', ['company'=>$company,'user'=>$user, 'stages'=>$stages]);
+//            $sectors = [];
+//            $areas = ProgramArea::query()->with('stages')->whereHas('stages', null,'>', 0)->get();
+//            foreach($areas as $area):
+//                foreach($area->stages as $stage):
+//                    if($stage->stageBedrijven == $company):
+//                        $sectors[$area->id][$stage->id] =
+//                        endif;
+//                    endforeach;
+//                endforeach;
+
+            return view('bedrijfDashboard', ['company'=>$company,'user'=>$user]);
         }
 
 

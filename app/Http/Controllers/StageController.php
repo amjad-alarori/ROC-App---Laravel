@@ -6,6 +6,7 @@ use App\Http\Middleware\CompanyAccess;
 use App\Http\Middleware\DocentAccess;
 use App\Http\Middleware\DocentAndCompanyAccess;
 use App\Http\Middleware\StudentAccess;
+use App\Models\ProgramArea;
 use App\Models\stage;
 use App\Models\StageBedrijven;
 use App\Models\User;
@@ -48,8 +49,8 @@ class StageController extends Controller
      */
     public function create(stageBedrijven $stageBedrijven)
     {
-
-        return view('stageCreate',['stageBedrijven'=>$stageBedrijven]);
+        $sectors = ProgramArea::all();
+        return view('stageCreate',['stageBedrijven'=>$stageBedrijven, 'sectors' => $sectors]);
 
     }
 
@@ -57,6 +58,7 @@ class StageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param StageBedrijven $stageBedrijven
      * @return JsonResponse
      */
     public function store(Request $request, StageBedrijven $stageBedrijven)
@@ -72,10 +74,14 @@ class StageController extends Controller
             'wat_te_doen' => ['string', 'required'],
             'werkzaamheden'=>['string', 'required'],
             'wat_zoeken_wij' =>['string', 'required'],
+            'sectors' =>['integer', 'required', '$sector:program_areas,id'],
         ]);
 
         $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];
         $stageBedrijven->update();
+
+
+
 
         $stage_plek = new Stage();
         $stage_plek->fill([
@@ -87,7 +93,9 @@ class StageController extends Controller
             'wat_te_doen' => $request['wat_te_doen'],
             'werkzaamheden' => $request['werkzaamheden'],
             'wat_zoeken_wij' => $request['wat_zoeken_wij'],
+            'sector_id' => $request ['sectors'],
             'stageBedrijf_id' => $stageBedrijven->id
+
         ]);
 
         $stage_plek->save();

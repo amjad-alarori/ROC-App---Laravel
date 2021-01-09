@@ -11,9 +11,9 @@
         </div>
 
         <div class="col-md-8" style="text-align: end">
-            @if (Auth::user()->role === 1 )
+            @if (Auth::user()->role === 3  )
 
-            @else
+
                 <x-form.modal-button data-target="#formModal"
                                      data-url="{{route('stage.create', ['stageBedrijven'=> $company])}}"
                                      class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-4">
@@ -25,7 +25,13 @@
     </div>
 
 
-    @foreach($stages as $stage)
+
+
+@foreach($sectors as $sector)
+
+{{$sector->title}}
+
+    @foreach($sector->stages as $stage)
         <x-cards.cardwfull :title="$stage->functie" class="my-4">
 
             <section>
@@ -42,6 +48,7 @@
             <br>
             <hr>
             <br>
+
 
             <div class="row">
                 <div class="col-md-5">
@@ -124,6 +131,20 @@
                         </div>
                     </div>
                     <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <strong>Periode: </strong>
+                        </div>
+                        <div class="col-md-8">
+
+
+
+                            <br>
+
+                        </div>
+                    </div>
+                    <br>
                 </div>
 
 
@@ -176,6 +197,7 @@
         </x-cards.cardwfull>
         <hr>
     @endforeach
+@endforeach
 @endsection
 
 

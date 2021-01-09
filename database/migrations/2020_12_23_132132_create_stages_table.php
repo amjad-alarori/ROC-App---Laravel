@@ -23,6 +23,7 @@ class CreateStagesTable extends Migration
             $table->string('wat_te_doen');
             $table->string('werkzaamheden');
             $table->string('wat_zoeken_wij');
+            $table->foreignId('sector_id')->constrained('program_areas');
             $table->foreignId('stageBedrijf_id')->constrained('stage_bedrijvens');
             $table->timestamps();
         });

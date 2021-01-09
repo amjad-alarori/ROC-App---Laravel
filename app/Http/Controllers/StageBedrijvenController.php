@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\CompanyAccess;
 use App\Http\Middleware\StudentAccess;
 use App\Http\Middleware\StudentAndDocentAccess;
+use App\Models\ProgramArea;
 use App\Models\stage;
 use App\Models\StageBedrijven;
 use App\Models\User;
@@ -119,11 +120,13 @@ class StageBedrijvenController extends Controller
     public function show(StageBedrijven $stageBedrijven)
     {
 
+//        $stages = Stage::query()->with('users')->where('stageBedrijf_id', '=', $stageBedrijven->id)->get();
 
+        $sectors =  ProgramArea::query()->with('stages')->whereHas('stages',null,'>',0)->get();
 
-        $stages = Stage::query()->with('users')->where('stageBedrijf_id', '=', $stageBedrijven->id)->get();
-//       dd($stages);
-        return view('bedrijfDashboard', ['stages' => $stages, 'company' => $stageBedrijven]);
+//        dd($sectors);
+
+        return view('bedrijfDashboard', ['company' => $stageBedrijven, 'sectors'=> $sectors]);
     }
 
     /**

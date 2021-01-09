@@ -19,10 +19,8 @@ class stage extends Model
         'werkzaamheden',
         'wat_zoeken_wij',
         'stageBedrijf_id',
+        'sector_id',
     ];
-
-
-
 
     public function stageBedrijven()
     {
@@ -30,8 +28,11 @@ class stage extends Model
     }
 
     public function users(){
-
         return $this->belongsToMany(User::class,'stages_users');
+    }
 
+    public function area()
+    {
+        return $this->belongsTo(ProgramArea::class,'sector_id','id');
     }
 }
