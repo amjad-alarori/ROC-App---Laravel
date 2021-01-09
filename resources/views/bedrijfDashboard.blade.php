@@ -24,9 +24,7 @@
         </div>
     </div>
 
-    @foreach($sectors as $sector)
-        @foreach($sector->stages as $stage)
-            @if($stage->stageBedrijven == auth()->user()):
+        @foreach($stages as $stage)
             <x-cards.cardwfull :title="$stage->functie" class="my-4">
 
                 <section>
@@ -193,8 +191,6 @@
                 </div>
             </x-cards.cardwfull>
             <hr>
-            @endif
-        @endforeach
     @endforeach
 @endsection
 

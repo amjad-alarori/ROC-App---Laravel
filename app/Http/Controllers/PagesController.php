@@ -28,12 +28,9 @@ class PagesController extends Controller
         } elseif (Auth::user()->role === 3) {
             $company = Auth::user()->company;
 
-//            $stages = $company->stages;
-//            dd($stages);
+            $stages = $company->stages;
 
-            $sectors = ProgramArea::query()->with('stages')->whereHas('stages', null, '>', 0)->get();
-
-            return view('bedrijfDashboard', ['company' => $company, 'user' => $user, 'sectors' => $sectors]);
+            return view('bedrijfDashboard', ['company' => $company, 'user' => $user, 'stages' => $stages]);
         }
 
 
