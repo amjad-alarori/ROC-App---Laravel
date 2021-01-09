@@ -2,7 +2,7 @@
 
 @section('title')
 
-    Student Dashboard
+    Docent Dashboard
 @endsection
 
 
@@ -39,6 +39,8 @@
 
 
             <div class="wrap">
+                <div class="h4"><h4>Zoek een student</h4></div>
+                <hr>
                 <form method="post" class="search" action="{{route('studentDash')}}">
                     @csrf
                     <div class="searchUser2">

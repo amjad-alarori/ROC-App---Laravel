@@ -19,7 +19,7 @@ class DocentAccess
     {
         if (Auth::guest()):
             return redirect(route('login'))->with('NoAccess','Je moet eerst ingelogd zijn');
-        elseif (Auth::user()->role == 2):
+        elseif (Auth::user()->role === 2):
             return $next($request);
         else:
             return redirect()->back()->with('NoAccess', 'Toegang geweigerd');

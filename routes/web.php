@@ -10,6 +10,7 @@ use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CVController;
+use App\Http\Controllers\QualificationFileStudentController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Controllers\StageController;
@@ -32,7 +33,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::group(['middleware' => 'web'], function () {
     /** voeg hier de routes welke zonder authorisatie te bereiken is */
     Route::view('', 'home');
@@ -42,8 +42,12 @@ Route::group(['middleware' => 'web'], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
 
 
+            Route::resource('cv', CvController::class);
+            Route::view('user/profile', 'profile.show')->name('profile');
+        Route::resource('stageBedrijven/{stageBedrijven}/stage', StageController::class);
         Route::resource('dashboard', PagesController::class);
 //              Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
+                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
 
 
         Route::middleware(StudentAndDocentAccess::class)->group(function () {
@@ -51,6 +55,7 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::resource('stageBedrijven', StageBedrijvenController::class);
             Route::get('stageBedrijven/{stageBedrijven}/stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
+            Route::resource('qualificationFileStudent', QualificationFileStudentController::class);
         });
 
 
@@ -59,18 +64,14 @@ Route::group(['middleware' => 'web'], function () {
             Route::prefix('stageBedrijven/{stageBedrijven}')->group(function () {
 
 //              Route::resource('stageBedrijven', StageBedrijvenController::class);
-                Route::get('studentDashboard/{user}', [PagesController::class, 'companyLooksAtStudent'])->name('companyGoesToStudent');
-                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+                Route::get('stage/{stage}/studentDashboard/{user}', [PagesController::class, 'companyLooksAtStudent'])->name('companyGoesToStudent');
             });
         });
-        Route::resource('stageBedrijven/{stageBedrijven}/stage', StageController::class);
 
 
         Route::middleware(StudentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen de student toegang heeft */
 
-            Route::resource('cv', CvController::class);
-            Route::view('user/profile', 'profile.show')->name('profile');
         });
 
 
