@@ -24,7 +24,7 @@
         </div>
     </div>
 
-@dd($sectors)
+{{--@dd($sectors)--}}
 
     @foreach($sectors as $sector)
             {{$sector->title}}
