@@ -6,7 +6,7 @@
 
 <div class="col-span-6 sm:col-span-4 mt-1">
     <x-jet-label for="wie_zijn_wij" value="{{ __('Wie zijn wij?') }}"/>
-    <x-jet-input id="wie_zijn_wij" name="wie_zijn_wij" value="{{optional($stageBedrijven)->wie_zijn_wij}}"
+    <x-jet-input id="wie_zijn_wij" name="wie_zijn_wij" value="{{optional($stage)->wie_zijn_wij}}"
                  type="textarea" class="mt-1 block w-full"
                  autocomplete="wie_zijn_wij" required/>
     <x-jet-input-error for="wie_zijn_wij" class="valErr mt-2"/>

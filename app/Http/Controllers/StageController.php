@@ -34,7 +34,7 @@ class StageController extends Controller
     {
         $this->middleware(StudentAccess::class)->only('show', 'undo'); //probleem hier met ik heb iinteresse//
         $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
-        $this->middleware(CompanyAccess::class)->except('show', 'undo', 'destroy', 'getLikes');
+        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes');
 
     }
     public function index(){
@@ -77,7 +77,7 @@ class StageController extends Controller
             'sectors' =>['integer', 'required', 'exists:program_areas,id'],
         ]);
 
-        $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];
+
         $stageBedrijven->update();
 
 
@@ -156,7 +156,7 @@ class StageController extends Controller
             $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];
             $stageBedrijven->update();
             $stage->fill([
-
+                'wie_zijn_wij' => $request['wie_zijn_ons'],
                 'functie' => $request['functie'],
                 'leerweg' => $request['leerweg'],
                 'aantal_plaatsen' => $request['aantal_plaatsen'],
@@ -192,7 +192,7 @@ class StageController extends Controller
     public function getLikes(stageBedrijven $stageBedrijven, Stage $stage)
     {
         $users = $stage->users;
-        return view('studentLikes', compact('users'));
+        return view('studentLikes', compact('users', 'stage'));
     }
 
 

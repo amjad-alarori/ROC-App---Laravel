@@ -1,19 +1,17 @@
 @extends('layouts.layout')
 
 @section('title')
-
-Student Dashboard
+    Student Dashboard
 @endsection
 
 
 @section('content')
-
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="h1">
-                        Dashboard
+                        Dashboard {{$user->name . "  -  " . $user->id}}
                     </h1>
                     <hr>
                     <br>
@@ -77,17 +75,12 @@ Student Dashboard
             </div>
 
 
-
         </div>
 
 
     </div>
-    @endsection
-
-    @section('script')
-
-
 @endsection
+
 
 
 

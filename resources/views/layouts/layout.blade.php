@@ -31,8 +31,16 @@
     <a href="javascript:void(0)" class="closebtn" id="closeNavButton">&times;</a>
 
     <a href="{{route('dashboard.index')}}" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Overzicht</a>
-    <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
-    <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+
+    @auth()
+        @if(auth()->user()->role == 1):
+    <a href="{{route('qualificationFileStudent.index')}}" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
+        @else
+        <a href="{{route('qualificationFileStudent.index')}}" class="text-nowrap"><i class="fas fa-list"></i> Kwalificatie <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dossier<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student</a>
+        @endif
+    @endauth
+
+        <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
     @auth()
         @if(auth()->user()->role == 2)
             <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>

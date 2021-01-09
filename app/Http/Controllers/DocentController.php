@@ -40,14 +40,12 @@ class DocentController extends Controller
             'name' => ['string', 'required'],
             'email' => ['email', 'required', 'unique:users,email'],
             'role' => ['integer', 'required'],
-
         ]);
-
 
         $user = new User();
         $user->name = $request['name'];
         $user->email = $request['email'];
-        $user->password = 'newuser';
+        $user->password = bcrypt('WelkomToRocApp!');
         $user->role = $request['role'];
 
 

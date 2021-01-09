@@ -14,6 +14,7 @@ class PagesController extends Controller
     public function index()
     {
 
+
 //        $user= User::query()->where('id', '=', 4);
 //        $password = password_hash('test123', PASSWORD_BCRYPT);
 //        $user->password = $password;
@@ -32,23 +33,20 @@ class PagesController extends Controller
 
             return view('bedrijfDashboard', ['company' => $company, 'user' => $user, 'stages' => $stages]);
         }
-
-
     }
+
 
     public function redirectToDashboard(Request $request)
     {
-
         $user = User::query()->find($request['searchId']);
 
         return view('studentDashboard', ['user' => $user]);
     }
 
-    public function companyLooksAtStudent(StageBedrijven $stageBedrijven, User $user)
+
+    public function companyLooksAtStudent(StageBedrijven $stageBedrijven,stage $stage,User $user)
     {
-
-        return view('studentDashboard', ['user' => $user]);
-
+        return view('studentDashboard', ['user'=>$user]);
 
     }
 }

@@ -41,7 +41,7 @@
 
 {{--                            <form method="post" class="search" action="{{route('DashGo')}}">--}}
 {{--                                @csrf--}}
-                                <a class="btn btn-goToStudent" href="{{route('companyGoesToStudent', ['stageBedrijven'=>auth()->id(),'user'=>$user])}}"> Bekijk student</a>
+                                <a class="btn btn-goToStudent" href="{{route('companyGoesToStudent', ['stageBedrijven'=>auth()->user()->company,'user'=>$user, 'stage'=>$stage])}}"> Bekijk student</a>
 {{--                            </form>--}}
 
 
