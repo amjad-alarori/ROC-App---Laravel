@@ -7,7 +7,7 @@
 @section('content')
     <div class="row display-4 border-bottom border-secondary rounded-bottom px-4 pb-4">
         <div class="col-md-4">{{$company->name}}
-            {{$company->wie_zijn_wij}}
+
         </div>
 
         <div class="col-md-8" style="text-align: end">
@@ -29,17 +29,16 @@
         <x-cards.cardwfull :title="$stage->functie" class="my-4">
 
             <section>
-                {{--                <strong>Wie zijn wij?</strong>--}}
-                {{--                <p>{{$stage->wie_zijn_wij}}--}}
-                @if (Auth::user()->role === 1 )
-
-                @else
-                    <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}"
-                       style="font-size:24px;color:black;"><i class="fa fa-heart float-right"
-                                                              style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a>
+                <p>
+                    <strong><p> Wie zijn wij? </p></strong>
+                     {{$company->wie_zijn_wij}}
+                    @if (Auth::user()->role === 1 )
+                    @else
+                    <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}" style="font-size:24px;color:black;"><i class="fa fa-heart float-right" style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a>
                     @endif
-                    </p>
+                </p>
             </section>
+
             <br>
             <hr>
             <br>

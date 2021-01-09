@@ -19,6 +19,8 @@ class StageBedrijven extends Model
         'city',
         'email',
         'phone_nr',
+        'wie_zijn_wij',
+
     ];
     /**
      * @var mixed

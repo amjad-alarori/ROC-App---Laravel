@@ -71,7 +71,7 @@ class StageBedrijvenController extends Controller
             'address' => ['string', 'required'],
             'zip_code' => ['string', 'required'],
             'city' => ['string', 'required'],
-            'email' => ['email', 'required'],
+            'email' => ['email', 'required', 'unique:users,email'], //zoek internet //
             'phone_nr' => ['string', 'required'],
             'contact_persoon' => ['string', 'required']
         ]);

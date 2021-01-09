@@ -15,7 +15,6 @@ class CreateStagesTable extends Migration
     {
         Schema::create('stages', function (Blueprint $table) {
             $table->id();
-            $table->string('wie_zijn_wij')->nullable();
             $table->string('functie');
             $table->string('leerweg');
             $table->integer('aantal_plaatsen');

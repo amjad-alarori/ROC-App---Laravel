@@ -31,7 +31,7 @@ class StageController extends Controller
 
     public function __construct()
     {
-        $this->middleware(StudentAccess::class)->only('show', 'undo');
+        $this->middleware(StudentAccess::class)->only('show', 'undo'); //probleem hier met ik heb iinteresse//
         $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
         $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes');
 
@@ -79,7 +79,6 @@ class StageController extends Controller
 
         $stage_plek = new Stage();
         $stage_plek->fill([
-            'wie_zijn_wij' => $request['wie_zijn_wij'],
             'functie' => $request['functie'],
             'leerweg' => $request['leerweg'],
             'aantal_plaatsen' => $request['aantal_plaatsen'],
@@ -146,7 +145,8 @@ class StageController extends Controller
                 'werkzaamheden'=>['string', 'required'],
                 'wat_zoeken_wij' =>['string', 'required'],
             ]);
-
+            $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];
+            $stageBedrijven->update();
             $stage->fill([
                 'wie_zijn_wij' => $request['wie_zijn_ons'],
                 'functie' => $request['functie'],

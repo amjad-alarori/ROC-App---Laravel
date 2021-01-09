@@ -21,10 +21,8 @@ class CompanyAccess
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guest()):
-            return redirect(route('login'))->with('Geen toegang', 'Je moet eerst ingelogd zijn');
-        elseif (Auth::user()->role == 3):
-            $comp = Auth::user()->company;
-
+            return redirect(route('login'))->with('NoAccess', 'Je moet eerst ingelogd zijn');
+        elseif (Auth::user()->role === 3):
             if ($request->route('stageBedrijven') instanceof StageBedrijven):
                 $compId = $request->route('stageBedrijven')->id;
             else:

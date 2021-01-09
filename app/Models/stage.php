@@ -10,7 +10,6 @@ class stage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'wie_zijn_wij',
         'functie',
         'leerweg',
         'aantal_plaatsen',

@@ -21,6 +21,7 @@ class CreateStageBedrijvensTable extends Migration
             $table->string('city');
             $table->string('email');
             $table->string('phone_nr');
+            $table->string('wie_zijn_wij')->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
             $table->softDeletes();
