@@ -20,44 +20,37 @@ class PagesController extends Controller
 //        $user->update();
 
 
-
-
         $user = Auth::user();
         if (Auth::user()->role === 1) {
-            return view('studentDashboard', ['user'=>$user]);
+            return view('studentDashboard', ['user' => $user]);
         } elseif (Auth::user()->role === 2) {
-            return view('docentDashboard', ['user'=>$user]);
-        }elseif (Auth::user()->role ===3){
+            return view('docentDashboard', ['user' => $user]);
+        } elseif (Auth::user()->role === 3) {
             $company = Auth::user()->company;
 
-            $stages = $company->stages;
+//            $stages = $company->stages;
+//            dd($stages);
 
-//            $sectors = [];
-//            $areas = ProgramArea::query()->with('stages')->whereHas('stages', null,'>', 0)->get();
-//            foreach($areas as $area):
-//                foreach($area->stages as $stage):
-//                    if($stage->stageBedrijven == $company):
-//                        $sectors[$area->id][$stage->id] =
-//                        endif;
-//                    endforeach;
-//                endforeach;
+            $sectors = ProgramArea::query()->with('stages')->whereHas('stages', null, '>', 0)->get();
 
-            return view('bedrijfDashboard', ['company'=>$company,'user'=>$user]);
+            return view('bedrijfDashboard', ['company' => $company, 'user' => $user, 'sectors' => $sectors]);
         }
 
 
     }
-    public function redirectToDashboard(Request $request){
+
+    public function redirectToDashboard(Request $request)
+    {
 
         $user = User::query()->find($request['searchId']);
 
-        return view('studentDashboard', ['user'=>$user]);
+        return view('studentDashboard', ['user' => $user]);
     }
 
-    public function companyLooksAtStudent(StageBedrijven $stageBedrijven,User $user)
+    public function companyLooksAtStudent(StageBedrijven $stageBedrijven, User $user)
     {
 
-        return view('studentDashboard', ['user'=>$user]);
+        return view('studentDashboard', ['user' => $user]);
 
 
     }

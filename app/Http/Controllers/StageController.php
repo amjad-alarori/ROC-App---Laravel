@@ -74,7 +74,7 @@ class StageController extends Controller
             'wat_te_doen' => ['string', 'required'],
             'werkzaamheden'=>['string', 'required'],
             'wat_zoeken_wij' =>['string', 'required'],
-            'sectors' =>['integer', 'required', '$sector:program_areas,id'],
+            'sectors' =>['integer', 'required', 'exists:program_areas,id'],
         ]);
 
         $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];

@@ -25,4 +25,5 @@ class ProgramArea extends Model
     {
         return $this->hasMany(Stage::class,'sector_id','id');
     }
+
 }

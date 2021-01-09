@@ -115,7 +115,7 @@ class StageBedrijvenController extends Controller
      * Display the specified resource.
      *
      * @param StageBedrijven $stageBedrijven
-     * @return void
+     * @return Application|Factory|View|void
      */
     public function show(StageBedrijven $stageBedrijven)
     {
@@ -124,9 +124,7 @@ class StageBedrijvenController extends Controller
 
         $sectors =  ProgramArea::query()->with('stages')->whereHas('stages',null,'>',0)->get();
 
-//        dd($sectors);
-
-        return view('bedrijfDashboard', ['company' => $stageBedrijven, 'sectors'=> $sectors]);
+        return view('companyDashboard', ['company' => $stageBedrijven, 'sectors'=> $sectors]);
     }
 
     /**
