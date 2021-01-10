@@ -19,8 +19,9 @@ class SemesterController extends Controller
      */
     public function index(Program $program)
     {
+        $programSemesters = $program->semesters()->orderBy('semester')->orderBy('period')->get();
         $semesters = [];
-        foreach ($program->semesters as $semester):
+        foreach ($programSemesters as $semester):
             if (!array_key_exists($semester->semester, $semesters)):
                 $semesters[$semester->semester] = [];
             endif;
@@ -80,8 +81,8 @@ class SemesterController extends Controller
             $period = 1;
         endif;
 
-        if ($request['isStage']==1):
-            $rule['subjects'] = ['required', 'integer', 'min:1', new SemesterSubjectRule(true, $program,null, $request['semester'],$period)];
+        if ($request['isStage'] == 1):
+            $rule['subjects'] = ['required', 'integer', 'min:1', new SemesterSubjectRule(true, $program, null, $request['semester'], $period)];
         else:
             $rule['subjects'] = ['required', 'array', 'min:1'];
             $rule['subjects.*'] = [new SemesterSubjectRule(false, $program)];
@@ -89,11 +90,11 @@ class SemesterController extends Controller
 
         $request->validate($rule);
 
-        $subjectsArray=[];
-        if ($request['isStage']==1):
-            array_push($subjectsArray,$request['subjects']);
+        $subjectsArray = [];
+        if ($request['isStage'] == 1):
+            array_push($subjectsArray, $request['subjects']);
         else:
-            $subjectsArray=$request['subjects'];
+            $subjectsArray = $request['subjects'];
         endif;
 
         foreach ($subjectsArray as $subject):
@@ -163,6 +164,38 @@ class SemesterController extends Controller
      */
     public function destroy(Program $program, Semester $semester)
     {
+        $competences = $semester->subject->attachedCompetences;
+        $coOps = $program->semesters()
+            ->with('subject.attachedCompetences')
+            ->where('semester', '>', $semester->semester)
+            ->orWhere(function ($q) use ($semester) {
+                $q->where('semester', '=', $semester->semester)->where('period', '>', $semester->period);
+            })->get();
+
+        $i = 0;
+        foreach ($coOps as $coOp):
+            if ($coOp->subject->co_op):
+                $coOpComps = $coOp->subject->attachedCompetences;
+                foreach ($coOpComps as $coOpComp):
+
+                    $i++;
+
+                    if ($competences->contains($coOpComp)):
+                        $foundedSemester = $program->semesters()->with('subject.attachedCompetences')
+                            ->where('id', '<>', $semester->id)
+                            ->where('semester', '<', $coOp->semester)
+                            ->orWhere(function ($q) use ($coOp) {
+                                $q->where('semester', '=', $coOp->semester)->where('period', '<', $coOp->period);
+                            })->first();
+
+                        if (!$foundedSemester->subject->attachedCompetences->contains($coOpComp)):
+                            return redirect()->back()->with('showError', 'De competenties van deze vak is voor een stage gebruikt.');
+                        endif;
+                    endif;
+                endforeach;
+            endif;
+        endforeach;
+
         $semester->delete();
         return redirect()->back();
     }

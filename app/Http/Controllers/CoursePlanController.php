@@ -19,8 +19,9 @@ class CoursePlanController extends Controller
      */
     public function index(Course $course)
     {
+        $coursePlans = $course->plans()->orderBy('semester')->orderBy('period')->get();
         $plans = [];
-        foreach ($course->plans as $plan):
+        foreach ($coursePlans as $plan):
             if (!array_key_exists($plan->semester, $plans)):
                 $plans[$plan->semester] = [];
             endif;
@@ -196,6 +197,38 @@ class CoursePlanController extends Controller
      */
     public function destroy(Course $course, CoursePlan $coursePlan)
     {
+        $competences = $coursePlan->subject->attachedCompetences;
+        $coOps = $course->plans()
+            ->with('subject.attachedCompetences')
+            ->where('semester', '>', $coursePlan->semester)
+            ->orWhere(function ($q) use ($coursePlan) {
+                $q->where('semester', '=', $coursePlan->semester)->where('period', '>', $coursePlan->period);
+            })->get();
+
+        $i = 0;
+        foreach ($coOps as $coOp):
+            if ($coOp->subject->co_op):
+                $coOpComps = $coOp->subject->attachedCompetences;
+                foreach ($coOpComps as $coOpComp):
+
+                    $i++;
+
+                    if ($competences->contains($coOpComp)):
+                        $foundedSemester = $course->plans()->with('subject.attachedCompetences')
+                            ->where('id', '<>', $coursePlan->id)
+                            ->where('semester', '<', $coOp->semester)
+                            ->orWhere(function ($q) use ($coOp) {
+                                $q->where('semester', '=', $coOp->semester)->where('period', '<', $coOp->period);
+                            })->first();
+
+                        if (!$foundedSemester->subject->attachedCompetences->contains($coOpComp)):
+                            return redirect()->back()->with('showError', 'De competenties van deze vak is voor een stage gebruikt.');
+                        endif;
+                    endif;
+                endforeach;
+            endif;
+        endforeach;
+
         $coursePlan->delete();
         return redirect()->back();
     }
