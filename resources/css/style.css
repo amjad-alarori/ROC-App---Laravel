@@ -260,6 +260,11 @@ body {
     color: white;
 }
 
+.btn-bg-color:hover{
+    background-color: #0e1218;
+    color:gray;
+}
+
 div.container-fluid#main{
     padding-left: 150px;
 }

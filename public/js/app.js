@@ -21340,11 +21340,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
-  $('#formModal .select2').select2({
-    dropdownParent: $('#formModal')
-  });
-});
+// $(document).ready(function() {
+//     $('#formModal .select2').select2({
+//         dropdownParent: $('#formModal')
+//     });
+// });
 $('#openNavButton').on('click', function () {
   document.getElementById("mainSidenav").style.width = "250px";
   document.getElementById("main").style.paddingLeft = "266px";
@@ -21355,6 +21355,9 @@ $('#closeNavButton').on('click', function () {
   document.getElementById("main").style.paddingLeft = "150px";
   document.getElementById('darkMain').style.display = 'none';
 });
+
+$.fn.modal.Constructor.prototype.enforceFocus = function () {};
+
 $('.ModalButton').click(function () {
   var url = $(this).data('url');
   $.ajax({
@@ -21363,7 +21366,10 @@ $('.ModalButton').click(function () {
     success: function success(response) {
       var modal = $('#formModal');
       modal.find('.modal-body').html(response);
-      modal.modal('show'); // modal.find('input[type != "hidden"]').first().focus()
+
+      $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+
+      modal.modal('show');
     }
   });
 });

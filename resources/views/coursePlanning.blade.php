@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Programma planning
+    Opleiding planning
 @endsection
 
 @section('content')

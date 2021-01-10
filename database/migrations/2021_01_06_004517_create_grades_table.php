@@ -17,14 +17,9 @@ class CreateGradesTable extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('users');
             $table->foreignId('course_plan_id')->constrained('course_plans');
-            /**
-             * status -1: fail
-             * status 0: default
-             * status 1: passed
-             */
-            $table->enum('status',[-1,0,1])->default(0);
+            $table->boolean('passed');
             $table->decimal('grade',4,2,true)->nullable();
-            $table->boolean('definitive')->nullable();
+            $table->boolean('definitive')->default(false);
             $table->timestamps();
         });
     }

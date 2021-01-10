@@ -100,10 +100,10 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::prefix('plan/{coursePlan}')->group(function () {
                 Route::get('cijfers', [GradeController::class, 'index'])->name('subjectGrades');
-                Route::prefix('student/{student}')->group(function () {
+//                Route::prefix('student/{student}')->group(function () {
                     Route::resource('cijfer', GradeController::class)
                         ->parameter('cijfer', 'grade')->except('index');
-                });
+//                });
             });
         });
 

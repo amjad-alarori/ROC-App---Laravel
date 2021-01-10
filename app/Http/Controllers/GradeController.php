@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campus;
 use App\Models\CoursePlan;
 use App\Models\Grade;
 use Illuminate\Http\Request;
@@ -12,13 +13,19 @@ class GradeController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
     public function index(Request $request, $id)
     {
         if ($request->route()->hasParameter('coursePlan')):
-            $plan = CoursePlan::find($id)->load('subject');
-            dd($plan);
+            $plan = CoursePlan::find($id)->load('subject')->load('course.students');
+            $students = $plan->course->students->map(function ($student) {
+                return $student->load('grades');
+            });
+
+            $campus = Campus::find($plan->course->campus_id);
+//            dd($plan, $students);
+            return view('courseGrades', ['plan' => $plan, 'students' => $students, 'campus' => $campus]);
         else:
             //course
             dd($request->route()->parameterNames);
@@ -43,7 +50,7 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
