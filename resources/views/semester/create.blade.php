@@ -1,4 +1,4 @@
-<form method="POST" class="AjaxForm" action="{{route('semester.store',['program'=>$program,'isStage'=>$isStage])}}">
+<form method="POST" class="AjaxForm" action="{{route('program.semester.store',['program'=>$program,'isStage'=>$isStage])}}">
     @csrf
 
     @include('semester.form', ['program'=>$program,'isStage'=>$isStage])

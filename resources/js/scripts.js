@@ -1,8 +1,8 @@
-// $(document).ready(function() {
-//     $('#formModal .select2').select2({
-//         dropdownParent: $('#formModal')
-//     });
-// });
+$(document).ready(function() {
+    $('#formModal .select2').select2({
+        dropdownParent: $('#formModal')
+    });
+});
 
 $('#openNavButton').on('click', function () {
     document.getElementById("mainSidenav").style.width = "250px";

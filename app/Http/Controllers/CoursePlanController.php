@@ -83,7 +83,7 @@ class CoursePlanController extends Controller
                 $plan->delete();
             });
 
-            $test = $course->program->semesters->map(function ($semester) use ($plans, $course) {
+            $course->program->semesters->map(function ($semester) use ($plans, $course) {
                 if (!$plans->contains($semester->subject)):
                     $plan = new CoursePlan;
 
@@ -128,7 +128,7 @@ class CoursePlanController extends Controller
             endif;
 
             foreach ($subjectsArray as $subject):
-                $duplCount = CoursePlan::query()
+                $duplCount = $course->program->semesters
                     ->where('semester', '=', $request['semester'])
                     ->where('period', '=', $period)
                     ->where('subject_id', '=', $subject)->count();
@@ -159,7 +159,7 @@ class CoursePlanController extends Controller
      */
     public function show(Course $course, CoursePlan $coursePlan)
     {
-        return redirect()->back();
+        //
     }
 
     /**
@@ -171,7 +171,7 @@ class CoursePlanController extends Controller
      */
     public function edit(Course $course, CoursePlan $coursePlan)
     {
-        return redirect()->back();
+        //
     }
 
     /**
@@ -184,7 +184,7 @@ class CoursePlanController extends Controller
      */
     public function update(Request $request, Course $course, CoursePlan $coursePlan)
     {
-        return redirect()->back();
+        //
     }
 
     /**

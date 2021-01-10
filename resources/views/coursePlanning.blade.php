@@ -48,7 +48,7 @@
                                                 {{$subject->subject->title}} ({{$subject->subject->e_credit}} EC's)
                                             </div>
                                             <div class="p-2">
-                                                <a href="{{route('subjectGrades',['coursePlan'=>$subject])}}" class="btn btn-just-icon btn-round ml-2"
+                                                <a href="{{route('subjectGrades',['course'=>$course, 'coursePlan'=>$subject])}}" class="btn btn-just-icon btn-round ml-2"
                                                    style="background-color: orange">
                                                     <i class="fas fa-drafting-compass" style="font-size: 18px;"></i>
                                                 </a>
@@ -91,7 +91,7 @@
                                             {{$subject->subject->title}} ({{$subject->subject->e_credit}} EC's)
                                         </div>
                                         <div class="p-2">
-                                            <a href="{{route('subjectGrades',['coursePlan'=>$subject])}}" class="btn btn-just-icon btn-round ml-2"
+                                            <a href="{{route('subjectGrades',['course'=>$course, 'coursePlan'=>$subject])}}" class="btn btn-just-icon btn-round ml-2"
                                                style="background-color: orange">
                                                 <i class="fas fa-drafting-compass" style="font-size: 18px;"></i>
                                             </a>

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campus;
+use App\Models\Course;
 use App\Models\CoursePlan;
 use App\Models\Grade;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -14,9 +14,11 @@ class GradeController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     * @param Course $course
+     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
-    public function index(Request $request, $id)
+    public function index(Request $request, Course $course, $id)
     {
         if ($request->route()->hasParameter('coursePlan')):
             $plan = CoursePlan::find($id)->load('grades.student')->load('course.students');
@@ -27,7 +29,12 @@ class GradeController extends Controller
                 $filledStudents [$grade->student->id] = $grade;
             endforeach;
 
-            return view('courseGrades', ['plan' => $plan, 'filledStudents' => $filledStudents, 'campus' => $campus]);
+            return view('courseGrades', [
+                'course' => $course,
+                'plan' => $plan,
+                'filledStudents' => $filledStudents,
+                'campus' => $campus
+            ]);
         else:
             //course
             dd($request->route()->parameterNames);
@@ -37,7 +44,7 @@ class GradeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create()
     {
@@ -48,14 +55,15 @@ class GradeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     * @param Course $course
      * @param CoursePlan $coursePlan
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, CoursePlan $coursePlan)
+    public function store(Request $request, Course $course, CoursePlan $coursePlan)
     {
-        $defIds = $request['defBox']===null?[]:$request['defBox'];
-        $passedIds = $request['passedBox']===null?[]:$request['passedBox'];
-        $passedIds = array_unique(array_merge($passedIds,$defIds));
+        $defIds = $request['defBox'] === null ? [] : $request['defBox'];
+        $passedIds = $request['passedBox'] === null ? [] : $request['passedBox'];
+        $passedIds = array_unique(array_merge($passedIds, $defIds));
 
         $studentIds = $coursePlan->grades->map(function ($grade) use ($passedIds, $defIds) {
             if (in_array($grade->student_id, $passedIds)):
@@ -94,17 +102,18 @@ class GradeController extends Controller
             endif;
         endforeach;
 
-
-        return redirect()->back();
+        return redirect(route('plan.index', ['course' => $course]));
     }
 
     /**
      * Display the specified resource.
      *
+     * @param Course $course
+     * @param CoursePlan $coursePlan
      * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Grade $grade)
+    public function show(Course $course, CoursePlan $coursePlan, Grade $grade)
     {
         //
     }
@@ -112,10 +121,12 @@ class GradeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Course $course
+     * @param CoursePlan $coursePlan
      * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Grade $grade)
+    public function edit(Course $course, CoursePlan $coursePlan, Grade $grade)
     {
         //
     }
@@ -124,10 +135,12 @@ class GradeController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     * @param Course $course
+     * @param CoursePlan $coursePlan
      * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Grade $grade)
+    public function update(Request $request,Course $course, CoursePlan $coursePlan,  Grade $grade)
     {
         //
     }
@@ -135,10 +148,12 @@ class GradeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Course $course
+     * @param CoursePlan $coursePlan
      * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Grade $grade)
+    public function destroy(Course $course, CoursePlan $coursePlan, Grade $grade)
     {
         //
     }

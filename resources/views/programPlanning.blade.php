@@ -11,13 +11,13 @@
             <span class="h5">{{$program->title}}</span>
         </div>
         <div class="col-md-6" style="text-align: end">
-            <x-form.modal-button data-target="#formModal" data-url="{{route('semester.create',['program'=>$program])}}"
+            <x-form.modal-button data-target="#formModal" data-url="{{route('program.semester.create',['program'=>$program])}}"
                                  class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-4">
                 studievak toevoegen
             </x-form.modal-button>
 
             <x-form.modal-button data-target="#formModal"
-                                 data-url="{{route('semester.create',['program'=>$program,'stage'=>true])}}"
+                                 data-url="{{route('program.semester.create',['program'=>$program,'stage'=>true])}}"
                                  class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-4">
                 Stage toevoegen
             </x-form.modal-button>
@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="p-2">
                                                 <form method="POST"
-                                                      action="{{route('semester.destroy',['program'=>$program,'semester'=>$subject])}}">
+                                                      action="{{route('program.semester.destroy',['program'=>$program,'semester'=>$subject])}}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger mx-2 align-self-center">X</button>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="p-2">
                                             <form method="POST"
-                                                  action="{{route('semester.destroy',['program'=>$program,'semester'=>$subject])}}">
+                                                  action="{{route('program.semester.destroy',['program'=>$program,'semester'=>$subject])}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger mx-2 align-self-center">X</button>

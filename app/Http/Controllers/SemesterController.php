@@ -97,7 +97,7 @@ class SemesterController extends Controller
         endif;
 
         foreach ($subjectsArray as $subject):
-            $duplCount = Semester::query()
+            $duplCount = $program->semesters
                 ->where('semester', '=', $request['semester'])
                 ->where('period', '=', $period)
                 ->where('subject_id', '=', $subject)->count();
@@ -114,7 +114,7 @@ class SemesterController extends Controller
         endforeach;
 
         return response()->json([
-            'url' => route('semester.index', ['program' => $program])]);
+            'url' => route('program.semester.index', ['program' => $program])]);
 
     }
 
@@ -126,7 +126,7 @@ class SemesterController extends Controller
      */
     public function show(Semester $semester)
     {
-        return redirect()->back();
+        //
     }
 
     /**
@@ -138,7 +138,7 @@ class SemesterController extends Controller
      */
     public function edit(Program $program, Semester $semester)
     {
-        return redirect()->back();
+        //
     }
 
     /**
@@ -151,7 +151,7 @@ class SemesterController extends Controller
      */
     public function update(Request $request, Program $program, Semester $semester)
     {
-        return redirect()->back();
+        //
     }
 
     /**

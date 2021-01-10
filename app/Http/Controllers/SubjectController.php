@@ -88,7 +88,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        return redirect()->back();
+        //
     }
 
     /**

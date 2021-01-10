@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <form method="POST" action="{{route('cijfer.store',['coursePlan'=>$plan])}}">
+    <form method="POST" action="{{route('cijfer.store',['course'=> $course,'coursePlan'=>$plan])}}">
         @csrf
         <table class="table table-striped">
             <thead>
@@ -31,8 +31,8 @@
                         <div class="form-check">
                             <input class="form-check-input passBox" id="{{$student->id}}" type="checkbox"
                                    name="passedBox[]" value="{{$student->id}}"
-                                   {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->passed?'checked':''):''}}
-                                   {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->definitive?'disabled':''):''}}>
+                                {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->passed?'checked':''):''}}
+                                {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->definitive?'disabled':''):''}}>
                         </div>
                     </td>
                     <td class="text-center">
@@ -86,9 +86,9 @@
                         $("#defBox" + cBoxId).prop("checked", false);
                         $("#defBox" + cBoxId).attr("disabled", "disabled");
                     }
-                }else if (chkBoxElement.hasClass('defBox')){
+                } else if (chkBoxElement.hasClass('defBox')) {
                     let cBoxId = this.id;
-                    cBoxId = cBoxId.substring(6,cBoxId.length)
+                    cBoxId = cBoxId.substring(6, cBoxId.length)
 
                     if (this.checked) {
                         $("#" + cBoxId).attr("disabled", "disabled");

@@ -12,6 +12,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CVController;
 use App\Http\Controllers\QualificationFileStudentController;
+use App\Http\Controllers\QFileController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StageBedrijvenController;
 use App\Http\Controllers\StageController;
@@ -85,30 +86,23 @@ Route::group(['middleware' => 'web'], function () {
             Route::view('beheer', 'opleidingBeheer')->name('beheer');
             Route::resource('campus', CampusController::class);
             Route::resource('study', ProgramAreaController::class)->parameter('study', 'programArea');
-            Route::resource('program', ProgramController::class);
-
-            Route::prefix('program/{program}')->group(function () {
-                Route::resource('semester', SemesterController::class);
-            });
-            Route::resource('subject', SubjectController::class);
+            Route::resource('program', ProgramController::class)->except('show');
+//            Route::prefix('program/{program}')->group(function () {
+            Route::resource('program.semester', SemesterController::class)->except(['show', 'edit', 'update']);
+//            });
+            Route::resource('subject', SubjectController::class)->except('show');
             Route::resource('competence', CompetenceController::class);
             Route::resource('course', CourseController::class);
             Route::prefix('course/{course}')->group(function () {
-                Route::resource('plan', CoursePlanController::class)->parameter('plan', 'coursePlan');
+                Route::resource('plan', CoursePlanController::class)
+                    ->parameter('plan', 'coursePlan')->except(['show', 'edit', 'update']);
                 Route::resource('enrollment', EnrollmentController::class);
+                Route::prefix('plan/{coursePlan}')->group(function () {
+                    Route::get('cijfers', [GradeController::class, 'index'])->name('subjectGrades');
+                    Route::post('cijfer', [GradeController::class, 'store'])->name('cijfer.store');
+                });
             });
-
-            Route::prefix('plan/{coursePlan}')->group(function () {
-                Route::get('cijfers', [GradeController::class, 'index'])->name('subjectGrades');
-//                Route::prefix('student/{student}')->group(function () {
-                    Route::resource('cijfer', GradeController::class)
-                        ->parameter('cijfer', 'grade')->except('index');
-//                });
-            });
-        });
-
-        Route::prefix('course/{course}')->group(function () {
-            Route::get('cijfers', [GradeController::class, 'index'])->name('courseGrades');
+            Route::get('student/{user}/course/{course}/kwalificatie', QFileController::class)->name('QDossier');
         });
     });
 });

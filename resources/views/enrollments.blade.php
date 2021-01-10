@@ -30,7 +30,7 @@
                         <div class="ripple-container">stoppen</div>
                     </button>
                 </form>
-                <a href="#" class="btn btn-just-icon btn-round">
+                <a href="{{route('QDossier',['user'=> $student, 'course'=>$course])}}" class="btn btn-just-icon btn-round">
                     <i class="fas fa-tasks"></i>
                     <div class="ripple-container">K-dossier</div>
                 </a>
