@@ -81,4 +81,8 @@ class User extends Authenticatable
         return $this->hasOne(StageBedrijven::class, 'user_id');
     }
 
+    public function grades()
+    {
+        return $this->hasMany(Grade::class,'student_id','id');
+    }
 }

@@ -32,7 +32,6 @@
         </div>
     </div>
 
-
     @foreach($plans as $semester=>$periods)
         <x-cards.cardwfull :title="'Semester '.$semester" class="my-4" :withFoot="false">
             @if(array_key_exists(2,$periods))
@@ -49,11 +48,17 @@
                                                 {{$subject->subject->title}} ({{$subject->subject->e_credit}} EC's)
                                             </div>
                                             <div class="p-2">
+                                                <a href="{{route('subjectGrades',['coursePlan'=>$subject])}}" class="btn btn-just-icon btn-round ml-2"
+                                                   style="background-color: orange">
+                                                    <i class="fas fa-drafting-compass" style="font-size: 18px;"></i>
+                                                </a>
+                                            </div>
+                                            <div class="p-2">
                                                 <form method="POST"
                                                       action="{{route('plan.destroy',['course'=>$course,'coursePlan'=>$subject])}}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger mx-2 align-self-center">X</button>
+                                                    <button class="btn btn-danger mr-2 align-self-center">X</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -84,6 +89,12 @@
                                     <div class="d-flex flex-row border-bottom justify-content-between">
                                         <div class="p-2">
                                             {{$subject->subject->title}} ({{$subject->subject->e_credit}} EC's)
+                                        </div>
+                                        <div class="p-2">
+                                            <a href="{{route('subjectGrades',['coursePlan'=>$subject])}}" class="btn btn-just-icon btn-round ml-2"
+                                               style="background-color: orange">
+                                                <i class="fas fa-drafting-compass" style="font-size: 18px;"></i>
+                                            </a>
                                         </div>
                                         <div class="p-2">
                                             <form method="POST"

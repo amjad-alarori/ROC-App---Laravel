@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProgramAreaController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\CoursePlanController;
@@ -77,16 +78,14 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::middleware(DocentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen de docent toegang heeft */
-
-
             Route::resource('docent', DocentController::class);
             Route::post('docent/search', [DocentController::class, 'search'])->name('searchUser');
             Route::post('studentDashboard', [PagesController::class, 'redirectToDashboard'])->name('studentDash');
+            Route::get('studentDashboard', [PagesController::class, 'redirectToDashboard'])->name('studentDash');
             Route::view('beheer', 'opleidingBeheer')->name('beheer');
             Route::resource('campus', CampusController::class);
             Route::resource('study', ProgramAreaController::class)->parameter('study', 'programArea');
             Route::resource('program', ProgramController::class);
-
 
             Route::prefix('program/{program}')->group(function () {
                 Route::resource('semester', SemesterController::class);
@@ -98,6 +97,18 @@ Route::group(['middleware' => 'web'], function () {
                 Route::resource('plan', CoursePlanController::class)->parameter('plan', 'coursePlan');
                 Route::resource('enrollment', EnrollmentController::class);
             });
+
+            Route::prefix('plan/{coursePlan}')->group(function () {
+                Route::get('cijfers', [GradeController::class, 'index'])->name('subjectGrades');
+                Route::prefix('student/{student}')->group(function () {
+                    Route::resource('cijfer', GradeController::class)
+                        ->parameter('cijfer', 'grade')->except('index');
+                });
+            });
+        });
+
+        Route::prefix('course/{course}')->group(function () {
+            Route::get('cijfers', [GradeController::class, 'index'])->name('courseGrades');
         });
     });
 });

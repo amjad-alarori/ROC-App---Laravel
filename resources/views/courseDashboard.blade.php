@@ -61,7 +61,7 @@
                 <x-slot name="descrition">
                     studievakken en stages
                 </x-slot>
-                <a href="{{route('plan.index',['course'=>$course])}}" class="btn btn-just-icon btn-twitter btn-round">
+                <a href="{{route('plan.index',['course'=>$course])}}" class="btn btn-just-icon btn-round">
                     <i class="far fa-calendar-alt"></i>
                     <div class="ripple-container">semesters</div>
                 </a>
