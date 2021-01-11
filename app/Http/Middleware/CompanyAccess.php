@@ -23,6 +23,7 @@ class CompanyAccess
         if (Auth::guest()):
             return redirect(route('login'))->with('NoAccess', 'Je moet eerst ingelogd zijn');
         elseif (Auth::user()->role === 3):
+            $comp = Auth::user()->company;
             if ($request->route('stageBedrijven') instanceof StageBedrijven):
                 $compId = $request->route('stageBedrijven')->id;
             else:

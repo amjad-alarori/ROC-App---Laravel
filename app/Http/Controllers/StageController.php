@@ -127,8 +127,8 @@ class StageController extends Controller
      */
     public function edit(stageBedrijven $stageBedrijven, Stage $stage)
     {
-
-        return view('stageEdit', ['stageBedrijven'=>$stageBedrijven, 'stage'=>$stage]);
+        $sectors = ProgramArea::all();
+        return view('stageEdit', ['stageBedrijven'=>$stageBedrijven, 'stage'=>$stage, 'sectors'=>$sectors]);
     }
 
     /**
