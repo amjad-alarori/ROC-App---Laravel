@@ -87,10 +87,10 @@ class ResetPasswordNotification extends Notification
     {
         return (new MailMessage)
             ->subject(Lang::get('Wachtwoord opnieuw opstellen'))
-            ->line(Lang::get('Met het clicken op de onderstaande knop kunt u, uw wachtwoord voor de eerste keer of opnieuw instellen.'))
+            ->line(Lang::get('Via de onderstaande link kunt u uw wachtwoord instellen. Dit geld voor de eerste keer inloggen en voor het geval u uw wachtwoord vergeten bent.'))
             ->action(Lang::get('Wachtwoord Reset'), $url)
-            ->line(Lang::get('Deze link is alleen :count minuten geldig.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
-            ->line(Lang::get('Als u uw wachtwoord niet will instellen of opnieuw instellen, mocht u deze mail negeren.'));
+            ->line(Lang::get('Deze link is :count minuten geldig.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
+            ->line(Lang::get('Als u uw wachtwoord niet of niet opnieuw wilt instellen, kunt u deze mail als niet verzonden beschouwen.'));
     }
 
     /**
