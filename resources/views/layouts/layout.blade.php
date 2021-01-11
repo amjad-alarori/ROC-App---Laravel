@@ -34,9 +34,9 @@
 
     @auth()
         @if(auth()->user()->role == 1):
-    <a href="{{route('qualificationFileStudent.index')}}" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
+    <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
         @else
-        <a href="{{route('qualificationFileStudent.index')}}" class="text-nowrap"><i class="fas fa-list"></i> Kwalificatie <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dossier<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student</a>
+        <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Kwalificatie <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dossier<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student</a>
         @endif
     @endauth
 
