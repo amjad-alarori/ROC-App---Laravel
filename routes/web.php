@@ -11,7 +11,6 @@ use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CVController;
-use App\Http\Controllers\QualificationFileStudentController;
 use App\Http\Controllers\QFileController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StageBedrijvenController;
@@ -57,7 +56,6 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::resource('stageBedrijven', StageBedrijvenController::class);
             Route::get('stageBedrijven/{stageBedrijven}/stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
-            Route::resource('qualificationFileStudent', QualificationFileStudentController::class);
         });
 
 
