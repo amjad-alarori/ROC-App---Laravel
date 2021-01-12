@@ -34,12 +34,13 @@ class StageController extends Controller
     {
         $this->middleware(StudentAccess::class)->only('show', 'undo'); //probleem hier met ik heb iinteresse//
         $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
-        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes');
+        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes', 'index');
+
 
     }
     public function index(){
 
-
+        return view('stageList');
     }
 
     /**

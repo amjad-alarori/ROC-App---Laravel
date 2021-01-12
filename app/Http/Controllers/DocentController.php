@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StageBedrijven;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -118,4 +119,27 @@ class DocentController extends Controller
 
         return json_encode($data);
     }
+
+    public function searchCompany(Request $request)
+    {
+        if (!isset($request['searchTerm'])) {
+            $fetchData = StageBedrijven::all();
+        } else {
+            $search = $request['searchTerm'];
+            $fetchData = StageBedrijven::query()
+                ->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
+        }
+
+        $data = array();
+        foreach ($fetchData as $company):
+            $data[$company->id] = ['id' => $company->id, 'name' => $company->name];
+        endforeach;
+
+        return json_encode($data);
+
+
+    }
+
+
 }

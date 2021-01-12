@@ -44,9 +44,44 @@ class PagesController extends Controller
     }
 
 
-    public function companyLooksAtStudent(StageBedrijven $stageBedrijven,stage $stage,User $user)
+    public function companyLooksAtStudent(StageBedrijven $stageBedrijven, stage $stage, User $user)
     {
-        return view('studentDashboard', ['user'=>$user]);
+        return view('studentDashboard', ['user' => $user]);
+
+    }
+
+    public function redirectToCompanyDashboard(Request $request)
+    {
+        $companyId = $request['searchId'];
+
+        return redirect(route('stageBedrijven.show', ['stageBedrijven' => $companyId]));
+
+    }
+
+    public function toQFile(User $user)
+    {
+        if (Auth::user()->role === 1):
+            $user = Auth::user();
+            $courses = $user->courses;
+
+            if ($courses->count() === 0):
+                return redirect()->back()->with('NoAccess', 'Jij bent nog voor geen opleiding aangemeld!');
+            elseif ($courses->count() === 1):
+                $course = $courses->first();
+                return redirect(route('qfFileStudent', ['user' => $user, 'course' => $course]));
+            else:
+                /**
+                 *Maak een blade waar de student kan kiezen de kwalificatie dossier van welke course wilt zien
+                 */
+
+
+            endif;
+
+        elseif (Auth::user()->role === 3):
+
+        else:
+            return redirect()->back()->with('NoAccess', 'Toegang geweigerd!');
+        endif;
 
     }
 }

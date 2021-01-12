@@ -30,14 +30,6 @@
                             {{ __('Profiel') }}
                         </x-jet-dropdown-link>
 
-                        @auth()
-                            @if(auth()->user()->role == 1)
-                                <x-jet-dropdown-link href="{{ route('cv.index') }}">
-                                    {{ __('Mijn CV') }}
-                                </x-jet-dropdown-link>
-                            @endif
-                        @endauth
-
 
                         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                             <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">

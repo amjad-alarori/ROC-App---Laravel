@@ -21521,6 +21521,32 @@ $('.diconfirm').click(function () {
     return false;
   }
 });
+$("#searchCompany").select2({
+  ajax: {
+    url: $("#searchCompany").data('url'),
+    type: "post",
+    dataType: 'json',
+    delay: 250,
+    data: function data(params) {
+      return {
+        _token: $('input[name=_token]').val(),
+        searchTerm: params.term // search term
+
+      };
+    },
+    processResults: function processResults(response) {
+      return {
+        results: $.map(response, function (item) {
+          return {
+            text: item.name,
+            id: item.id
+          };
+        })
+      };
+    },
+    cache: true
+  }
+});
 
 /***/ }),
 
@@ -21531,8 +21557,8 @@ $('.diconfirm').click(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Windesheim ADSD20\Periode 2\rocflevoland\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Code\rocapp\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Code\rocapp\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

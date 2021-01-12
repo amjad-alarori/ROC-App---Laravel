@@ -124,6 +124,7 @@ class StageBedrijvenController extends Controller
 
         $sectors =  ProgramArea::query()->with('stages')->whereHas('stages',null,'>',0)->get();
 
+
         return view('companyDashboard', ['company' => $stageBedrijven, 'sectors'=> $sectors]);
     }
 

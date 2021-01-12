@@ -19,6 +19,28 @@
         </div>
     </div>
 
+    <br>
+    <div class="h4"><h4><i class="fas fa-search"></i>&nbsp; Zoek een bedrijf</h4></div>
+    <hr>
+    <br>
+
+    <form method="post" class="search" action="{{route('companyDash')}}">
+        @csrf
+        <div class="searchCompany2">
+            <select class="select2 single2" name="searchId" id='searchCompany' style='width: 400px;' data-url="{{route('searchCompany')}}">
+                <option value='0'>- Zoek bedrijf -</option>
+            </select>&nbsp; &nbsp;
+            <button class="btnSearch" type="submit" style="background-color: coral; color: white;"> Ga naar
+                bedrijf
+            </button>
+        </div>
+
+
+
+    </form>
+    </div>
+    <hr>
+
     @foreach($stageBedrijven as $bedrijf)
 
         <x-cards.cardwfull :title="$bedrijf->name" class="my-4">

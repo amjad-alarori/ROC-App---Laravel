@@ -56,6 +56,10 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::resource('stageBedrijven', StageBedrijvenController::class);
             Route::get('stageBedrijven/{stageBedrijven}/stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
+            Route::post('companyDashboard', [PagesController::class, 'redirectToCompanyDashboard'])->name('companyDash');
+            Route::post('searchCompany', [DocentController::class, 'searchCompany'])->name('searchCompany');
+            Route::get('user/{user}/course/{course}/kwalificatieDossier', QFileController::class)->name('qfFileStudent');
+            Route::get('stageList', [StageController::class, 'index'])->name('stageList');
         });
 
 
@@ -71,7 +75,7 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::middleware(StudentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen de student toegang heeft */
-
+            Route::get('myQFile',[PagesController::class,'toQFile'])->name('myQFile');
         });
 
 

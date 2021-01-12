@@ -230,6 +230,40 @@ html , body{
     box-sizing: border-box;
 }
 
+.btnStudentDash{
+    border-radius: 5px;
+    color: #f1f1f1;
+    background-color: coral;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+    opacity: 75%;
+}
+
+.btnStudentDash:hover{
+    text-decoration: none !important;
+    opacity: 100%;
+    color: #f1f1f1 !important;
+}
+
+#wrapper{
+    overflow:auto;
+}
+
+#btnQf{
+    float:left;
+}
+
+#btnCv{
+    float:right;
+}
+
 body {
     margin: 0;
     font-size: 1rem;
@@ -600,6 +634,15 @@ input[type="checkbox"].compCheckBox{
 
 #h3qualificationNotDone{
     color: #f1f1f1;
+}
+
+/*End qualificationFileStudent*/
+
+/*Start Stagebedrijven Page*/
+
+ .fa-search{
+
+    color: coral;
 }
 
 

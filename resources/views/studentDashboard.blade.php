@@ -11,7 +11,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="h1">
-                        Dashboard {{$user->name . "  -  " . $user->id}}
+                        Dashboard
+{{--                        {{$user->name . "  -  " . $user->id}}--}}
                     </h1>
                     <hr>
                     <br>
@@ -73,8 +74,22 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
 
+{{--            @auth()--}}
+{{--                @if(auth()->user()->role !== 1):--}}
+            <div id="wrapper">
+                <div id="btnQf">
+                <a class ="btnStudentDash" href="{{route('qfFileStudent',['user'=>auth()->user(),'course'=>1])}}">Volledig kwalificatie dossier</a>
+                </div>
 
+                <div id="btnCv">
+                <a class="btnStudentDash" href="{{route('cv.index')}}">Bekijk CV</a>
+                </div>
+            </div>
+{{--                @endif--}}
+{{--            @endauth--}}
         </div>
 
 
