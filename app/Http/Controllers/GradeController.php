@@ -140,7 +140,7 @@ class GradeController extends Controller
      * @param \App\Models\Grade $grade
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request,Course $course, CoursePlan $coursePlan,  Grade $grade)
+    public function update(Request $request, Course $course, CoursePlan $coursePlan, Grade $grade)
     {
         //
     }

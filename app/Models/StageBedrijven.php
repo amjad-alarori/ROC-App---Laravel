@@ -22,18 +22,24 @@ class StageBedrijven extends Model
         'wie_zijn_wij',
 
     ];
+
     /**
      * @var mixed
      */
 
     public function stages()
     {
-        return $this->hasMany(stage::class,'stageBedrijf_id');
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->hasMany(stage::class, 'stageBedrijf_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function stagePlans()
+    {
+        return $this->hasMany(CoursePlan::class,'company_id','id');
+    }
 
 }

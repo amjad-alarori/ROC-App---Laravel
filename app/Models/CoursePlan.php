@@ -28,4 +28,9 @@ class CoursePlan extends Model
     {
         return $this->hasMany(Grade::class,'course_plan_id','id');
     }
+
+    public function company()
+    {
+        return $this->belongsTo(StageBedrijven::class,'company_id','id');
+    }
 }
