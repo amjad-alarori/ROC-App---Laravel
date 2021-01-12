@@ -6,6 +6,7 @@ use App\Models\Campus;
 use App\Models\Course;
 use App\Models\CoursePlan;
 use App\Models\Grade;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -54,8 +55,6 @@ class GradeController extends Controller
             dd($request->route()->parameterNames);
 
 
-
-
         else:
             return abort(404);
         endif;
@@ -64,11 +63,13 @@ class GradeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
-    public function create()
+    public function create(User $student, CoursePlan $plan)
     {
-        //
+        return view('plan.addStage', ['student' => $student, 'plan' => $plan]);
     }
 
     /**
@@ -128,12 +129,12 @@ class GradeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Course $course
-     * @param CoursePlan $coursePlan
-     * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @param Grade $grade
+     * @return void
      */
-    public function show(Course $course, CoursePlan $coursePlan, Grade $grade)
+    public function show(User $student, CoursePlan $plan, Grade $grade)
     {
         //
     }
@@ -141,12 +142,12 @@ class GradeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Course $course
-     * @param CoursePlan $coursePlan
-     * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @param Grade $grade
+     * @return void
      */
-    public function edit(Course $course, CoursePlan $coursePlan, Grade $grade)
+    public function edit(User $student, CoursePlan $plan, Grade $grade)
     {
         //
     }
@@ -155,25 +156,25 @@ class GradeController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Course $course
-     * @param CoursePlan $coursePlan
-     * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @param Grade $grade
+     * @return void
      */
-    public function update(Request $request, Course $course, CoursePlan $coursePlan, Grade $grade)
+    public function update(Request $request, User $student, CoursePlan $plan, Grade $grade)
     {
-        //
+        dd('update');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Course $course
-     * @param CoursePlan $coursePlan
-     * @param \App\Models\Grade $grade
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @param Grade $grade
+     * @return void
      */
-    public function destroy(Course $course, CoursePlan $coursePlan, Grade $grade)
+    public function destroy(User $student, CoursePlan $plan, Grade $grade)
     {
         //
     }

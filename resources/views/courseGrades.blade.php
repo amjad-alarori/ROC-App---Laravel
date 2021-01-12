@@ -31,21 +31,23 @@
                     <td>
                         @if($coOpLocations !== null)
                             <div class="d-flex flex-row flex-wrap justify-content-between">
-                            @if($coOpLocations[$student->id] === false)
-                                <span>nog niet alle competenties behaald</span>
-                                <button class="btn btn-secondary" disabled>Stageplek</button>
-                            @else
-                                    <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$student->id])->name}}</span>
-                                @if($coOpLocations[$student->id] === true)
-                                    <x-form.modal-button data-target="#formModal" data-url="#"
-                                                         class="btn btn-success">toevoegen
-                                    </x-form.modal-button>
+                                @if($coOpLocations[$student->id] === false)
+                                    <span>nog niet alle competenties behaald</span>
+                                    <button class="btn btn-secondary" disabled>Stageplek</button>
                                 @else
-                                    <x-form.modal-button data-target="#formModal" data-url="#"
-                                                         class="btn btn-warning">wijzigen
-                                    </x-form.modal-button>
+                                    <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$student->id])->name}}</span>
+                                    @if($coOpLocations[$student->id] === true)
+                                        <x-form.modal-button data-target="#formModal"
+                                                             data-url="{{route('student.plan.cijfer.create',['student'=>$student, 'plan'=>$plan])}}"
+                                                             class="btn btn-success">toevoegen
+                                        </x-form.modal-button>
+                                    @else
+                                        <x-form.modal-button data-target="#formModal"
+                                                             data-url="{{route('student.plan.cijfer.create',['student'=>$student, 'plan'=>$plan])}}"
+                                                             class="btn btn-warning">wijzigen
+                                        </x-form.modal-button>
+                                    @endif
                                 @endif
-                            @endif
                             </div>
                         @endif
 

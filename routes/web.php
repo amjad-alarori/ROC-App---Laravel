@@ -104,10 +104,11 @@ Route::group(['middleware' => 'web'], function () {
                 Route::get('student/{student}/cijfers', [GradeController::class, 'index'])->name('studentGrades');
 
 
-
             });
+            Route::resource('student.plan.cijfer', GradeController::class)->except('index', 'store');
             Route::get('student/{user}/course/{course}/kwalificatie', QFileController::class)->name('QDossier');
         });
+        Route::post('docent/company', [StageBedrijvenController::class, 'search'])->name('SearchCompany');
     });
 });
 
