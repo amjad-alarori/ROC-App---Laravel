@@ -43,12 +43,12 @@ Route::group(['middleware' => 'web'], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
 
 
-            Route::resource('cv', CvController::class);
-            Route::view('user/profile', 'profile.show')->name('profile');
+        Route::resource('cv', CvController::class);
+        Route::view('user/profile', 'profile.show')->name('profile');
         Route::resource('stageBedrijven/{stageBedrijven}/stage', StageController::class);
         Route::resource('dashboard', PagesController::class);
 //              Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
-                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+        Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
 
 
         Route::middleware(StudentAndDocentAccess::class)->group(function () {
@@ -99,6 +99,12 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('cijfers', [GradeController::class, 'index'])->name('subjectGrades');
                     Route::post('cijfer', [GradeController::class, 'store'])->name('cijfer.store');
                 });
+
+
+                Route::get('student/{student}/cijfers', [GradeController::class, 'index'])->name('studentGrades');
+
+
+
             });
             Route::get('student/{user}/course/{course}/kwalificatie', QFileController::class)->name('QDossier');
         });

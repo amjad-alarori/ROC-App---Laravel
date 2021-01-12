@@ -29,15 +29,35 @@ class GradeController extends Controller
                 $filledStudents [$grade->student->id] = $grade;
             endforeach;
 
+
+            if ($plan->subject->co_op):
+                $coOpLocations = [];
+
+                foreach ($plan->course->students as $student):
+                    $coOpLocations[$student->id] = $plan->coOpReady($student);
+                endforeach;
+            else:
+                $coOpLocations = null;
+            endif;
+
             return view('courseGrades', [
                 'course' => $course,
                 'plan' => $plan,
                 'filledStudents' => $filledStudents,
-                'campus' => $campus
+                'campus' => $campus,
+                'coOpLocations' => $coOpLocations,
             ]);
-        else:
-            //course
+        elseif ($request->route()->hasParameter('coursePlan')):
+
+
+            //all cijfers of a student op a blade
             dd($request->route()->parameterNames);
+
+
+
+
+        else:
+            return abort(404);
         endif;
     }
 
