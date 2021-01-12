@@ -18,15 +18,38 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th class="w-80" scope="col">student</th>
-                <th class="w-10 text-center" scope="col">geslaagt</th>
-                <th class="w-10 text-center" scope="col">definitief</th>
+                <th class="w-20" scope="col">student</th>
+                <th class="w-50 text-center" scope="col"></th>
+                <th class="w-15 text-center" scope="col">geslaagt</th>
+                <th class="w-15 text-center" scope="col">definitief</th>
             </tr>
             </thead>
             <tbody>
             @foreach($plan->course->students as $student)
-                <tr>
-                    <td scope="row">{{$student->name}}</td>
+                <tr scope="row">
+                    <td>{{$student->name}}</td>
+                    <td>
+                        @if($coOpLocations !== null)
+                            <div class="d-flex flex-row flex-wrap justify-content-between">
+                            @if($coOpLocations[$student->id] === false)
+                                <span>nog niet alle competenties behaald</span>
+                                <button class="btn btn-secondary" disabled>Stageplek</button>
+                            @else
+                                    <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$student->id])->name}}</span>
+                                @if($coOpLocations[$student->id] === true)
+                                    <x-form.modal-button data-target="#formModal" data-url="#"
+                                                         class="btn btn-success">toevoegen
+                                    </x-form.modal-button>
+                                @else
+                                    <x-form.modal-button data-target="#formModal" data-url="#"
+                                                         class="btn btn-warning">wijzigen
+                                    </x-form.modal-button>
+                                @endif
+                            @endif
+                            </div>
+                        @endif
+
+                    </td>
                     <td class="text-center">
                         <div class="form-check">
                             <input class="form-check-input passBox" id="{{$student->id}}" type="checkbox"
@@ -47,7 +70,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3">
+                <td colspan="4">
                     <div class="d-flex justify-content-end">
                         <input
                             class="btn inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-4"
