@@ -107,7 +107,7 @@ class DocentController extends Controller
             $fetchData = User::all();
         } else {
             $search = $request['searchTerm'];
-            $fetchData = User::query()
+            $fetchData = User::query()->where('role', '=', 1)
                 ->where('name', 'LIKE', '%' . $search . '%')
                 ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
         }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\ProgramArea;
 use App\Models\stage;
 use App\Models\StageBedrijven;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,15 +40,16 @@ class PagesController extends Controller
 
     public function redirectToDashboard(Request $request)
     {
-        $user = User::query()->find($request['searchId']);
+        $user = User::find(intval($request['SearchId']));
+        $courses = $user->courses;
 
-        return view('studentDashboard', ['user' => $user]);
+        return view('studentDashboard', ['user' => $user, 'courses' => $courses]);
     }
 
 
     public function companyLooksAtStudent(StageBedrijven $stageBedrijven, stage $stage, User $user)
     {
-        return view('studentDashboard', ['user' => $user]);
+        return view('studentDashboard', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]);
 
     }
 
@@ -58,30 +61,72 @@ class PagesController extends Controller
 
     }
 
-    public function toQFile(User $user)
+    public function toQFile(Request $request, User $user)
     {
         if (Auth::user()->role === 1):
             $user = Auth::user();
-            $courses = $user->courses;
+
+            if ($request->has('course')):
+                $course = Course::find($request['course']);
+                $courses = new Collection();
+                $courses = $courses->push($course);
+            else:
+                $courses = $user->courses;
+            endif;
 
             if ($courses->count() === 0):
-                return redirect()->back()->with('NoAccess', 'Jij bent nog voor geen opleiding aangemeld!');
+                return redirect()->back()->with('NoAccess', 'Je bent nog voor geen opleiding aangemeld!');
             elseif ($courses->count() === 1):
                 $course = $courses->first();
                 return redirect(route('qfFileStudent', ['user' => $user, 'course' => $course]));
             else:
-                /**
-                 *Maak een blade waar de student kan kiezen de kwalificatie dossier van welke course wilt zien
-                 */
-
-
+                return redirect(route('chooseCourseforQF', ['user' => $user]));
             endif;
-
-        elseif (Auth::user()->role === 3):
-
         else:
             return redirect()->back()->with('NoAccess', 'Toegang geweigerd!');
         endif;
 
     }
+
+    public function chooseCourse(User $user)
+    {
+        $courses = $user->courses;
+
+        return view('chooseCourseForQf', ['user' => $user, 'courses' => $courses]);
+    }
+
+    public function companyToStudentQFile(Request $request, StageBedrijven $stageBedrijven, stage $stage, User $user)
+    {
+        if (Auth::user()->role === 3):
+            if ($request->has('course')):
+                $course = Course::find($request['course']);
+                $courses = new Collection();
+                $courses = $courses->push($course);
+            else:
+                $courses = $user->courses;
+            endif;
+
+            if ($courses->count() === 0):
+                return redirect()->back()->with('NoAccess', 'Je bent nog voor geen opleiding aangemeld!');
+            elseif ($courses->count() === 1):
+                $course = $courses->first();
+
+                return redirect(route('CompanyToStudentQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'course' => $course]));
+            else:
+                return redirect(route('chooseCourseforQF', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]));
+            endif;
+        else:
+            return redirect()->back()->with('NoAccess', 'Toegang geweigerd!');
+        endif;
+
+    }
+
+
+    public function companyChooseCourse(StageBedrijven $stageBedrijven, stage $stage, User $user)
+    {
+        $courses = $user->courses;
+
+        return view('chooseCourseForQf', ['user' => $user, 'courses' => $courses]);
+    }
+
 }

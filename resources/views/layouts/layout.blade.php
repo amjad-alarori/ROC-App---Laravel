@@ -36,7 +36,7 @@
         @if(auth()->user()->role == 1):
     <a href="{{route('myQFile')}}" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
 
-    <a href="{{route('cv.index')}}" class="text-nowrap"><i class="fas fa-address-card"></i> CV</a>
+    <a href="{{route('cv.index',['user'=>auth()->user()])}}" class="text-nowrap"><i class="fas fa-address-card"></i> CV</a>
          @endif
     @endauth
     @auth()

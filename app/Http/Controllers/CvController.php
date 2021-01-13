@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cv;
+use App\Models\stage;
+use App\Models\StageBedrijven;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,9 +16,13 @@ class CvController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user = null)
     {
-        $cv = CV::query()->where('user_id', '=', Auth::id())->get();
+        if ($user ===null):
+            $user = Auth::user();
+        endif;
+
+        $cv = CV::query()->where('user_id', '=', $user->id)->get();
         return view('cv', ['cv'=>$cv]);
 
     }
@@ -139,9 +145,9 @@ class CvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(StageBedrijven $stageBedrijven, stage $stage, User $user)
     {
-        //
+        $this->index($user);
     }
 
     /**

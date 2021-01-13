@@ -80,7 +80,7 @@
                             <div class="col-md-8">
                                 <ul>
                                     <li>
-                                        - {{$stage->werkzaamheden}}
+                                        {{$stage->werkzaamheden}}
                                     </li>
                                 </ul>
                                 <br>

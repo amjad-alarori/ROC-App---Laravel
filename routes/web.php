@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyQFileController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProgramAreaController;
 use App\Http\Controllers\CampusController;
@@ -43,12 +44,12 @@ Route::group(['middleware' => 'web'], function () {
         /** voeg hier de routes welke authorisatie nodig hebben */
 
 
-            Route::resource('cv', CvController::class);
-            Route::view('user/profile', 'profile.show')->name('profile');
+        Route::resource('cv', CvController::class);
+        Route::view('user/profile', 'profile.show')->name('profile');
         Route::resource('stageBedrijven/{stageBedrijven}/stage', StageController::class);
         Route::resource('dashboard', PagesController::class);
 //              Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
-                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+        Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
 
 
         Route::middleware(StudentAndDocentAccess::class)->group(function () {
@@ -58,7 +59,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('stageBedrijven/{stageBedrijven}/stage/{stage}/likes/undo', [StageController::class, 'undo'])->name('stage.likes.undo');
             Route::post('companyDashboard', [PagesController::class, 'redirectToCompanyDashboard'])->name('companyDash');
             Route::post('searchCompany', [DocentController::class, 'searchCompany'])->name('searchCompany');
-            Route::get('user/{user}/course/{course}/kwalificatieDossier', QFileController::class)->name('qfFileStudent');
+            Route::get('user/{user}/courses/{course}/kwalificatieDossier', QFileController::class)->name('qfFileStudent');
             Route::get('stageList', [StageController::class, 'index'])->name('stageList');
         });
 
@@ -69,13 +70,18 @@ Route::group(['middleware' => 'web'], function () {
 
 //              Route::resource('stageBedrijven', StageBedrijvenController::class);
                 Route::get('stage/{stage}/studentDashboard/{user}', [PagesController::class, 'companyLooksAtStudent'])->name('companyGoesToStudent');
+
+                Route::get('stage/{stage}/studentDashboard/{user}/QFile', [PagesController::class, 'companyToStudentQFile'])->name('studentsQFile');
+                Route::get('stage/{stage}/studentDashboard/{user}/course/{course}/kwalificatie', CompanyQFileController::class)->name('companyToStudentQFile');
+                Route::get('stage/{stage}/studentDashboard/{user}/chooseCourse', [PagesController::class, 'companyChooseCourse'])->name('companyChooseCourse');
             });
         });
 
 
         Route::middleware(StudentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen de student toegang heeft */
-            Route::get('myQFile',[PagesController::class,'toQFile'])->name('myQFile');
+            Route::get('myQFile', [PagesController::class, 'toQFile'])->name('myQFile');
+            Route::get('student/{user}/chooseCourse', [PagesController::class, 'chooseCourse'])->name('chooseCourseforQF');
         });
 
 

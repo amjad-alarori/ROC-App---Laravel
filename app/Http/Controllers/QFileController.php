@@ -15,7 +15,8 @@ class QFileController extends Controller
 
         $grades = $user->grades->whereIn('course_plan_id', $plans->pluck('id')->toArray())->load('coursePlan.subject.attachedCompetences');
 
-        $competencesArray = [];
+        $competencesArray[0] = [];
+        $competencesArray[1] = [];
         foreach ($grades as $grade):
             if ($grade->passed):
                 foreach ($grade->coursePlan->subject->attachedCompetences as $comp):

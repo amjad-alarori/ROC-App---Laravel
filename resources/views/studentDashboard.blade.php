@@ -12,7 +12,7 @@
                 <div class="col-sm-6">
                     <h1 class="h1">
                         Dashboard
-{{--                        {{$user->name . "  -  " . $user->id}}--}}
+                        {{--                        {{$user->name . "  -  " . $user->id}}--}}
                     </h1>
                     <hr>
                     <br>
@@ -77,19 +77,28 @@
             <br>
             <br>
 
-{{--            @auth()--}}
-{{--                @if(auth()->user()->role !== 1):--}}
+            {{--            @auth()--}}
+            {{--                @if(auth()->user()->role !== 1):--}}
             <div id="wrapper">
                 <div id="btnQf">
-                <a class ="btnStudentDash" href="{{route('qfFileStudent',['user'=>auth()->user(),'course'=>1])}}">Volledig kwalificatie dossier</a>
+                    @if(auth()->user()->role === 3)
+                        <a class="btnStudentDash"
+                           href="{{route('studentsQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user])}}">Volledig
+                            kwalificatie dossier</a>
+                    @endif
                 </div>
 
+                @if(auth()->user()->role ===3)
+
                 <div id="btnCv">
-                <a class="btnStudentDash" href="{{route('cv.index')}}">Bekijk CV</a>
+                    <a class="btnStudentDash"
+                       href="{{route('cv.show',['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'cv'=>0])}}">Bekijk
+                        CV</a>
                 </div>
+                @endif
             </div>
-{{--                @endif--}}
-{{--            @endauth--}}
+            {{--                @endif--}}
+            {{--            @endauth--}}
         </div>
 
 
