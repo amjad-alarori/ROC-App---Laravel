@@ -120,7 +120,6 @@ class StageBedrijvenController extends Controller
     public function show(StageBedrijven $stageBedrijven)
     {
 
-//        $stages = Stage::query()->with('users')->where('stageBedrijf_id', '=', $stageBedrijven->id)->get();
 
         $sectors =  ProgramArea::query()->with('stages')->whereHas('stages',null,'>',0)->get();
 

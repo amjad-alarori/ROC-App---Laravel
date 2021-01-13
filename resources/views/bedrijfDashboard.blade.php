@@ -128,17 +128,6 @@
                         </div>
                         <br>
                         <br>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <strong>Periode: </strong>
-                            </div>
-                            <div class="col-md-8">
-
-
-                                <br>
-
-                            </div>
-                        </div>
                         <br>
                     </div>
 

@@ -49,6 +49,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('dashboard', PagesController::class);
 //              Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
                 Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+        Route::get('reacties', [StageController::class, 'reactions'])->name('reacties');
+
+
 
 
         Route::middleware(StudentAndDocentAccess::class)->group(function () {
@@ -71,6 +74,7 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::middleware(StudentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen de student toegang heeft */
+
 
         });
 

@@ -32,9 +32,9 @@ class StageController extends Controller
 
     public function __construct()
     {
-        $this->middleware(StudentAccess::class)->only('show', 'undo'); //probleem hier met ik heb iinteresse//
+        $this->middleware(StudentAccess::class)->only('show', 'undo', 'reactions');
         $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
-        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes');
+        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes', 'reactions');
 
     }
     public function index(){
@@ -200,6 +200,16 @@ class StageController extends Controller
     {
         $stage->users()->detach(Auth::user());
        return redirect()->back();
+    }
+
+    public function reactions(stageBedrijven $stageBedrijven, Stage $stage)
+    {
+        $reactions = Auth::user()->stage;
+        $stageBedrijven = StageBedrijven::all();
+
+        return view('reacties',['stageBedrijven'=>$stageBedrijven, 'reactions'=>$reactions]);
+
+
     }
 
 
