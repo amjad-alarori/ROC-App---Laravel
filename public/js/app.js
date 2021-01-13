@@ -21454,9 +21454,15 @@ $('.modal').on('shown.bs.modal', function (e) {
       hiding.addClass('d-none');
     }
   });
-  $("#searchUser").select2({
+  var searchUrl = $("#searchUser").data('url');
+
+  if (searchUrl === undefined) {
+    searchUrl = $("#searchCompany").data('url');
+  }
+
+  $("#searchUser, #searchCompany").select2({
     ajax: {
-      url: $("#searchUser").data('url'),
+      url: searchUrl,
       type: "post",
       dataType: 'json',
       delay: 250,
@@ -21479,6 +21485,11 @@ $('.modal').on('shown.bs.modal', function (e) {
       },
       cache: true
     }
+  });
+  $('#delComp').click(function () {
+    $('#searchCompany').empty();
+    $('#searchCompany').append("<option value='0'>- Zoek een stage bedrijf -</option>");
+    $('#searchCompany').closest("form").submit();
   });
 });
 $("#searchUser").select2({

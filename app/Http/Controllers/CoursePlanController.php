@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CoursePlan;
+use App\Models\StageBedrijven;
 use App\Models\Subject;
+use App\Models\User;
 use App\Rules\SemesterSubjectRule;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class CoursePlanController extends Controller
+class   CoursePlanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -154,13 +156,14 @@ class CoursePlanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Course $course
-     * @param \App\Models\CoursePlan $coursePlan
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function show(Course $course, CoursePlan $coursePlan)
+    public function show(CoursePlan $plan)
     {
-        //
+        $company = $plan->company;
+        return view('plan.addStage', ['plan' => $plan ,'company'=>$company]);
     }
 
     /**
@@ -179,13 +182,22 @@ class CoursePlanController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Course $course
-     * @param \App\Models\CoursePlan $coursePlan
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Course $course, CoursePlan $coursePlan)
+    public function update(Request $request, CoursePlan $plan)
     {
-        //
+        if($request['coOpLocation']==0):
+            $plan->company()->disassociate()->update();
+        else:
+            $company = StageBedrijven::find($request['coOpLocation']);
+            $plan->company()->associate($company)->update();
+        endif;
+
+        return response()->json([
+            'url' => route('subjectGrades', ['course'=>$plan->course, 'coursePlan'=>$plan])]);
+
     }
 
     /**

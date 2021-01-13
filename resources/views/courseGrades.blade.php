@@ -38,12 +38,12 @@
                                     <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$student->id])->name}}</span>
                                     @if($coOpLocations[$student->id] === true)
                                         <x-form.modal-button data-target="#formModal"
-                                                             data-url="{{route('student.plan.cijfer.create',['student'=>$student, 'plan'=>$plan])}}"
+                                                             data-url="{{route('coOpLocationForm',['plan'=>$plan])}}"
                                                              class="btn btn-success">toevoegen
                                         </x-form.modal-button>
                                     @else
                                         <x-form.modal-button data-target="#formModal"
-                                                             data-url="{{route('student.plan.cijfer.create',['student'=>$student, 'plan'=>$plan])}}"
+                                                             data-url="{{route('coOpLocationForm',['plan'=>$plan])}}"
                                                              class="btn btn-warning">wijzigen
                                         </x-form.modal-button>
                                     @endif

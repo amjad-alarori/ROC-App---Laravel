@@ -63,13 +63,11 @@ class GradeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param User $student
-     * @param CoursePlan $plan
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
+     * @return void
      */
-    public function create(User $student, CoursePlan $plan)
+    public function create()
     {
-        return view('plan.addStage', ['student' => $student, 'plan' => $plan]);
+        //
     }
 
     /**
@@ -129,12 +127,10 @@ class GradeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $student
-     * @param CoursePlan $plan
      * @param Grade $grade
      * @return void
      */
-    public function show(User $student, CoursePlan $plan, Grade $grade)
+    public function show(Grade $grade)
     {
         //
     }
@@ -143,11 +139,10 @@ class GradeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param User $student
-     * @param CoursePlan $plan
      * @param Grade $grade
      * @return void
      */
-    public function edit(User $student, CoursePlan $plan, Grade $grade)
+    public function edit(User $student, Grade $grade)
     {
         //
     }
@@ -156,25 +151,21 @@ class GradeController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param User $student
-     * @param CoursePlan $plan
      * @param Grade $grade
      * @return void
      */
-    public function update(Request $request, User $student, CoursePlan $plan, Grade $grade)
+    public function update(Request $request,Grade $grade)
     {
-        dd('update');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $student
-     * @param CoursePlan $plan
      * @param Grade $grade
      * @return void
      */
-    public function destroy(User $student, CoursePlan $plan, Grade $grade)
+    public function destroy(Grade $grade)
     {
         //
     }

@@ -203,8 +203,8 @@ class StageBedrijvenController extends Controller
         }
 
         $data = array();
-        foreach ($fetchData as $user):
-            $data[$user->id] = ['id' => $user->id, 'name' => $user->name];
+        foreach ($fetchData as $company):
+            $data[$company->id] = ['id' => $company->id, 'name' => $company->name];
         endforeach;
 
         return json_encode($data);

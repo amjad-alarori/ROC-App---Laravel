@@ -105,7 +105,8 @@ Route::group(['middleware' => 'web'], function () {
 
 
             });
-            Route::resource('student.plan.cijfer', GradeController::class)->except('index', 'store');
+            Route::get('plan/{plan}', [CoursePlanController::class,'show'])->name('coOpLocationForm');
+            Route::post('plan/{plan}', [CoursePlanController::class,'update'])->name('coOpLocationSave');
             Route::get('student/{user}/course/{course}/kwalificatie', QFileController::class)->name('QDossier');
         });
         Route::post('docent/company', [StageBedrijvenController::class, 'search'])->name('SearchCompany');
