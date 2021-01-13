@@ -99,11 +99,7 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('cijfers', [GradeController::class, 'index'])->name('subjectGrades');
                     Route::post('cijfer', [GradeController::class, 'store'])->name('cijfer.store');
                 });
-
-
                 Route::get('student/{student}/cijfers', [GradeController::class, 'index'])->name('studentGrades');
-
-
             });
             Route::get('plan/{plan}', [CoursePlanController::class,'show'])->name('coOpLocationForm');
             Route::post('plan/{plan}', [CoursePlanController::class,'update'])->name('coOpLocationSave');

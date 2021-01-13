@@ -30,13 +30,8 @@ class GradeController extends Controller
                 $filledStudents [$grade->student->id] = $grade;
             endforeach;
 
-
             if ($plan->subject->co_op):
-                $coOpLocations = [];
-
-                foreach ($plan->course->students as $student):
-                    $coOpLocations[$student->id] = $plan->coOpReady($student);
-                endforeach;
+                $coOpLocations = $plan->coOpReady();
             else:
                 $coOpLocations = null;
             endif;
@@ -48,13 +43,34 @@ class GradeController extends Controller
                 'campus' => $campus,
                 'coOpLocations' => $coOpLocations,
             ]);
-        elseif ($request->route()->hasParameter('coursePlan')):
+        elseif ($request->route()->hasParameter('student')):
+            $student = User::find($id);
+            $plans = $course->plans->load(['grades' => function ($q) use ($student) {
+                $q->where('student_id', '=', $student->id)->get();
+            }]);
+
+            $coOpLocations = [];
+            foreach ($plans as $plan):
+                if ($plan->subject->co_op):
+                    $coOpLocations[$plan->id] = $plan->coOpReady()[$student->id];
+                else:
+                    $coOpLocations[$plan->id] = null;
+                endif;
+            endforeach;
+
+            dd($student, $plans, $coOpLocations);
 
 
-            //all cijfers of a student op a blade
-            dd($request->route()->parameterNames);
 
 
+
+            return view('studentGrades', ['student' => $student, 'plans' => $plans, 'coOpLocations' => $coOpLocations]);
+
+
+
+
+
+//            dd($request->route()->parameterNames);
         else:
             return abort(404);
         endif;
@@ -154,7 +170,7 @@ class GradeController extends Controller
      * @param Grade $grade
      * @return void
      */
-    public function update(Request $request,Grade $grade)
+    public function update(Request $request, Grade $grade)
     {
         //
     }
