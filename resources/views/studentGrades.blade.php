@@ -38,12 +38,12 @@
                                     @if($plan->grades->count()===0 || ($plan->grades->count()>0&& !$plan->grades->offsetGet(0)->passed))
                                         @if($coOpLocations[$plan->id][$student->id] === true)
                                             <x-form.modal-button data-target="#formModal"
-                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student])}}"
+                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student,'base'=>'student'])}}"
                                                                  class="btn btn-success">toevoegen
                                             </x-form.modal-button>
                                         @else
                                             <x-form.modal-button data-target="#formModal"
-                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan,'student'=>$student])}}"
+                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan,'student'=>$student, 'base'=>'student'])}}"
                                                                  class="btn btn-warning">wijzigen
                                             </x-form.modal-button>
                                         @endif

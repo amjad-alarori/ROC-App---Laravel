@@ -47,7 +47,7 @@
     @endauth
     @auth()
         @if(auth()->user()->role !==3):
-    <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+        <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
         @endif
     @endauth
     @auth()

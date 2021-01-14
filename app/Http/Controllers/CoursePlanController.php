@@ -161,7 +161,7 @@ class   CoursePlanController extends Controller
      * @param CoursePlan $plan
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function show(CoursePlan $plan, User $student)
+    public function show(Request $request, CoursePlan $plan, User $student)
     {
         $grade = $plan->grades->where('student_id', '=', $student->id);
         if ($grade->count() > 0):
@@ -169,7 +169,7 @@ class   CoursePlanController extends Controller
         else:
             $company = null;
         endif;
-        return view('plan.addStage', ['plan' => $plan, 'company' => $company, 'student' => $student]);
+        return view('plan.addStage', ['plan' => $plan, 'company' => $company, 'student' => $student, 'base' => $request['base']]);
     }
 
     /**
@@ -219,8 +219,13 @@ class   CoursePlanController extends Controller
             $grade->save();
         endif;
 
-        return response()->json([
-            'url' => route('studentGrades', ['course' => $plan->course, 'student' => $student])]);
+        if ($request['base'] === 'student'):
+            return response()->json([
+                'url' => route('studentGrades', ['course' => $plan->course, 'student' => $student])]);
+        else:
+            return response()->json([
+                'url' => route('subjectGrades', ['course' => $plan->course, 'coursePlan' => $plan])]);
+        endif;
     }
 
     /**
