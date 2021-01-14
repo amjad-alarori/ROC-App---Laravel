@@ -53,6 +53,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('reacties', [StageController::class, 'reactions'])->name('reacties');
 
 
+
         Route::middleware(StudentAndDocentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen student en docent toegang hebben */
 

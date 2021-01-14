@@ -45,7 +45,11 @@
         <a href="{{route('stageList')}}" class="text-nowrap"><i class="fas fa-clipboard"></i> Stages</a>
         @endif
     @endauth
+    @auth()
+        @if(auth()->user()->role !==3):
     <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+        @endif
+    @endauth
     @auth()
         @if(auth()->user()->role == 2)
             <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>

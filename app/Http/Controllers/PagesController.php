@@ -42,13 +42,17 @@ class PagesController extends Controller
         $user = User::find(intval($request['SearchId']));
         $courses = $user->courses;
 
+
+
         return view('studentDashboard', ['user' => $user, 'courses' => $courses]);
     }
 
 
     public function companyLooksAtStudent(StageBedrijven $stageBedrijven, stage $stage, User $user)
     {
-        return view('studentDashboard', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]);
+
+
+        return view('studentDashboard', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'reactions' => $reactions]);
     }
 
     public function redirectToCompanyDashboard(Request $request)

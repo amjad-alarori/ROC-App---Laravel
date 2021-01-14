@@ -110,7 +110,9 @@
                     <div class="col-lg-3 col-6">
                         <div class="card h-100" style="width: 18rem;">
                             <div class="card-body">
-                                <h3 class="h3 card-title"> 4 </h3>
+                                <h3 class="h3 card-title">
+                               4
+                                </h3>
                                 <p class="card-text">Stage reacties</p>
                             </div>
                         </div>

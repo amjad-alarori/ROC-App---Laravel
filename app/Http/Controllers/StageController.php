@@ -217,11 +217,9 @@ class StageController extends Controller
     {
         $reactions = Auth::user()->stage;
         $stageBedrijven = StageBedrijven::all();
-
         return view('reacties',['stageBedrijven'=>$stageBedrijven, 'reactions'=>$reactions]);
 
 
     }
-
 
 }
