@@ -34,13 +34,13 @@
 
     @auth()
         @if(auth()->user()->role == 1):
-    <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
-        @else
-        <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Kwalificatie <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dossier<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student</a>
+        <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
+{{--        @else--}}
+{{--            <a href="#" class="text-nowrap"><i class="fas fa-list"></i> Kwalificatie <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dossier<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student</a>--}}
         @endif
     @endauth
 
-        <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+    <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
     @auth()
         @if(auth()->user()->role == 2)
             <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>
