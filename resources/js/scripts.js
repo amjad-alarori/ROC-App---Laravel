@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('#formModal .select2').select2({
         dropdownParent: $('#formModal')
     });
@@ -16,7 +16,8 @@ $('#closeNavButton').on('click', function () {
     document.getElementById('darkMain').style.display = 'none';
 })
 
-$.fn.modal.Constructor.prototype.enforceFocus = function() {};
+$.fn.modal.Constructor.prototype.enforceFocus = function () {
+};
 
 $('.ModalButton').click(function () {
     let url = $(this).data('url');
@@ -26,7 +27,8 @@ $('.ModalButton').click(function () {
         success: function (response) {
             let modal = $('#formModal')
             modal.find('.modal-body').html(response)
-            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            $.fn.modal.Constructor.prototype.enforceFocus = function () {
+            };
             modal.modal('show');
         }
     })
@@ -110,7 +112,7 @@ $('.modal').on('shown.bs.modal', function (e) {
 
     $('#formModal').find('input[type != "hidden"]').first().focus()
 
-    $('input[type=checkbox].hider').click(function (){
+    $('input[type=checkbox].hider').click(function () {
         let hiding = $('input[type=checkbox].hider').siblings('.hiding');
 
         if (this.checked) {
@@ -120,9 +122,14 @@ $('.modal').on('shown.bs.modal', function (e) {
         }
     })
 
-    $("#searchUser").select2({
+    let searchUrl = $("#searchUser").data('url');
+    if (searchUrl === undefined) {
+        searchUrl = $("#searchCompany").data('url');
+    }
+
+    $("#searchUser, #searchCompany").select2({
         ajax: {
-            url: $("#searchUser").data('url'),
+            url: searchUrl,
             type: "post",
             dataType: 'json',
             delay: 250,
@@ -146,7 +153,15 @@ $('.modal').on('shown.bs.modal', function (e) {
         }
     });
 
+
+    $('#delComp').click(function () {
+            $('#searchCompany').empty();
+            $('#searchCompany').append("<option value='0'>- Zoek een stage bedrijf -</option>");
+            $('#searchCompany').closest("form").submit();
+        }
+    );
 });
+
 $("#searchUser").select2({
     ajax: {
         url: $("#searchUser").data('url'),
@@ -161,7 +176,7 @@ $("#searchUser").select2({
         },
         processResults: function (response) {
             return {
-                results: $.map(response, function (item){
+                results: $.map(response, function (item) {
                     return {
                         text: item.name,
                         id: item.id
@@ -173,19 +188,19 @@ $("#searchUser").select2({
     }
 });
 
-$('.confirm').click(function() {
+$('.confirm').click(function () {
     var accpet = confirm('Door je interesse in deze stage kenbaar te maken geef je het bedrijf de mogelijkheid om je studieresultaten te bekijken, wilt u door gaan?');
 
-   if(!accpet){
+    if (!accpet) {
         return false;
-   }
+    }
 
 });
 
-$('.diconfirm').click(function() {
+$('.diconfirm').click(function () {
     var accpet = confirm('Weet u zeker dat je niet meer geïnteresseerd bent?');
 
-    if(!accpet){
+    if (!accpet) {
         return false;
     }
 
@@ -216,5 +231,3 @@ $("#searchCompany").select2({
         cache: true
     }
 });
-
-

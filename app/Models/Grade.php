@@ -24,4 +24,9 @@ class Grade extends Model
     {
         return $this->belongsTo(CoursePlan::class,'course_plan_id','id');
     }
+
+    public function company()
+    {
+        return $this->belongsTo(StageBedrijven::class, 'company_id', 'id');
+    }
 }

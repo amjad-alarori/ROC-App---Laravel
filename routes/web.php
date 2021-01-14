@@ -48,8 +48,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::view('user/profile', 'profile.show')->name('profile');
         Route::resource('stageBedrijven/{stageBedrijven}/stage', StageController::class);
         Route::resource('dashboard', PagesController::class);
-//              Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent'.);
-        Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+//              Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
+                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+        Route::get('reacties', [StageController::class, 'reactions'])->name('reacties');
 
 
         Route::middleware(StudentAndDocentAccess::class)->group(function () {
@@ -111,9 +112,14 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('cijfers', [GradeController::class, 'index'])->name('subjectGrades');
                     Route::post('cijfer', [GradeController::class, 'store'])->name('cijfer.store');
                 });
+                Route::get('student/{student}/cijfers', [GradeController::class, 'index'])->name('studentGrades');
+                Route::post('student/{student}/cijfers', [GradeController::class, 'update'])->name('studentGrades.update');
             });
+            Route::get('plan/{plan}/student/{student}', [CoursePlanController::class,'show'])->name('coOpLocationForm');
+            Route::post('plan/{plan}/student/{student}', [CoursePlanController::class,'update'])->name('coOpLocationSave');
             Route::get('student/{user}/course/{course}/kwalificatie', QFileController::class)->name('QDossier');
         });
+        Route::post('docent/company', [StageBedrijvenController::class, 'search'])->name('SearchCompany');
     });
 });
 

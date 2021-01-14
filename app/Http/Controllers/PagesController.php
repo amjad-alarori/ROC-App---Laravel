@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\ProgramArea;
 use App\Models\stage;
 use App\Models\StageBedrijven;
 use App\Models\User;
@@ -50,7 +49,6 @@ class PagesController extends Controller
     public function companyLooksAtStudent(StageBedrijven $stageBedrijven, stage $stage, User $user)
     {
         return view('studentDashboard', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]);
-
     }
 
     public function redirectToCompanyDashboard(Request $request)

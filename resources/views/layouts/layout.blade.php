@@ -34,17 +34,18 @@
     <a href="{{route('dashboard.index')}}" class="text-nowrap"><i class="fa fa-fw fa-home"></i> Overzicht</a>
     @auth()
         @if(auth()->user()->role == 1):
-    <a href="{{route('myQFile')}}" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
-
-    <a href="{{route('cv.index',['user'=>auth()->user()])}}" class="text-nowrap"><i class="fas fa-address-card"></i> CV</a>
-         @endif
-    @endauth
-    @auth()
-        @if(auth()->user()->role !==3):
-    <a href="{{route('stageList')}}" class="text-nowrap"><i class="fas fa-clipboard"></i> Stages</a>
+        <a href="{{route('myQFile')}}" class="text-nowrap"><i class="fas fa-list"></i> Mijn Kwalificatie<br/>Dossier</a>
+        <a href="{{route('cv.index',['user'=>auth()->user()])}}" class="text-nowrap"><i class="fas fa-address-card"></i>
+            CV</a>
         @endif
     @endauth
-        <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
+
+    @auth()
+        @if(auth()->user()->role !==3):
+        <a href="{{route('stageList')}}" class="text-nowrap"><i class="fas fa-clipboard"></i> Stages</a>
+        @endif
+    @endauth
+    <a href="{{route('stageBedrijven.index')}}" class="text-nowrap"><i class="fas fa-building"></i> Stage bedrijven</a>
     @auth()
         @if(auth()->user()->role == 2)
             <a href="{{route('beheer')}}" class="text-nowrap"><i class="fas fa-wrench"></i> Beheer</a>
