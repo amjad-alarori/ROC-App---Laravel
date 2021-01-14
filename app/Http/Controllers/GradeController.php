@@ -53,7 +53,7 @@ class GradeController extends Controller
             $coOpLocations = [];
             foreach ($plans as $plan):
                 if ($plan->subject->co_op):
-                    $coOpLocations[$plan->id] = $plan->coOpReady()[$student->id];
+                    $coOpLocations[$plan->id] = $plan->coOpReady($student);
                 else:
                     $coOpLocations[$plan->id] = null;
                 endif;

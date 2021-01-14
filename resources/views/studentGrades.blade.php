@@ -30,13 +30,13 @@
                         @if($coOpLocations[$plan->id] !== null)
                             <div class="d-flex flex-row flex-wrap justify-content-between">
 
-                                @if($coOpLocations[$plan->id] === false)
+                                @if($coOpLocations[$plan->id][$student->id] === false)
                                     <span>nog niet alle competenties behaald</span>
                                     <button class="btn btn-secondary" disabled>Stageplek</button>
                                 @else
-                                    <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$plan->id])->name}}</span>
+                                    <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$plan->id][$student->id])->name}}</span>
                                     @if($plan->grades->count()===0 || ($plan->grades->count()>0&& !$plan->grades->offsetGet(0)->passed))
-                                        @if($coOpLocations[$plan->id] === true)
+                                        @if($coOpLocations[$plan->id][$student->id] === true)
                                             <x-form.modal-button data-target="#formModal"
                                                                  data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student])}}"
                                                                  class="btn btn-success">toevoegen
