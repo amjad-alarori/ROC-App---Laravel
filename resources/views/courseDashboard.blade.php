@@ -47,10 +47,10 @@
                     <i class="fas fa-users"></i>
                     <div class="ripple-container">lijst</div>
                 </a>
-                <a href="#" class="btn btn-just-icon btn-round">
-                    <i class="fas fa-medkit"></i>
-                    <div class="ripple-container">stages</div>
-                </a>
+{{--                <a href="#" class="btn btn-just-icon btn-round">--}}
+{{--                    <i class="fas fa-medkit"></i>--}}
+{{--                    <div class="ripple-container">stages</div>--}}
+{{--                </a>--}}
             </x-cards.profile-card>
         </div>
         <div class="col-md-4">

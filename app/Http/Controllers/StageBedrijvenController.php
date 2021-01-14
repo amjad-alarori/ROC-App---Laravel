@@ -183,5 +183,29 @@ class StageBedrijvenController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @param Request $request
+     * @return false|string
+     */
+    public function search(Request $request)
+    {
+        if (!isset($request['searchTerm'])) {
+            $fetchData = StageBedrijven::all();
+        } else {
+            $search = $request['searchTerm'];
+            $fetchData = StageBedrijven::query()
+                ->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('address', 'LIKE', '%' . $search . '%')
+                ->orWhere('zip_code', 'LIKE', '%' . $search . '%')
+                ->orWhere('city', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
+        }
 
+        $data = array();
+        foreach ($fetchData as $company):
+            $data[$company->id] = ['id' => $company->id, 'name' => $company->name];
+        endforeach;
+
+        return json_encode($data);
+    }
 }

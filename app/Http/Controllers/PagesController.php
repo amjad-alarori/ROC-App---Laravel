@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CoursePlan;
 use App\Models\ProgramArea;
 use App\Models\stage;
 use App\Models\StageBedrijven;
@@ -44,9 +45,8 @@ class PagesController extends Controller
     }
 
 
-    public function companyLooksAtStudent(StageBedrijven $stageBedrijven,stage $stage,User $user)
+    public function companyLooksAtStudent(StageBedrijven $stageBedrijven, stage $stage, User $user)
     {
-        return view('studentDashboard', ['user'=>$user]);
-
+        return view('studentDashboard', ['user' => $user]);
     }
 }

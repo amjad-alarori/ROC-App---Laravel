@@ -19,7 +19,7 @@ class CreateCoursePlansTable extends Migration
             $table->integer('period');
             $table->foreignId('course_id')->constrained('courses')
                 ->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('subject_id')->constrained('subjects')
+            $table->foreignId('subject_id')->nullable()->constrained('subjects')
                 ->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });

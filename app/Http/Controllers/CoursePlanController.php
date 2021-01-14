@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CoursePlan;
+use App\Models\Grade;
+use App\Models\StageBedrijven;
 use App\Models\Subject;
+use App\Models\User;
 use App\Rules\SemesterSubjectRule;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class CoursePlanController extends Controller
+class   CoursePlanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -154,13 +157,19 @@ class CoursePlanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Course $course
-     * @param \App\Models\CoursePlan $coursePlan
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function show(Course $course, CoursePlan $coursePlan)
+    public function show(CoursePlan $plan, User $student)
     {
-        //
+        $grade = $plan->grades->where('student_id', '=', $student->id);
+        if ($grade->count() > 0):
+            $company = $grade->first()->company;
+        else:
+            $company = null;
+        endif;
+        return view('plan.addStage', ['plan' => $plan, 'company' => $company, 'student' => $student]);
     }
 
     /**
@@ -179,13 +188,39 @@ class CoursePlanController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Course $course
-     * @param \App\Models\CoursePlan $coursePlan
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $student
+     * @param CoursePlan $plan
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Course $course, CoursePlan $coursePlan)
+    public function update(Request $request, CoursePlan $plan, User $student)
     {
-        //
+        $grade = $plan->grades->where('student_id', '=', $student->id);
+        if ($grade->count() > 0):
+            $grade = $grade->first();
+
+            if ($request['coOpLocation'] == 0):
+                $grade->company()->disassociate()->update();
+            else:
+                $grade->company_id = $request['coOpLocation'];
+                $grade->update();
+            endif;
+        else:
+            $grade = new Grade();
+            $grade->student_id = $student->id;
+            $grade->course_plan_id = $plan->id;
+            $grade->passed = false;
+
+            if ($request['coOpLocation'] != 0):
+                $grade->company_id = null;
+            else:
+                $grade->company_id = $request['coOpLocation'];
+            endif;
+
+            $grade->save();
+        endif;
+
+        return response()->json([
+            'url' => route('studentGrades', ['course' => $plan->course, 'student' => $student])]);
     }
 
     /**
