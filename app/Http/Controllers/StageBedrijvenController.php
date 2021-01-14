@@ -66,7 +66,6 @@ class StageBedrijvenController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => ['string', 'required'],
             'address' => ['string', 'required'],
@@ -122,6 +121,7 @@ class StageBedrijvenController extends Controller
 
 
         $sectors =  ProgramArea::query()->with('stages')->whereHas('stages',null,'>',0)->get();
+
 
         return view('companyDashboard', ['company' => $stageBedrijven, 'sectors'=> $sectors]);
     }

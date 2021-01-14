@@ -11,7 +11,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="h1">
-                        Dashboard {{$user->name . "  -  " . $user->id}}
+                        Dashboard
+                        {{--                        {{$user->name . "  -  " . $user->id}}--}}
                     </h1>
                     <hr>
                     <br>
@@ -73,29 +74,54 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
+            {{--            @auth()--}}
+            {{--                @if(auth()->user()->role !== 1):--}}
+            <div id="wrapper">
+                <div id="btnQf">
+                    @if(auth()->user()->role === 3)
+                        <a class="btnStudentDash"
+                           href="{{route('studentsQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user])}}">Volledig
+                            kwalificatie dossier</a>
+                    @endif
+                </div>
+
+                @if(auth()->user()->role ===3)
+
+                    <div id="btnCv">
+                        <a class="btnStudentDash"
+                           href="{{route('cv.show',['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'cv'=>0])}}">Bekijk
+                            CV</a>
+                    </div>
+                @endif
+            </div>
+            {{--                @endif--}}
+            {{--            @endauth--}}
         </div>
-    </div><br>
+    </div>
+    <br>
 
     <div class="content">
         <div class="container-fluid">
 
             <a href="{{route('reacties')}}" class="">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="card h-100" style="width: 18rem;">
-
-                        <div class="card-body">
-                            <h3 class="h3 card-title"> 4 </h3>
-                            <p class="card-text">Stage reacties</p>
-
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <div class="card h-100" style="width: 18rem;">
+                            <div class="card-body">
+                                <h3 class="h3 card-title">
+                               4
+                                </h3>
+                                <p class="card-text">Stage reacties</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </a>
 
         </div>
+    </div>
 
 @endsection
 

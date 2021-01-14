@@ -34,12 +34,26 @@ class StageController extends Controller
     {
         $this->middleware(StudentAccess::class)->only('show', 'undo', 'reactions');
         $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
-        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes', 'reactions');
+        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes','index', 'reactions');
 
     }
-    public function index(){
+
+    public function index(Request $request)
+    {
+        if ($request->has('filterKey') && $request['filterKey'] > 0):
+            $filterId = $request['filterKey'];
+
+            $stages = stage::query()->where('sector_id', '=', $filterId)->get();
+        else:
+            $stages = stage::all();
+            $filterId = 0;
+        endif;
+
+        $sectors = ProgramArea::all();
+        $companies = StageBedrijven::all();
 
 
+        return view('stageList', ['sectors' => $sectors, 'stages' => $stages, 'filterId' => $filterId, 'stageBedrijven'=>$companies]);
     }
 
     /**
@@ -50,7 +64,7 @@ class StageController extends Controller
     public function create(stageBedrijven $stageBedrijven)
     {
         $sectors = ProgramArea::all();
-        return view('stageCreate',['stageBedrijven'=>$stageBedrijven, 'sectors' => $sectors]);
+        return view('stageCreate', ['stageBedrijven' => $stageBedrijven, 'sectors' => $sectors]);
 
     }
 
@@ -72,15 +86,13 @@ class StageController extends Controller
             'start_datum' => ['date', 'required'],
             'eind_datum' => ['date', 'required'],
             'wat_te_doen' => ['string', 'required'],
-            'werkzaamheden'=>['string', 'required'],
-            'wat_zoeken_wij' =>['string', 'required'],
-            'sectors' =>['integer', 'required', 'exists:program_areas,id'],
+            'werkzaamheden' => ['string', 'required'],
+            'wat_zoeken_wij' => ['string', 'required'],
+            'sectors' => ['integer', 'required', 'exists:program_areas,id'],
         ]);
 
 
         $stageBedrijven->update();
-
-
 
 
         $stage_plek = new Stage();
@@ -100,7 +112,7 @@ class StageController extends Controller
 
         $stage_plek->save();
 
-        return response()->json(['url' => route('stageBedrijven.show',['stageBedrijven'=>$stageBedrijven])]);
+        return response()->json(['url' => route('stageBedrijven.show', ['stageBedrijven' => $stageBedrijven])]);
     }
 
     /**
@@ -128,7 +140,7 @@ class StageController extends Controller
     public function edit(stageBedrijven $stageBedrijven, Stage $stage)
     {
         $sectors = ProgramArea::all();
-        return view('stageEdit', ['stageBedrijven'=>$stageBedrijven, 'stage'=>$stage, 'sectors'=>$sectors]);
+        return view('stageEdit', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'sectors' => $sectors]);
     }
 
     /**
@@ -138,39 +150,38 @@ class StageController extends Controller
      * @param stage $stage
      * @return Response
      */
-    public function update(Request $request,StageBedrijven $stageBedrijven, stage $stage)
+    public function update(Request $request, StageBedrijven $stageBedrijven, stage $stage)
 
-        {
+    {
 
-            $request->validate([
-                'wie_zijn_wij' => ['string', 'required'],
-                'functie' => ['string', 'required'],
-                'leerweg' => ['string', 'required'],
-                'aantal_plaatsen' => ['integer', 'required'],
-                'start_datum' => ['date', 'required'],
-                'eind_datum' => ['date', 'required'],
-                'wat_te_doen' => ['string', 'required'],
-                'werkzaamheden'=>['string', 'required'],
-                'wat_zoeken_wij' =>['string', 'required'],
-            ]);
-            $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];
-            $stageBedrijven->update();
-            $stage->fill([
-                'wie_zijn_wij' => $request['wie_zijn_ons'],
-                'functie' => $request['functie'],
-                'leerweg' => $request['leerweg'],
-                'aantal_plaatsen' => $request['aantal_plaatsen'],
-                'start_datum' => $request['start_datum'],
-                'eind_datum' => $request['eind_datum'],
-                'wat_te_doen' => $request['wat_te_doen'],
-                'werkzaamheden' => $request['werkzaamheden'],
-                'wat_zoeken_wij' => $request['wat_zoeken_wij'],
-            ]);
-            $stage->update();
+        $request->validate([
+            'wie_zijn_wij' => ['string', 'required'],
+            'functie' => ['string', 'required'],
+            'leerweg' => ['string', 'required'],
+            'aantal_plaatsen' => ['integer', 'required'],
+            'start_datum' => ['date', 'required'],
+            'eind_datum' => ['date', 'required'],
+            'wat_te_doen' => ['string', 'required'],
+            'werkzaamheden' => ['string', 'required'],
+            'wat_zoeken_wij' => ['string', 'required'],
+        ]);
+        $stageBedrijven->wie_zijn_wij = $request['wie_zijn_wij'];
+        $stageBedrijven->update();
+        $stage->fill([
+            'wie_zijn_wij' => $request['wie_zijn_ons'],
+            'functie' => $request['functie'],
+            'leerweg' => $request['leerweg'],
+            'aantal_plaatsen' => $request['aantal_plaatsen'],
+            'start_datum' => $request['start_datum'],
+            'eind_datum' => $request['eind_datum'],
+            'wat_te_doen' => $request['wat_te_doen'],
+            'werkzaamheden' => $request['werkzaamheden'],
+            'wat_zoeken_wij' => $request['wat_zoeken_wij'],
+        ]);
+        $stage->update();
 
-            return response()->json(['url' => route('stageBedrijven.show', ['stageBedrijven' => $stageBedrijven]),]);
-        }
-
+        return response()->json(['url' => route('stageBedrijven.show', ['stageBedrijven' => $stageBedrijven]),]);
+    }
 
 
     /**
@@ -199,19 +210,16 @@ class StageController extends Controller
     public function undo(stageBedrijven $stageBedrijven, Stage $stage)
     {
         $stage->users()->detach(Auth::user());
-       return redirect()->back();
+        return redirect()->back();
     }
 
     public function reactions(stageBedrijven $stageBedrijven, Stage $stage)
     {
         $reactions = Auth::user()->stage;
         $stageBedrijven = StageBedrijven::all();
-
         return view('reacties',['stageBedrijven'=>$stageBedrijven, 'reactions'=>$reactions]);
 
 
     }
-
-
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StageBedrijven;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -103,12 +104,14 @@ class DocentController extends Controller
     public function search(Request $request)
     {
         if (!isset($request['searchTerm'])) {
-            $fetchData = User::all();
+            $fetchData = User::query()->where('role', '=', 1)->get();
         } else {
             $search = $request['searchTerm'];
-            $fetchData = User::query()
-                ->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
+            $fetchData = User::query()->where('role', '=', 1)
+                ->where(function ($query) use ($search){
+                    $query->where('name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
+                })->get();
         }
 
         $data = array();
@@ -118,4 +121,27 @@ class DocentController extends Controller
 
         return json_encode($data);
     }
+
+    public function searchCompany(Request $request)
+    {
+        if (!isset($request['searchTerm'])) {
+            $fetchData = StageBedrijven::all();
+        } else {
+            $search = $request['searchTerm'];
+            $fetchData = StageBedrijven::query()
+                ->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%')->get();
+        }
+
+        $data = array();
+        foreach ($fetchData as $company):
+            $data[$company->id] = ['id' => $company->id, 'name' => $company->name];
+        endforeach;
+
+        return json_encode($data);
+
+
+    }
+
+
 }

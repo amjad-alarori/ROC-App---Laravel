@@ -196,7 +196,7 @@
     position: absolute;
     top: 50%;
     left: 30%;
-/*    transform: translate(-50%, -50%);*/
+
 }
 
 
@@ -228,6 +228,40 @@ html , body{
 
 *, ::after, ::before {
     box-sizing: border-box;
+}
+
+.btnStudentDash{
+    border-radius: 5px;
+    color: #f1f1f1;
+    background-color: coral;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+    opacity: 75%;
+}
+
+.btnStudentDash:hover{
+    text-decoration: none !important;
+    opacity: 100%;
+    color: #f1f1f1 !important;
+}
+
+#wrapper{
+    overflow:auto;
+}
+
+#btnQf{
+    float:left;
+}
+
+#btnCv{
+    float:right;
 }
 
 body {
@@ -601,6 +635,58 @@ input[type="checkbox"].compCheckBox{
 #h3qualificationNotDone{
     color: #f1f1f1;
 }
+
+/*End qualificationFileStudent*/
+
+/*Start Stagebedrijven Page*/
+
+ .fa-search{
+
+    color: coral;
+}
+
+ /*End Stagebedrijven page*/
+
+/*Start StageList page*/
+.accordionStageList{
+    border-right: 5px solid;
+    border-color: coral;
+    margin-left: auto;
+    margin-bottom: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.stageAttributes{
+    color: #f1f1f1;
+    background-color: #74787e;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+#headerStages{
+    background-color: coral;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+/*End StageList Page*/
+
+/*Start ChooseCourseQf Page*/
+
+.card{
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+
+
+    margin: 10px;
+    padding:10px;
+
+}
+
+
+
+
+
 
 
 

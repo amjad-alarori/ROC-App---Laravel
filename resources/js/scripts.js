@@ -205,3 +205,29 @@ $('.diconfirm').click(function () {
     }
 
 });
+
+$("#searchCompany").select2({
+    ajax: {
+        url: $("#searchCompany").data('url'),
+        type: "post",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                _token: $('input[name=_token]').val(),
+                searchTerm: params.term // search term
+            };
+        },
+        processResults: function (response) {
+            return {
+                results: $.map(response, function (item){
+                    return {
+                        text: item.name,
+                        id: item.id
+                    }
+                })
+            };
+        },
+        cache: true
+    }
+});

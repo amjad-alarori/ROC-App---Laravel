@@ -53,28 +53,10 @@
                     </div>
 
 
-                    {{--                            <input type="text" class="searchTerm" name="searchTerm" placeholder="Wie zoek je?">--}}
-                    {{--                            <button type="submit" class="searchButton">--}}
-                    {{--                                <i class="fa fa-search"></i>--}}
-                    {{--                            </button>--}}
+
                 </form>
             </div>
 
-            {{--            @foreach ($data as $searchvalue)--}}
-
-            {{--                <table>--}}
-            {{--                    <tr>--}}
-            {{--                        <th>Zoekresultaten</th>--}}
-
-            {{--                    </tr>--}}
-            {{--                    <tr>--}}
-            {{--                        <td>{{$searchvalue->name}}</td>--}}
-
-            {{--                    </tr>--}}
-
-            {{--                </table>--}}
-
-            {{--                @endforeach--}}
 
 
         </div>
