@@ -66,7 +66,6 @@ class StageBedrijvenController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => ['string', 'required'],
             'address' => ['string', 'required'],

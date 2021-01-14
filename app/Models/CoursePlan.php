@@ -57,7 +57,7 @@ class CoursePlan extends Model
                 foreach ($plans as $plan):
                     $grade = $plan->grades()->where('student_id', '=', $user->id)->first();
 
-                    if ($grade->passed):
+                    if ($grade && $grade->passed):
                         $passedCompetences = $passedCompetences->merge($plan->subject->attachedCompetences);
                     endif;
                 endforeach;
