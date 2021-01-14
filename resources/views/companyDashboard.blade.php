@@ -42,9 +42,6 @@
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
 
-
-
-
                             @foreach($sector->stages as $stage)
                                 <x-cards.cardwfull :title="$stage->functie" class="my-4">
 
