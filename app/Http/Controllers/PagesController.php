@@ -39,17 +39,20 @@ class PagesController extends Controller
 
     public function redirectToDashboard(Request $request)
     {
+        if (intval($request['SearchId']) > 0):
+            $user = User::find(intval($request['SearchId']));
+            $courses = $user->courses;
 
-        $user = User::find(intval($request['SearchId']));
-
-        $courses = $user->courses;
-
-        return view('studentDashboard', ['user' => $user, 'courses' => $courses]);
+            return view('studentDashboard', ['user' => $user, 'courses' => $courses]);
+        else:
+            return redirect()->back()->with('showError', 'Kies een student');
+        endif;
     }
 
 
     public function companyLooksAtStudent(StageBedrijven $stageBedrijven, stage $stage, User $user)
     {
+
         return view('studentDashboard', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]);
     }
 
@@ -126,7 +129,7 @@ class PagesController extends Controller
     {
         $courses = $user->courses;
 
-        return view('chooseCourseForQf', ['stageBedrijven'=>$stageBedrijven, 'stage'=>$stage, 'user' => $user, 'courses' => $courses]);
+        return view('chooseCourseForQf', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'courses' => $courses]);
     }
 
 }

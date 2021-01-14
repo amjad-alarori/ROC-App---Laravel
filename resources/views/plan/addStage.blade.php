@@ -1,5 +1,5 @@
 <form method="POST" class="AjaxForm"
-      action="{{route('coOpLocationSave',['plan'=>$plan, 'student'=>$student])}}">
+      action="{{route('coOpLocationSave',['plan'=>$plan, 'student'=>$student, 'base'=>$base])}}">
     @csrf
 
     <select class="select2 single2 w-full" name="coOpLocation" id='searchCompany' data-url="{{route('SearchCompany')}}">
