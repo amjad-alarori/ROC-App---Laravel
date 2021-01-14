@@ -101,7 +101,7 @@
         </div>
     </div>
     <br>
-
+    @if(auth()->user()->role === 1)
     <div class="content">
         <div class="container-fluid">
 
@@ -122,6 +122,7 @@
 
         </div>
     </div>
+    @endif
 
 @endsection
 

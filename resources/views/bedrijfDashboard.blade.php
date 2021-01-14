@@ -33,6 +33,7 @@
                     <p> Wie zijn wij? </p></strong>
                     {{$company->wie_zijn_wij}}
                     @if (Auth::user()->role === 1 )
+
                     @else
                         <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}"
                            style="font-size:24px;color:black;"><i class="fa fa-heart float-right"
