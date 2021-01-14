@@ -80,7 +80,7 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::middleware(StudentAccess::class)->group(function () {
             /** voeg hier de routes toe waarbij alleen de student toegang heeft */
-            Route::get('myQFile', [PagesController::class, 'toQFile'])->name('myQFile');
+            Route::post('myQFile', [PagesController::class, 'toQFile'])->name('myQFile');
             Route::get('student/{user}/chooseCourse', [PagesController::class, 'chooseCourse'])->name('chooseCourseforQF');
         });
 

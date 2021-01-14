@@ -26,18 +26,44 @@
 
 
                     <div class="row justify-content-center">
+                        @if(auth()->user()->role ===1)
                         @foreach($courses as $course)
+                        <form method="post" action="{{route('myQFile', ['user'=>$user, 'course'=>$course])}}">
+                            @csrf
                             <div class="card" style="width: 20rem;display:inline-block;">
                                 <img class="card-img-top" src="{{ asset('images/course2.png') }}" alt="">
-                                @if(auth()->user()->role ===1)
-                                <a class="card-body stretched-link" href="">
+
                                     <h4 class="card-title">{{$course->program->title}}</h4>
                                     <p class="card-text">Niveau: {{$course->program->degree}}<br>
                                     Jaar: {{$course->study_year}}</p>
-                                </div>
-                            </div>
+                                <br>
 
+                            <div class="card-footer">
+                                <button class="btnSearch" type="submit">Kwalificatie dossier</button>
+                            </div>
+                            </div>
+                        </form>
                         @endforeach
+                        @endif
+
+                        @if(auth()->user()->role ===3)
+                                @foreach($courses as $course)
+                                    <form method="post" action="{{route('studentsQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user'=>$user, 'course'=>$course])}}">
+                                        <div class="card" style="width: 20rem;display:inline-block;">
+                                            <img class="card-img-top" src="{{ asset('images/course2.png') }}" alt="">
+                                            <input type="hidden" name="course" value="{{$course->id}}">
+
+                                            <h4 class="card-title">{{$course->program->title}}</h4>
+                                            <p class="card-text">Niveau: {{$course->program->degree}}<br>
+                                                Jaar: {{$course->study_year}}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btnSearch" type="submit">Kwalificatie dossier</button>
+                                        </div>
+                                    </form>
+                                @endforeach
+                            @endif
+
                     </div>
                 </div>
 
