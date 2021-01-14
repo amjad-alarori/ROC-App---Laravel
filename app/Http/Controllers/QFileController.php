@@ -35,4 +35,6 @@ class QFileController extends Controller
 
         return view('qualificationFile', compact('competencesArray', 'user'));
     }
+
+
 }

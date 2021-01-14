@@ -48,7 +48,8 @@
 
                         @if(auth()->user()->role ===3)
                                 @foreach($courses as $course)
-                                    <form method="post" action="{{route('studentsQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user'=>$user, 'course'=>$course])}}">
+                                    <form method="post" action="{{route('companyToStudentQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user'=>$user, 'course'=>$course])}}">
+                                        @csrf
                                         <div class="card" style="width: 20rem;display:inline-block;">
                                             <img class="card-img-top" src="{{ asset('images/course2.png') }}" alt="">
                                             <input type="hidden" name="course" value="{{$course->id}}">

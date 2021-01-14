@@ -113,7 +113,7 @@ class PagesController extends Controller
 
                 return redirect(route('CompanyToStudentQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'course' => $course]));
             else:
-                return redirect(route('chooseCourseforQF', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]));
+                return redirect(route('companyChooseCourse', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]));
             endif;
         else:
             return redirect()->back()->with('NoAccess', 'Toegang geweigerd!');
@@ -126,7 +126,7 @@ class PagesController extends Controller
     {
         $courses = $user->courses;
 
-        return view('chooseCourseForQf', ['user' => $user, 'courses' => $courses]);
+        return view('chooseCourseForQf', ['stageBedrijven'=>$stageBedrijven, 'stage'=>$stage, 'user' => $user, 'courses' => $courses]);
     }
 
 }

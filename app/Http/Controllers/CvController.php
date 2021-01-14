@@ -23,8 +23,8 @@ class CvController extends Controller
         endif;
 
         $cv = CV::query()->where('user_id', '=', $user->id)->get();
-        return view('cv', ['cv'=>$cv]);
 
+        return view('cv', ['cv'=>$cv]);
     }
 
     /**
@@ -145,9 +145,10 @@ class CvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(StageBedrijven $stageBedrijven, stage $stage, User $user)
+    public function show(Request $request)
     {
-        $this->index($user);
+        $user = User::find($request['user']);
+        return $this->index($user);
     }
 
     /**
@@ -186,4 +187,6 @@ class CvController extends Controller
         return redirect()->back();
 
     }
+
+
 }
