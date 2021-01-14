@@ -252,6 +252,19 @@ html , body{
     color: #f1f1f1 !important;
 }
 
+
+#btnReactions{
+    text-decoration: none;
+    opacity: 75%;
+    margin-top: 20px;
+}
+
+#btnReactions:hover{
+    text-decoration: none !important;
+    opacity: 100%;
+    color: #f1f1f1 !important;
+
+}
 #wrapper{
     overflow:auto;
 }

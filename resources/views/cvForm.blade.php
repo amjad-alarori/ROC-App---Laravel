@@ -34,12 +34,14 @@
 </div>
 
 <div class="form-row col-span-6 sm:col-span-4 mt-3">
-    <x-jet-label for="adress" value="{{ __('Adres') }}"/>
-    <x-jet-input id="adress" name="adress" value="{{optional($cv)->adress}}"
+    <x-jet-label for="address" value="{{ __('Adres') }}"/>
+    <x-jet-input id="address" name="address" value="{{optional($cv)->address}}"
                  type="text" class="mt-1 block w-full"
-                 autocomplete="adress"/>
-    <x-jet-input-error for="adress" class="valErr mt-2"/>
+                 autocomplete="address"/>
+    <x-jet-input-error for="address" class="valErr mt-2"/>
 </div>
+
+
 
     <div class="form-row col-span-6 sm:col-span-4 mt-3">
         <x-jet-label for="city" value="{{ __('Woonplaats') }}"/>
@@ -186,7 +188,7 @@
                      class="mt-1 block w-full"
                      autocomplete="endDate_basic"/>
         <x-jet-input-error for="endDate_basic" class="valErr mt-2"/>
-
+    </div>
 
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
             Werk
@@ -197,7 +199,7 @@
             <x-jet-label for="company" value="{{ __('Werkgever') }}"/>
             <x-jet-input id="company" name="company" value="{{optional($cv)->company}}"
                          type="text" class="mt-1 block w-full"
-                         autocomplete="company"/>
+                        autocomplete="company"/>
 
         </div>
 
@@ -231,6 +233,7 @@
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
             Hobby's (vul tot 4 hobby's in)
         </div>
+    <br>
 
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
             <x-jet-label for="hobbyOne" value="{{ __('Hobby') }}"/>
@@ -270,6 +273,7 @@
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
             Vaardigheden (vul tot 4 vaardigheden in)
         </div>
+    <br>
 
         <div class="form-row col-span-6 sm:col-span-4 mt-3">
             <x-jet-label for="skillOne" value="{{ __('Vaardigheid') }}"/>
@@ -305,7 +309,7 @@
             <x-jet-input-error for="skillFour" class="valErr mt-2"/>
         </div>
 
-    </div>
+
 
     <div class="modal-footer mt-4">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>

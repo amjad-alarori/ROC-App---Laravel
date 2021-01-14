@@ -50,7 +50,7 @@ CV
                 </div>
 
                 <div class="col-sm-2">
-                    <span class="cvProperties">{{$cvProperty->adress}}</span><br>
+                    <span class="cvProperties">{{$cvProperty->address}}</span><br>
                     <span class="cvProperties">{{$cvProperty->zip_code}}</span><br>
                     <span class="cvProperties">{{$cvProperty->city}}</span><br>
 
@@ -152,7 +152,29 @@ CV
 
                 </div>
 
+
             </div>
+
+                <div class="row">
+                <div class="col-md-6 col-sm-12">
+
+                        <x-form.modal-button data-target="#formModal"
+                                             data-url="{{route('cv.edit',['cv'=> $cvProperty])}}"
+                                             class="btn btn-warning btn-block float-right">Wijzigen
+                        </x-form.modal-button>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+
+                        <form method="POST"
+                              action="{{route('cv.destroy', ['cv'=> $cvProperty])}}">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger btn-block float-right"
+                                   value="Verwijderen">
+                        </form>
+                    </div>
+
+                </div>
 
             @endforeach
 

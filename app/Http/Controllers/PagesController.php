@@ -39,7 +39,9 @@ class PagesController extends Controller
 
     public function redirectToDashboard(Request $request)
     {
+
         $user = User::find(intval($request['SearchId']));
+
         $courses = $user->courses;
 
         return view('studentDashboard', ['user' => $user, 'courses' => $courses]);

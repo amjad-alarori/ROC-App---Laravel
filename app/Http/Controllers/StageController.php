@@ -6,6 +6,7 @@ use App\Http\Middleware\CompanyAccess;
 use App\Http\Middleware\DocentAccess;
 use App\Http\Middleware\DocentAndCompanyAccess;
 use App\Http\Middleware\StudentAccess;
+use App\Http\Middleware\StudentAndDocentAccess;
 use App\Models\ProgramArea;
 use App\Models\stage;
 use App\Models\StageBedrijven;
@@ -32,9 +33,10 @@ class StageController extends Controller
 
     public function __construct()
     {
-        $this->middleware(StudentAccess::class)->only('show', 'undo', 'reactions');
+        $this->middleware(StudentAccess::class)->only('show', 'undo');
+        $this->middleware(StudentAndDocentAccess::class)->only('reactions');
         $this->middleware(DocentAndCompanyAccess::class)->only('destroy', 'getLikes');
-        $this->middleware(CompanyAccess::class)->except( 'show','undo', 'destroy', 'getLikes','index', 'reactions');
+        $this->middleware(CompanyAccess::class)->except('show', 'undo', 'destroy', 'getLikes', 'index', 'reactions');
 
     }
 
@@ -53,7 +55,7 @@ class StageController extends Controller
         $companies = StageBedrijven::all();
 
 
-        return view('stageList', ['sectors' => $sectors, 'stages' => $stages, 'filterId' => $filterId, 'stageBedrijven'=>$companies]);
+        return view('stageList', ['sectors' => $sectors, 'stages' => $stages, 'filterId' => $filterId, 'stageBedrijven' => $companies]);
     }
 
     /**
@@ -207,18 +209,22 @@ class StageController extends Controller
     }
 
 
-    public function undo(stageBedrijven $stageBedrijven, Stage $stage)
+    public function undo(stageBedrijven $stageBedrijven, stage $stage)
     {
         $stage->users()->detach(Auth::user());
         return redirect()->back();
     }
 
-    public function reactions(stageBedrijven $stageBedrijven, Stage $stage)
+    public function reactions(Request $request, stageBedrijven $stageBedrijven, stage $stage)
     {
-        $reactions = Auth::user()->stage;
-        $stageBedrijven = StageBedrijven::all();
+        if ($request->has('student')):
+            $user = User::find($request['student']);
+            $reactions = $user->stage;
+        else:
+            $reactions = Auth::user()->stage;
+        endif;
 
-        return view('reacties',['stageBedrijven'=>$stageBedrijven, 'reactions'=>$reactions]);
+        return view('reacties', ['stageBedrijven' => $stageBedrijven, 'reactions' => $reactions]);
 
 
     }

@@ -123,22 +123,32 @@
 
 <div class="card">
     <h5 class="card-header">
-        <section>
-            <p>
-                <strong>
-            <p> Wie zijn wij? </p></strong>
-            @foreach($stageBedrijven as $stageBedrijvens)
-                {{$stageBedrijvens->wie_zijn_wij}}
-            @endforeach
-            @if (Auth::user()->role === 1 )
-            @else
-                <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}"
-                   style="font-size:24px;color:black;"><i class="fa fa-heart float-right"
-                                                          style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a>
-                @endif
-                </p>
-        </section>
+
+        {{$reaction->stageBedrijven->name}}
     </h5>
+            @auth()
+            @if (auth()->user()->role === 1 )
+
+            @if($reaction->users->where('id', '=', auth()->id())->count() > 0)
+
+
+
+                <a href="{{route('stage.likes.undo',['stageBedrijven'=>$reaction->stageBedrijven, 'stage'=>$reaction])}}"
+                   class="btn btn-info float-right diconfirm"> Niet meer
+                    Geïnteresseerd</a>
+
+
+
+                {{--            @else--}}
+{{--                <a href="{{route('likes', ['stageBedrijven' => $company, 'stage' => $stage])}}"--}}
+{{--                   style="font-size:24px;color:black;"><i class="fa fa-heart float-right"--}}
+{{--                                                          style="font-size:24px;color:firebrick"> {{$stage->users->count()}}</i></a>--}}
+             @endif
+            @endif
+            @endauth
+
+
+
 
 
 
