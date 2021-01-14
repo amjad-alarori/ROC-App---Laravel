@@ -23,26 +23,29 @@
                 <x-slot name="descrition">
                 </x-slot>
                 <div class="d-flex flex-row flex-wrap justify-content-between">
-                <form method="POST" action="{{route('enrollment.destroy',['course'=>$course, 'enrollment'=>$student])}}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-just-icon btn-round">
-                        <i class="far fa-window-close" style="font-size: 20px"></i>
-                        <div class="ripple-container" style="font-size: 15px">stoppen</div>
-                    </button>
-                </form>
-                <a href="{{route('QDossier',['user'=> $student, 'course'=>$course])}}" class="btn btn-just-icon btn-round">
-                    <i class="fas fa-tasks" style="font-size: 20px"></i>
-                    <div class="ripple-container" style="font-size: 15px">K-dossier</div>
-                </a>
-                <a href="{{route('studentDash')}}" class="btn btn-just-icon btn-round">
-                    <i class="far fa-eye" style="font-size: 20px"></i>
-                    <div class="ripple-container" style="font-size: 15px">dashboard</div>
-                </a>
-                <a href="{{route('studentGrades',['course'=>$course, 'student'=>$student])}}" class="btn btn-just-icon btn-round">
-                    <i class="fas fa-poll" style="font-size: 20px"></i>
-                    <div class="ripple-container" style="font-size: 15px">cijfers</div>
-                </a>
+                    <form method="POST"
+                          action="{{route('enrollment.destroy',['course'=>$course, 'enrollment'=>$student])}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-just-icon btn-round">
+                            <i class="far fa-window-close" style="font-size: 20px"></i>
+                            <div class="ripple-container" style="font-size: 15px">stoppen</div>
+                        </button>
+                    </form>
+                    <a href="{{route('QDossier',['user'=> $student, 'course'=>$course])}}"
+                       class="btn btn-just-icon btn-round">
+                        <i class="fas fa-tasks" style="font-size: 20px"></i>
+                        <div class="ripple-container" style="font-size: 15px">K-dossier</div>
+                    </a>
+                    <a href="{{route('studentDash',['searchId'=>$student])}}" class="btn btn-just-icon btn-round">
+                        <i class="far fa-eye" style="font-size: 20px"></i>
+                        <div class="ripple-container" style="font-size: 15px">dashboard</div>
+                    </a>
+                    <a href="{{route('studentGrades',['course'=>$course, 'student'=>$student])}}"
+                       class="btn btn-just-icon btn-round">
+                        <i class="fas fa-poll" style="font-size: 20px"></i>
+                        <div class="ripple-container" style="font-size: 15px">cijfers</div>
+                    </a>
                 </div>
             </x-cards.profile-card>
         @endforeach

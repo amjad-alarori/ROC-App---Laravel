@@ -39,12 +39,12 @@
                                     @if(!array_key_exists($student->id,$filledStudents) || (array_key_exists($student->id,$filledStudents)&& !$filledStudents[$student->id]->passed))
                                         @if($coOpLocations[$student->id] === true)
                                             <x-form.modal-button data-target="#formModal"
-                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student])}}"
+                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student,'base'=>'course'])}}"
                                                                  class="btn btn-success">toevoegen
                                             </x-form.modal-button>
                                         @else
                                             <x-form.modal-button data-target="#formModal"
-                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student])}}"
+                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student,'base'=>'course'])}}"
                                                                  class="btn btn-warning">wijzigen
                                             </x-form.modal-button>
                                         @endif
