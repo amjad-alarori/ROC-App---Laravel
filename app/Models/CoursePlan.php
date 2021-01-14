@@ -30,11 +30,6 @@ class CoursePlan extends Model
         return $this->hasMany(Grade::class, 'course_plan_id', 'id');
     }
 
-    public function company()
-    {
-        return $this->belongsTo(StageBedrijven::class, 'company_id', 'id');
-    }
-
     /**
      * @param User $student
      * @return array
@@ -74,8 +69,9 @@ class CoursePlan extends Model
                 endforeach;
 
                 if (!array_key_exists($user->id, $result)):
-                    if ($this->company_id):
-                        $result[$user->id] = StageBedrijven::find($this->company_id);
+                    $grade = $this->grades->where('student_id', '=', $user->id);
+                    if ($grade->count()>0 && $grade->first()->company_id):
+                        $result[$user->id] = StageBedrijven::find($grade->first()->company_id);
                     else:
                         $result[$user->id] = true;
                     endif;

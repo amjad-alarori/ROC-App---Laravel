@@ -39,7 +39,7 @@ class StageBedrijven extends Model
 
     public function stagePlans()
     {
-        return $this->hasMany(CoursePlan::class,'company_id','id');
+        return $this->hasMany(Grade::class,'company_id','id');
     }
 
 }

@@ -7,44 +7,43 @@
 @section('content')
     <div class="row display-4 border-bottom border-secondary rounded-bottom px-4 pb-3 mb-3">
         <div class="col-md-6">
-            Cijfers<br/>
-            <span
-                class="h5">{{$plan->subject->title . " " . $plan->course->study_year . " (" .$campus->name . ")"}}</span>
+            Cijfers van<br/>
+            <span class="h5">{{$student->name}}</span>
         </div>
     </div>
-
-    <form method="POST" action="{{route('cijfer.store',['course'=> $course,'coursePlan'=>$plan])}}">
+    <form method="POST" action="{{route('studentGrades.update',['course'=> $course,'student'=>$student])}}">
         @csrf
         <table class="table table-striped">
             <thead>
             <tr>
-                <th class="w-20" scope="col">student</th>
+                <th class="w-20" scope="col">Vak</th>
                 <th class="w-50 text-center" scope="col"></th>
                 <th class="w-15 text-center" scope="col">geslaagt</th>
                 <th class="w-15 text-center" scope="col">definitief</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($plan->course->students as $student)
+            @foreach($plans as $plan)
                 <tr scope="row">
-                    <td>{{$student->name}}</td>
+                    <td>{{$plan->subject->title}}</td>
                     <td>
-                        @if($coOpLocations !== null)
+                        @if($coOpLocations[$plan->id] !== null)
                             <div class="d-flex flex-row flex-wrap justify-content-between">
-                                @if($coOpLocations[$student->id] === false)
+
+                                @if($coOpLocations[$plan->id] === false)
                                     <span>nog niet alle competenties behaald</span>
                                     <button class="btn btn-secondary" disabled>Stageplek</button>
                                 @else
-                                    <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$student->id])->name}}</span>
-                                    @if(!array_key_exists($student->id,$filledStudents) || (array_key_exists($student->id,$filledStudents)&& !$filledStudents[$student->id]->passed))
-                                        @if($coOpLocations[$student->id] === true)
+                                    <span>Stage locatie:&nbsp;&nbsp;{{optional($coOpLocations[$plan->id])->name}}</span>
+                                    @if($plan->grades->count()===0 || ($plan->grades->count()>0&& !$plan->grades->offsetGet(0)->passed))
+                                        @if($coOpLocations[$plan->id] === true)
                                             <x-form.modal-button data-target="#formModal"
-                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan])}}"
+                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan, 'student'=>$student])}}"
                                                                  class="btn btn-success">toevoegen
                                             </x-form.modal-button>
                                         @else
                                             <x-form.modal-button data-target="#formModal"
-                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan])}}"
+                                                                 data-url="{{route('coOpLocationForm',['plan'=>$plan,'student'=>$student])}}"
                                                                  class="btn btn-warning">wijzigen
                                             </x-form.modal-button>
                                         @endif
@@ -56,17 +55,17 @@
                     </td>
                     <td class="text-center">
                         <div class="form-check">
-                            <input class="form-check-input passBox" id="{{$student->id}}" type="checkbox"
-                                   name="passedBox[]" value="{{$student->id}}"
-                                {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->passed?'checked':''):''}}
-                                {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->definitive?'disabled':''):''}}>
+                            <input class="form-check-input passBox" id="{{$plan->id}}" type="checkbox"
+                                   name="passedBox[]" value="{{$plan->id}}"
+                                {{$plan->grades->count()>0?($plan->grades->offsetGet(0)->passed?'checked':''):''}}
+                                {{$plan->grades->count()>0?($plan->grades->offsetGet(0)->definitive?'disabled':''):''}}>
                         </div>
                     </td>
                     <td class="text-center">
                         <div class="form-check">
-                            <input class="form-check-input defBox" id="defBox{{$student->id}}" type="checkbox"
-                                   name="defBox[]" value="{{$student->id}}"
-                                {{array_key_exists($student->id,$filledStudents)?($filledStudents[$student->id]->definitive?'checked':''):''}}>
+                            <input class="form-check-input defBox" id="defBox{{$plan->id}}" type="checkbox"
+                                   name="defBox[]" value="{{$plan->id}}"
+                                {{$plan->grades->count()>0?($plan->grades->offsetGet(0)->definitive?'checked':''):''}}>
                         </div>
                     </td>
                 </tr>

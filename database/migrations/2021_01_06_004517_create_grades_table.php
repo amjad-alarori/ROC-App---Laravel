@@ -20,6 +20,8 @@ class CreateGradesTable extends Migration
             $table->boolean('passed');
             $table->decimal('grade',4,2,true)->nullable();
             $table->boolean('definitive')->default(false);
+            $table->foreignId('company_id')->nullable()->constrained('stage_bedrijvens')
+                ->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });
     }

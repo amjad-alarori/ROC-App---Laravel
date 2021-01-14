@@ -21,8 +21,6 @@ class CreateCoursePlansTable extends Migration
                 ->onDelete('restrict')->onUpdate('restrict');
             $table->foreignId('subject_id')->nullable()->constrained('subjects')
                 ->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('company_id')->constrained('stage_bedrijvens')
-                ->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });
     }

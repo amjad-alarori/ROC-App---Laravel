@@ -36,6 +36,7 @@ class GradeController extends Controller
                 $coOpLocations = null;
             endif;
 
+
             return view('courseGrades', [
                 'course' => $course,
                 'plan' => $plan,
@@ -58,19 +59,12 @@ class GradeController extends Controller
                 endif;
             endforeach;
 
-            dd($student, $plans, $coOpLocations);
-
-
-
-
-
-            return view('studentGrades', ['student' => $student, 'plans' => $plans, 'coOpLocations' => $coOpLocations]);
-
-
-
-
-
-//            dd($request->route()->parameterNames);
+            return view('studentGrades', [
+                'student' => $student,
+                'plans' => $plans,
+                'coOpLocations' => $coOpLocations,
+                'course' => $course
+            ]);
         else:
             return abort(404);
         endif;
@@ -167,12 +161,56 @@ class GradeController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Grade $grade
-     * @return void
+     * @param Course $course
+     * @param User $student
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Grade $grade)
+    public function update(Request $request, Course $course, User $student)
     {
-        //
+        $defIds = $request['defBox'] === null ? [] : $request['defBox'];
+        $passedIds = $request['passedBox'] === null ? [] : $request['passedBox'];
+        $passedIds = array_unique(array_merge($passedIds, $defIds));
+
+        $plans = $student->grades
+            ->whereIn('course_plan_id', $course->plans->pluck('id')->toArray())
+            ->map(function ($grade) use ($passedIds, $defIds) {
+                if (in_array($grade->course_plan_id, $passedIds)):
+                    $grade->passed = true;
+
+                    if (in_array($grade->course_plan_id, $defIds)):
+                        $grade->definitive = true;
+                    else:
+                        $grade->definitive = false;
+                    endif;
+                else:
+                    $grade->passed = false;
+                    $grade->definitive = false;
+                endif;
+
+                if ($grade->getOriginal("passed") != $grade->passed || $grade->getOriginal("definitive") != $grade->definitive):
+                    $grade->update();
+                endif;
+
+                return $grade->course_plan_id;
+            });
+
+        foreach ($passedIds as $planId):
+            if (!$plans->contains($planId)):
+                $grade = new Grade;
+
+                $grade->student_id = $student->id;
+                $grade->course_plan_id = $planId;
+                $grade->passed = true;
+
+                if (in_array($planId, $defIds)):
+                    $grade->definitive = true;
+                endif;
+
+                $grade->save();
+            endif;
+        endforeach;
+
+        return redirect()->back();
     }
 
     /**

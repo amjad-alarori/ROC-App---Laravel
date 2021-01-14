@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CoursePlan;
+use App\Models\Grade;
 use App\Models\StageBedrijven;
 use App\Models\Subject;
 use App\Models\User;
@@ -160,10 +161,15 @@ class   CoursePlanController extends Controller
      * @param CoursePlan $plan
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function show(CoursePlan $plan)
+    public function show(CoursePlan $plan, User $student)
     {
-        $company = $plan->company;
-        return view('plan.addStage', ['plan' => $plan ,'company'=>$company]);
+        $grade = $plan->grades->where('student_id', '=', $student->id);
+        if ($grade->count() > 0):
+            $company = $grade->first()->company;
+        else:
+            $company = null;
+        endif;
+        return view('plan.addStage', ['plan' => $plan, 'company' => $company, 'student' => $student]);
     }
 
     /**
@@ -186,18 +192,35 @@ class   CoursePlanController extends Controller
      * @param CoursePlan $plan
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, CoursePlan $plan)
+    public function update(Request $request, CoursePlan $plan, User $student)
     {
-        if($request['coOpLocation']==0):
-            $plan->company()->disassociate()->update();
+        $grade = $plan->grades->where('student_id', '=', $student->id);
+        if ($grade->count() > 0):
+            $grade = $grade->first();
+
+            if ($request['coOpLocation'] == 0):
+                $grade->company()->disassociate()->update();
+            else:
+                $grade->company_id = $request['coOpLocation'];
+                $grade->update();
+            endif;
         else:
-            $company = StageBedrijven::find($request['coOpLocation']);
-            $plan->company()->associate($company)->update();
+            $grade = new Grade();
+            $grade->student_id = $student->id;
+            $grade->course_plan_id = $plan->id;
+            $grade->passed = false;
+
+            if ($request['coOpLocation'] != 0):
+                $grade->company_id = null;
+            else:
+                $grade->company_id = $request['coOpLocation'];
+            endif;
+
+            $grade->save();
         endif;
 
         return response()->json([
-            'url' => route('subjectGrades', ['course'=>$plan->course, 'coursePlan'=>$plan])]);
-
+            'url' => route('studentGrades', ['course' => $plan->course, 'student' => $student])]);
     }
 
     /**
