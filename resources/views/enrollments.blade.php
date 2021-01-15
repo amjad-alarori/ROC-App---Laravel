@@ -37,7 +37,7 @@
                         <i class="fas fa-tasks" style="font-size: 20px"></i>
                         <div class="ripple-container" style="font-size: 15px">K-dossier</div>
                     </a>
-                    <a href="{{route('studentDash',['searchId'=>$student])}}" class="btn btn-just-icon btn-round">
+                    <a href="{{route('studentDash',['SearchId'=>$student])}}" class="btn btn-just-icon btn-round">
                         <i class="far fa-eye" style="font-size: 20px"></i>
                         <div class="ripple-container" style="font-size: 15px">dashboard</div>
                     </a>
