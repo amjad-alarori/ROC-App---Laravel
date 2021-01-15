@@ -154,6 +154,10 @@ CV
 
 
             </div>
+            <br>
+            <br>
+
+            @if(auth()->user()->role=== 1)
 
                 <div class="row">
                 <div class="col-md-6 col-sm-12">
@@ -173,8 +177,9 @@ CV
                                    value="Verwijderen">
                         </form>
                     </div>
-
                 </div>
+
+                @endif
 
             @endforeach
 
