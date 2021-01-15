@@ -49,7 +49,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::resource('stageBedrijven/{stageBedrijven}/stage', StageController::class);
         Route::resource('dashboard', PagesController::class);
 //              Route::post('test', [PagesController::class, 'redirectToDashboard'])->name('toStudent');
-                Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
+        Route::get('stage/{stage}/likes', [StageController::class, 'getLikes'])->name('likes');
         Route::get('reacties', [StageController::class, 'reactions'])->name('reacties');
 
 
@@ -75,6 +75,7 @@ Route::group(['middleware' => 'web'], function () {
 
                 Route::get('stage/{stage}/studentDashboard/{user}/QFile', [PagesController::class, 'companyToStudentQFile'])->name('studentsQFile');
                 Route::post('stage/{stage}/studentDashboard/{user}/course/{course}/kwalificatie', CompanyQFileController::class)->name('companyToStudentQFile');
+                Route::get('stage/{stage}/studentDashboard/{user}/course/{course}/kwalificatie', CompanyQFileController::class)->name('companyToStudentQFile');
                 Route::get('stage/{stage}/studentDashboard/{user}/chooseCourse', [PagesController::class, 'companyChooseCourse'])->name('companyChooseCourse');
             });
         });

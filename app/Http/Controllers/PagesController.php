@@ -114,7 +114,7 @@ class PagesController extends Controller
             elseif ($courses->count() === 1):
                 $course = $courses->first();
 
-                return redirect(route('CompanyToStudentQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'course' => $course]));
+                return redirect(route('companyToStudentQFile', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user, 'course' => $course]));
             else:
                 return redirect(route('companyChooseCourse', ['stageBedrijven' => $stageBedrijven, 'stage' => $stage, 'user' => $user]));
             endif;

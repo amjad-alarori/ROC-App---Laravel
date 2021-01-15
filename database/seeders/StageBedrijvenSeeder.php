@@ -20,14 +20,17 @@ class StageBedrijvenSeeder extends Seeder
         $faker = $factory->create();
 
         for ($i = 1; $i < 20; $i++):
+
+            $user = User::factory()->create();
+
             StageBedrijven::factory()
-                ->for(User::factory())
+                ->for($user)
                 ->create([
                     'name' => $faker->company,
                     'address' => $faker->address,
                     'zip_code' => $faker->postcode,
                     'city' => $faker->city,
-                    'email' => $faker->email,
+                    'email' => $user->email,
                     'phone_nr' => $faker->phoneNumber,
                 ]);
         endfor;
