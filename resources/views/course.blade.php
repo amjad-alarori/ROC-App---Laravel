@@ -18,7 +18,7 @@
     <x-cards.accordion compId='accordionComp'>
         @foreach($years as $year=>$areasColl)
             <x-cards.accordion-card compId = 'accordionComp' order="{{$year}}"
-                                   collapsed="{{$areasColl === $years[array_key_first($years)]?'false':'true'}}">
+                                   collapsed="{{isset($years)?$areasColl === $years[array_key_first($years)]?'false':'true':''}}">
                 <x-slot name="btnTxt">
                     {{str_replace('year','',$year)}}
                 </x-slot>

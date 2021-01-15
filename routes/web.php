@@ -11,7 +11,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\CVController;
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\QFileController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StageBedrijvenController;
