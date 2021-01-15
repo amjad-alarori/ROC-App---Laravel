@@ -16,7 +16,7 @@
     </div>
 
     @foreach($campuses as $campus)
-        <x-cards.cardwfull :title="$campus->name" class="my-4">
+        <x-cards.CardWFull :title="$campus->name" class="my-4">
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
@@ -67,6 +67,6 @@
                     </div>
                 </div>
             </x-slot>
-        </x-cards.cardwfull>
+        </x-cards.CardWFull>
     @endforeach
 @endsection

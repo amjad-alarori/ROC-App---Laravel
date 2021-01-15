@@ -21,7 +21,7 @@
 
 
     @foreach($subjects as $subject)
-        <x-cards.cardwfull title="" class="my-4" headerColor="{{$subject->co_op?'#ffe680':null}}" title="{{$subject->co_op?'Stage':''}}">
+        <x-cards.CardWFull title="" class="my-4" headerColor="{{$subject->co_op?'#ffe680':null}}" title="{{$subject->co_op?'Stage':''}}">
             <div class="row">
                 <div class="col-6">
                     {{$subject->title}}<br/>
@@ -62,6 +62,6 @@
                     </div>
                 </div>
             </x-slot>
-        </x-cards.cardwfull>
+        </x-cards.CardWFull>
     @endforeach
 @endsection
