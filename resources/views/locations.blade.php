@@ -16,7 +16,7 @@
     </div>
 
     @foreach($campuses as $campus)
-        <x-cards.card-w-full :title="$campus->name" class="my-4">
+        <x-cards.card-w-full :withFoot=true :headerColor = null :title="$campus->name" class="my-4">
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
