@@ -15,17 +15,17 @@
         </div>
     </div>
 
-    <x-cards.Accordion>
+    <x-cards.accordion compId='accordionComp'>
         @foreach($years as $year=>$areasColl)
-            <x-cards.AccordionCard order="{{$year}}"
+            <x-cards.accordion-card order="{{$year}}"
                                    collapsed="{{$areasColl === $years[array_key_first($years)]?'false':'true'}}">
                 <x-slot name="btnTxt">
                     {{str_replace('year','',$year)}}
                 </x-slot>
                 <ul class="list-group">
-                    <x-cards.Accordion :compId="$year">
+                    <x-cards.accordion :compId="$year">
                         @foreach($areasColl as $areaId=>$courses)
-                            <x-cards.AccordionCard :compId="$year" order="{{$areaId}}"
+                            <x-cards.accordion-card :compId="$year" order="{{$areaId}}"
                                                    collapsed="{{$courses === $areasColl[array_key_first($areasColl)]?'false':'true'}}">
                                 <x-slot name="btnTxt">
                                     {{$areas[$areaId]->title}}
@@ -100,11 +100,11 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                            </x-cards.AccordionCard>
+                            </x-cards.accordion-card>
                         @endforeach
-                    </x-cards.Accordion>
+                    </x-cards.accordion>
                 </ul>
-            </x-cards.AccordionCard>
+            </x-cards.accordion-card>
         @endforeach
     </x-cards.Accordion>
 @endsection

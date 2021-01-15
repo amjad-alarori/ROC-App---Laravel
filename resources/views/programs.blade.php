@@ -15,9 +15,9 @@
         </div>
     </div>
 
-    <x-cards.Accordion>
+    <x-cards.accordion compId='accordionComp'>
         @foreach($areas as $area)
-            <x-cards.AccordionCard order="{{$area->id}}" collapsed="{{$area === $areas[0]?'false':'true'}}">
+            <x-cards.accordion-card order="{{$area->id}}" collapsed="{{$area === $areas[0]?'false':'true'}}">
                 <x-slot name="btnTxt">
                     {{$area->title}}
                 </x-slot>
@@ -73,7 +73,7 @@
                         </li>
                     @endforeach
                 </ul>
-            </x-cards.AccordionCard>
+            </x-cards.accordion-card>
         @endforeach
-    </x-cards.Accordion>
+    </x-cards.accordion>
 @endsection

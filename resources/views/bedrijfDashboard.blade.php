@@ -25,7 +25,7 @@
     </div>
 
         @foreach($stages as $stage)
-            <x-cards.CardWFull :title="$stage->functie" class="my-4">
+            <x-cards.card-w-full :title="$stage->functie" class="my-4">
 
                 <section>
                     <p>
@@ -179,7 +179,7 @@
                         </div>
                     </x-slot>
                 </div>
-            </x-cards.CardWFull>
+            </x-cards.card-w-full>
             <hr>
     @endforeach
 @endsection

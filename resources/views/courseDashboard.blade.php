@@ -36,7 +36,7 @@
     </div>
     <div class="row py-4 px-2 d-flex justify-content-around">
         <div class="col-md-4">
-            <x-cards.ProfileCard title="Studenten" cardImage="images/rocafbeelding3.jpg">
+            <x-cards.profile-card title="Studenten" cardImage="images/rocafbeelding3.jpg">
                 <x-slot name="image">
                     <img class="img" src="{{asset('images/rocafbeelding3.jpg')}}">
                 </x-slot>
@@ -51,10 +51,10 @@
 {{--                    <i class="fas fa-medkit"></i>--}}
 {{--                    <div class="ripple-container">stages</div>--}}
 {{--                </a>--}}
-            </x-cards.ProfileCard>
+            </x-cards.profile-card>
         </div>
         <div class="col-md-4">
-            <x-cards.ProfileCard title="Semesters" cardImage="images/studievakken.jpg">
+            <x-cards.profile-card title="Semesters" cardImage="images/studievakken.jpg">
                 <x-slot name="image">
                     <img class="img" src="{{asset('images/studievakken.jpg')}}">
                 </x-slot>
@@ -65,7 +65,7 @@
                     <i class="far fa-calendar-alt"></i>
                     <div class="ripple-container">semesters</div>
                 </a>
-            </x-cards.ProfileCard>
+            </x-cards.profile-card>
         </div>
     </div>
 @endsection

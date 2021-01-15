@@ -16,7 +16,7 @@
     </div>
     <div class="d-flex flex-row flex-wrap justify-content-around">
         @foreach($course->students as $student)
-            <x-cards.ProfileCard title="{{$student->name}}" cardImage="" style="max-width: 400px;">
+            <x-cards.profile-card title="{{$student->name}}" cardImage="" style="max-width: 400px;">
                 <x-slot name="image">
                     <img class="img" src="{{asset('images/rocafbeelding3.jpg')}}">
                 </x-slot>
@@ -47,7 +47,7 @@
                         <div class="ripple-container" style="font-size: 15px">cijfers</div>
                     </a>
                 </div>
-            </x-cards.ProfileCard>
+            </x-cards.profile-card>
         @endforeach
     </div>
 @endsection

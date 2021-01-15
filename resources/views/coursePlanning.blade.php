@@ -33,10 +33,10 @@
     </div>
 
     @foreach($plans as $semester=>$periods)
-        <x-cards.CardWFull :title="'Semester '.$semester" class="my-4" :withFoot="false">
+        <x-cards.card-w-full :title="'Semester '.$semester" class="my-4" :withFoot="false">
             @if(array_key_exists(2,$periods))
                 @foreach($periods as $period=>$subjects)
-                    <x-cards.CardWFull :title="'Periode '.$period" class="my-4" :withFoot="false">
+                    <x-cards.card-w-full :title="'Periode '.$period" class="my-4" :withFoot="false">
                         <div class="d-flex flex-wrap">
                             @foreach($subjects as $subject)
                                 <div class="p-2">
@@ -76,7 +76,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    </x-cards.CardWFull>
+                    </x-cards.card-w-full>
                 @endforeach
             @else
                 <div class="d-flex flex-wrap">
@@ -121,6 +121,6 @@
                     @endforeach
                 </div>
             @endif
-        </x-cards.CardWFull>
+        </x-cards.card-w-full>
     @endforeach
 @endsection
