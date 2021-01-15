@@ -15,7 +15,7 @@
             </div>
     </div>
     @foreach($programArea as $programArea)
-        <x-cards.cardwfull :title="$programArea->title" class="my-4">
+        <x-cards.CardWFull :title="$programArea->title" class="my-4">
             {{$programArea->description}}
             <x-slot name="footer">
                 <form method="post" action="{{route('study.destroy', ['programArea'=>$programArea->id])}}">
@@ -29,6 +29,6 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </x-slot>
-        </x-cards.cardwfull>
+        </x-cards.CardWFull>
     @endforeach
 @endsection

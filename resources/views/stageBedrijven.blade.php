@@ -43,7 +43,7 @@
 
     @foreach($stageBedrijven as $bedrijf)
 
-        <x-cards.cardwfull :title="$bedrijf->name" class="my-4">
+        <x-cards.CardWFull :title="$bedrijf->name" class="my-4">
 
             <div class="row">
                 <div class="col-md-5">
@@ -108,7 +108,7 @@
 
                 </div>
             </x-slot>
-        </x-cards.cardwfull>
+        </x-cards.CardWFull>
 
     @endforeach
 @endsection
